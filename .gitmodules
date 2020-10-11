@@ -43,9 +43,6 @@
 [submodule "pack/plugins/opt/vim-devicons"]
 	path = pack/plugins/opt/vim-devicons
 	url = https://github.com/ryanoasis/vim-devicons.git
-[submodule "plugins/dracula"]
-	path = plugins/dracula
-	url = https://github.com/dracula/dracula-theme.git
 [submodule "plugins/badwolf"]
 	path = plugins/badwolf
 	url = https://github.com/sjl/badwolf.git
