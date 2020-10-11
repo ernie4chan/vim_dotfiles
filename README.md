@@ -36,39 +36,39 @@ $ git commit -am "Initiate Vim”
 $ cd ~/.vim
 
 $ git submodule add https://github.com/dracula/vim.git plugins/dracula
-$ ln -s plugins/dracula pack/colors/opt/dracula
+$ ln -s ~/.vim/plugins/dracula ~/.vim/pack/colors/opt/dracula
 $ git commit -am "Add Dracula"
 
 $ git submodule add https://github.com/sjl/badwolf.git plugins/badwolf
-$ ln -s plugins/badwolf pack/colors/opt/badwolf
+$ ln -s ~/.vim/plugins/badwolf ~/.vim/pack/colors/opt/badwolf
 $ git commit -am "Add Badwolf"
 
 $ git submodule add https://github.com/lifepillar/vim-solarized8.git plugins/solarized8
-$ ln -s plugins/solarized8 pack/colors/opt/solarized8
+$ ln -s ~/.vim/plugins/solarized8 ~/.vim/pack/colors/opt/solarized8
 $ git commit -am "Add Solarized8"
 
 $ git submodule add https://github.com/ryanoasis/vim-devicons plugins/vimdevicons
-$ ln -s plugins/vimdevicons pack/addons/start/vimdevicons
+$ ln -s ~/.vim/plugins/vimdevicons ~/.vim/pack/addons/start/vimdevicons
 $ git commit -am "Add VimDevIcons"
 
 $ git submodule add https://github.com/preservim/nerdtree.git plugins/nerdtree
-$ ln -s plugins/nerdtree pack/addons/start/nerdtree
+$ ln -s ~/.vim/plugins/nerdtree ~/.vim/pack/addons/start/nerdtree
 $ git commit -am "Add NERDTree"
 
 $ git submodule add https://github.com/Xuyuanp/nerdtree-git-plugin.git plugins/nerdtree-git-plugin
-$ ln -s plugins/nerdtree-git-plugin pack/addons/start/nerdtree-git-plugin
+$ ln -s ~/.vim/plugins/nerdtree-git-plugin ~/.vim/pack/addons/start/nerdtree-git-plugin
 $ git commit -am "Add NERDTree-git-plugin"
 
 $ git submodule add https://github.com/tpope/vim-surround.git plugins/surround
-$ ln -s plugins/surround pack/syntaxes/start/surround
+$ ln -s ~/.vim/plugins/surround ~/.vim/pack/syntaxes/start/surround
 $ git commit -am "Add Surround"
 
 $ git submodule add https://github.com/tpope/vim-fugitive.git plugins/fugitive
-$ ln -s plugins/fugitive pack/addons/start/fugitive
+$ ln -s ~/.vim/plugins/fugitive ~/.vim/pack/addons/start/fugitive
 $ git commit -am "Add Fugitive"
 
 $ git submodule add https://github.com/w0rp/ale.git plugins/ale
-$ ln -s plugins/ale pack/syntaxes/start/ale
+$ ln -s ~/.vim/plugins/ale ~/.vim/pack/syntaxes/start/ale
 $ git commit -am "Add ALE"
 
 ```
