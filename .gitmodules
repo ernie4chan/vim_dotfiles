@@ -76,3 +76,6 @@
 [submodule "plugins/vim-fzf"]
 	path = plugins/vim-fzf
 	url = https://github.com/junegunn/fzf.vim.git
+[submodule "plugins/vim-indentguides"]
+	path = plugins/vim-indentguides
+	url = https://github.com/thaerkh/vim-indentguides.git
