@@ -55,3 +55,6 @@
 [submodule "plugins/solarized8"]
 	path = plugins/solarized8
 	url = https://github.com/lifepillar/vim-solarized8.git
+[submodule "plugins/vimdevicons"]
+	path = plugins/vimdevicons
+	url = https://github.com/ryanoasis/vim-devicons.git
