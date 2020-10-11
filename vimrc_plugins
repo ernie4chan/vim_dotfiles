@@ -136,8 +136,6 @@ endif
 
 "{{{ --- 3. VimDevIcons (Add icons to your plugins) ---------------------------
 
-packadd vim-devicons
-
 " Extra configuration.
 if !exists('g:syntax_on')
     syntax enable
