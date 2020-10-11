@@ -68,7 +68,7 @@ $ ln -s ~/.vim/plugins/fugitive ~/.vim/pack/addons/start/fugitive
 $ git commit -am "Add Fugitive"
 
 $ git submodule add https://github.com/w0rp/ale.git plugins/ale
-$ ln -s ~/.vim/plugins/ale ~/.vim/pack/syntaxes/start/ale
+$ ln -s ~/.vim/plugins/ale pack/syntaxes/start/ale
 $ git commit -am "Add ALE"
 
 ```
@@ -88,7 +88,7 @@ $ git push -u origin master
 ```
 
 * Caveats:
-[1] Avoid using abbreviated absolute path as it may interfere with submodules update.
+[1] Use relative path with git commands as to avoid submodules mismanage.
 [2] More addons such as VimCompletesMe, fzf, indentguides, workspace, repeat
 
 5. Updating submodules:

@@ -1,4 +1,4 @@
-"{{{ --- 0. Mappings and Basics -----------------------------------------------
+"{{{ --- 0. Mappings and Basics ----------------------------------------------
 
 " My favorits.
 command W write
@@ -69,9 +69,9 @@ if has('autocmd')
 	augroup END
 endif
 
-"---------------------------------------------------------------------------}}}
+"--------------------------------------------------------------------------}}}
 
-"{{{ --- 1. netrw (Network oriented, writing and browsing) --------------------
+"{{{ --- 1. netrw (Network oriented, writing and browsing) -------------------
 
 " Setting the width of the directory explorer.
 let g:netrw_winsize = -31
@@ -90,11 +90,9 @@ let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 
-"---------------------------------------------------------------------------}}}
+"--------------------------------------------------------------------------}}}
 
-"{{{ --- 2. NERDTree and NERDTree-git-plugin (File system explorer) -----------
-
-packadd nerdtree-git-plugin
+"{{{ --- 2. NERDTree (File system explorer) ----------------------------------
 
 " Mappings.
 nnoremap <silent><Leader>f :NERDTreeFind<CR>
@@ -132,9 +130,12 @@ if has('autocmd')
 	augroup END
 endif
 
-"---------------------------------------------------------------------------}}}
+"--------------------------------------------------------------------------}}}
 
-"{{{ --- 3. VimDevIcons (Add icons to your plugins) ---------------------------
+"{{{ --- 3. NERDTree-git-plugin ----------------------------------------------
+"--------------------------------------------------------------------------}}}
+
+"{{{ --- 4. VimDevIcons (Add icons to your plugins) --------------------------
 
 " Extra configuration.
 if !exists('g:syntax_on')
@@ -210,7 +211,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}				" needed
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = 'ƛ'
 
 " Change the default dictionary mappings for exact file node matches.
-let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols = {}						" needed
+let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols = {}					" needed
 let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols['MyReallyCoolFile.okay'] = 'ƛ'
 
 " Add or override individual additional filetypes.
@@ -219,19 +220,19 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['myext'] = 'ƛ'
 
 " Add or override pattern matches for filetypes.
 " These take precedence over the file extensions.
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}					" needed
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}				" needed
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*jquery.*\.js$'] = 'ƛ'
 
-"---------------------------------------------------------------------------}}}
+"--------------------------------------------------------------------------}}}
 
-"{{{ --- 4. ale (Asynchronous Lint Engine) ------------------------------------
+"{{{ --- 5. ale (Asynchronous Lint Engine) -----------------------------------
 
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
 
-"---------------------------------------------------------------------------}}}
+"--------------------------------------------------------------------------}}}
 
-"{{{ --- 5. fzf (Command-line fuzzy finder) -----------------------------------
+"{{{ --- 6. Vim-fzf (Command-line fuzzy finder) ------------------------------
 
 " This is the default extra key bindings.
 let g:fzf_action = {
@@ -297,9 +298,9 @@ if has('autocmd')
 	augroup END
 endif
 
-"---------------------------------------------------------------------------}}}
+"--------------------------------------------------------------------------}}}
 
-"{{{ --- 6. Indentguides ------------------------------------------------------
+"{{{ --- 7. Indentguides -----------------------------------------------------
 
 " Files not be indented.
 let g:indentguides_ignorelist = ['text']
@@ -307,9 +308,9 @@ let g:indentguides_ignorelist = ['text']
 " Shortcut.
 nnoremap <leader>g :IndentGuidesToggle<CR>
 
-"---------------------------------------------------------------------------}}}
+"--------------------------------------------------------------------------}}}
 
-"{{{ --- 7. Workspace Sessions ------------------------------------------------
+"{{{ --- 8. Vim-workspace (Persistent Vim Session) ---------------------------
 
 " Create a new buffer in the existing tab instead of creating a new tab.
 let g:workspace_create_new_tabs = 0			" enabled=1 (default), disabled=0
@@ -332,7 +333,7 @@ let g:workspace_persist_undo_history = 1	" enabled=1 (default), disabled=0
 
 " Autosave.
 let g:workspace_autosave_always = 1
-let g:workspace_autosave = 0							" reduce IO on disk
+let g:workspace_autosave = 0				" reduce IO on disk
 
 " Untrailing Spaces.
 let g:workspace_autosave_untrailspaces = 0
@@ -340,13 +341,10 @@ let g:workspace_autosave_untrailspaces = 0
 " Ignore List.
 let g:workspace_autosave_ignore = ['gitcommit']
 
-"---------------------------------------------------------------------------}}}
+"--------------------------------------------------------------------------}}}
 
-"{{{ --- 8. VimCompletesMe ----------------------------------------------------
-"---------------------------------------------------------------------------}}}
+"{{{ --- 9. Vim-Fugitive -----------------------------------------------------
+"--------------------------------------------------------------------------}}}
 
-"{{{ --- 9. Fugitive ---------------------------------------------------------
-"---------------------------------------------------------------------------}}}
-
-"{{{ --- 10. Surround ---------------------------------------------------------
-"---------------------------------------------------------------------------}}}
+"{{{ --- 10. Vim-Surround ----------------------------------------------------
+"--------------------------------------------------------------------------}}}
