@@ -51,7 +51,7 @@ $ git submodule add https://github.com/ryanoasis/vim-devicons plugins/vimdevicon
 $ ln -s plugins/vimdevicons pack/addons/start/vimdevicons
 $ git commit -am "Add VimDevIcons"
 
-$ git submodule add https://github.com/scrooloose/nerdtree.git plugins/nerdtree
+$ git submodule add https://github.com/preservim/nerdtree.git plugins/nerdtree
 $ ln -s plugins/nerdtree pack/addons/start/nerdtree
 $ git commit -am "Add NERDTree"
 
