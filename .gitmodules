@@ -52,3 +52,6 @@
 [submodule "plugins/dracula"]
 	path = plugins/dracula
 	url = https://github.com/dracula/vim.git
+[submodule "plugins/solarized8"]
+	path = plugins/solarized8
+	url = https://github.com/lifepillar/vim-solarized8.git
