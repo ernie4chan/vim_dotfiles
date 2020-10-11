@@ -1,0 +1,13 @@
+sessions/*
+!sessions/.gitkeep
+tmp/*
+!tmp/.gitkeep
+fzf_history/*
+!fzf_history/.gitkeep
+
+.log
+.netrwhist
+.old
+NetrwTreeListing\ 2
+Session.vim
+viminfo

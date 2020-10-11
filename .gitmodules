@@ -1,0 +1,45 @@
+[submodule "pack/themes/opt/dracula"]
+	path = pack/themes/opt/dracula
+	url = https://github.com/dracula/vim.git
+[submodule "pack/themes/opt/badwolf"]
+	path = pack/themes/opt/badwolf
+	url = https://github.com/sjl/badwolf.git
+[submodule "pack/themes/opt/solarized8"]
+	path = pack/themes/opt/solarized8
+	url = https://github.com/lifepillar/vim-solarized8.git
+[submodule "pack/plugins/start/nerdtree"]
+	path = pack/plugins/start/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "pack/plugins/opt/nerdtree-git-plugin"]
+	path = pack/plugins/opt/nerdtree-git-plugin
+	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
+[submodule "pack/plugins/start/surround"]
+	path = pack/plugins/start/surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "pack/plugins/start/fugitive"]
+	path = pack/plugins/start/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "pack/plugins/start/fzf"]
+	path = pack/plugins/start/fzf
+	url = https://github.com/junegunn/fzf.vim.git
+[submodule "pack/languages/start/ale"]
+	path = pack/languages/start/ale
+	url = https://github.com/w0rp/ale.git
+[submodule "pack/plugins/start/workspace"]
+	path = pack/plugins/start/workspace
+	url = https://github.com/thaerkh/vim-workspace.git
+[submodule "pack/themes/opt/gruvbox"]
+	path = pack/themes/opt/gruvbox
+	url = https://github.com/morhetz/gruvbox.git
+[submodule "pack/plugins/start/indentguides"]
+	path = pack/plugins/start/indentguides
+	url = https://github.com/thaerkh/vim-indentguides.git
+[submodule "pack/plugins/start/repeat"]
+	path = pack/plugins/start/repeat
+	url = https://github.com/tpope/vim-repeat.git
+[submodule "pack/languages/start/VimCompletesMe"]
+	path = pack/languages/start/VimCompletesMe
+	url = https://github.com/ajh17/VimCompletesMe.git
+[submodule "pack/plugins/opt/vim-devicons"]
+	path = pack/plugins/opt/vim-devicons
+	url = https://github.com/ryanoasis/vim-devicons.git

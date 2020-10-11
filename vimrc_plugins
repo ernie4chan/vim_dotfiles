@@ -1,0 +1,354 @@
+"{{{ --- 0. Mappings and Basics -----------------------------------------------
+
+" My favorits.
+command W write
+command Q quit
+
+" Shortcut to clear highlights.
+nnoremap <silent><C-l> :<C-u>nohlsearch<CR><C-l>
+
+" Deploy rot13 encryption for people snooping over shoulder.
+noremap <silent><F7> <ESC>ggVGg?
+
+" Toggle auto-indenting for code paste
+nnoremap <silent><F6> :set invpaste paste?<CR>
+set pastetoggle=<F6>
+set showmode
+
+" Display unprintable characters.
+nnoremap <silent><F9> :set list!<CR>:setlocal list?<CR>
+
+" Switching between buffers.
+nnoremap <F4> :bprev<CR>
+nnoremap <F5> :bnext<CR>
+
+" Destroying trailing whitespaces cleanly.
+nnoremap <Silent><F6> :let _save_pos=getpos(".") <Bar>
+	\ :let _s=@/ <Bar>
+	\ :%s/\s\+$//e <Bar>
+	\ :let @/=_s <Bar>
+	\ :nohl <Bar>
+	\ :unlet _s<Bar>
+	\ :call setpos('.', _save_pos)<Bar>
+	\ :unlet _save_pos<CR>
+
+" Vim tab mappings.
+if has('gui_macvim')
+	" Press Ctrl-Tab to switch between open tabs (like browser tabs)
+	" to the right side. Ctrl-Shift-Tab goes the other way.
+	noremap <C-Tab> :tabnext<CR>
+	noremap <C-S-Tab> :tabprev<CR>
+	" Switch to specific tab numbers with Command-number.
+	noremap <C-1> :tabn 1<CR>
+	noremap <C-2> :tabn 2<CR>
+	noremap <C-3> :tabn 3<CR>
+	noremap <C-4> :tabn 4<CR>
+	noremap <C-5> :tabn 5<CR>
+	noremap <C-6> :tabn 6<CR>
+	noremap <C-7> :tabn 7<CR>
+	noremap <C-8> :tabn 8<CR>
+	noremap <C-9> :tabn 9<CR>
+	" Command-0 goes to the last tab.
+	noremap <C-0> :tablast<CR>
+endif
+
+if has('autocmd')
+	" Save when losing focus.
+	augroup vim_fixes
+		autocmd!
+		autocmd FocusLost * :silent! wall
+	augroup END
+
+	" Make sure Vim returns to the same line when you reopen a file.
+	augroup reopen_line_return
+		autocmd!
+		autocmd BufReadPost *
+			\ if line("'\"") > 0 && line("'\"") <= line("$") |
+			\	execute 'normal! g`"zvzz' |
+			\ endif
+	augroup END
+endif
+
+"---------------------------------------------------------------------------}}}
+
+"{{{ --- 1. netrw (Network oriented, writing and browsing) --------------------
+
+" Setting the width of the directory explorer.
+let g:netrw_winsize = -31
+
+" Do not display info on the top of window.
+let g:netrw_banner = 0
+
+" Creates a lots of garbage files. 3 for Tree mode.
+let g:netrw_liststyle = 3
+
+" Sort is affecting only: directories on the top, files below.
+let g:netrw_sort_sequence = '[\/]$,*'
+
+" Hit enter in the file browser to open the selected file,
+" with :vsplit to the right of the browser.
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+
+"---------------------------------------------------------------------------}}}
+
+"{{{ --- 2. NERDTree and NERDTree-git-plugin (File system explorer) -----------
+
+packadd nerdtree-git-plugin
+
+" Mappings.
+nnoremap <silent><Leader>f :NERDTreeFind<CR>
+nnoremap <silent><Leader>n :NERDTreeToggle<CR>
+
+" Size of NERTree window.
+let g:NERDTreeWinSize = 31
+
+" Disable 'Bookmarks' and 'Press ?...' label.
+let g:NERDTreeMinimalUI = 1
+
+" Sort from '1, 2,.. 5..'.
+let g:NERDTreeNaturalSort = 1
+
+" Sort nodes case sensitively.
+let g:NERDTreeCaseSensitiveSort = 1
+
+" Delete no more valid buffer when deleting / renaming with context menu.
+let g:NERDTreeAutoDeleteBuffer = 1
+
+" Use global statusline with '-1'.
+let g:NERDTreeStatusLine = -1
+
+" Automatically close NERDTree when you open a file.
+let g:NERDTreeQuitOnOpen = 1
+
+if has('autocmd')
+	" Close Vim if the only window left open is a NERDTree.
+	augroup nerdtree_close_if_one_window
+		autocmd!
+		autocmd bufenter * 
+			\ if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) |
+			\	q |
+			\ endif
+	augroup END
+endif
+
+"---------------------------------------------------------------------------}}}
+
+"{{{ --- 3. VimDevIcons (Add icons to your plugins) ---------------------------
+
+packadd vim-devicons
+
+" Extra configuration.
+if !exists('g:syntax_on')
+    syntax enable
+endif
+
+" Extra configuration:
+" -------------------
+" Loading the plugin.
+let g:webdevicons_enable = 1
+
+" Adding to flagship's statusline.
+let g:webdevicons_enable_flagship_statusline = 1
+
+" Turn on/off file node glyph decorations (not particularly useful).
+"let g:WebDevIconsUnicodeDecorateFileNodes = 1
+
+" Use double-width(1) or single-width(0) glyphs,
+" only manipulates padding, has no effect on terminal or set(guifont) font
+"let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+
+" Adding the flags to NERDTree.
+let g:webdevicons_enable_nerdtree = 1
+
+" Whether or not to show the nerdtree brackets around flags.
+let g:webdevicons_conceal_nerdtree_brackets = 1
+
+" The amount of space to use after the glyph character (default ' ').
+"let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+
+" Force extra padding in NERDTree so that the filetype icons line up vertically.
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+
+" Specify OS to decide an icon for unix fileformat.
+"let g:WebDevIconsOS = 'Darwin'
+
+" Character mappings:
+" ------------------
+" Change the default character when no match found.
+let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = 'ƛ'
+
+" Set a byte character marker (BOM) utf-8 symbol when retrieving file encoding
+" disabled by default with no value.
+let g:WebDevIconsUnicodeByteOrderMarkerDefaultSymbol = ''
+
+" Enable folder/directory glyph flag (disabled by default with 0).
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+
+" Enable open and close folder/directory glyph flags
+"	(disabled by default with 0).
+let g:DevIconsEnableFoldersOpenClose = 1
+
+" Enable pattern matching glyphs on folder/directory
+" (enabled by default with 1).
+let g:DevIconsEnableFolderPatternMatching = 1
+
+" Enable file extension pattern matching glyphs on folder/directory
+" (disabled by default with 0).
+let g:DevIconsEnableFolderExtensionPatternMatching = 1
+
+" Enable custom folder/directory glyph exact matching
+" (enabled by default when g:WebDevIconsUnicodeDecorateFolderNodes is set to 1).
+let WebDevIconsUnicodeDecorateFolderNodesExactMatches = 1
+
+" Change the default folder/directory glyph/icon.
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = 'ƛ'
+
+" Change the default open folder/directory glyph/icon (default is '').
+let g:DevIconsDefaultFolderOpenSymbol = 'ƛ'
+
+" Change the default dictionary mappings for file extension matches.
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}				" needed
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = 'ƛ'
+
+" Change the default dictionary mappings for exact file node matches.
+let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols = {}						" needed
+let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols['MyReallyCoolFile.okay'] = 'ƛ'
+
+" Add or override individual additional filetypes.
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}				" needed
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['myext'] = 'ƛ'
+
+" Add or override pattern matches for filetypes.
+" These take precedence over the file extensions.
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}					" needed
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*jquery.*\.js$'] = 'ƛ'
+
+"---------------------------------------------------------------------------}}}
+
+"{{{ --- 4. ale (Asynchronous Lint Engine) ------------------------------------
+
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+
+"---------------------------------------------------------------------------}}}
+
+"{{{ --- 5. fzf (Command-line fuzzy finder) -----------------------------------
+
+" This is the default extra key bindings.
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout:
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~50%' }
+
+" Customize fzf colors to match your color scheme.
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.vim/fzf_history'
+
+" [Buffers] Jump to the existing window if possible.
+let g:fzf_buffers_jump = 1
+
+" [[B]Commits] Customize the options used by 'git log'.
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file.
+let g:fzf_tags_command = 'ctags -R'
+
+" [Commands] --expect expression for directly executing the command.
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+" Status line of terminal buffer: custom statusline.
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+if has('autocmd')
+	" Hide fzf statusline.
+	augroup fzf_hide_statusline
+		autocmd!
+		autocmd FileType fzf set laststatus=0 noshowmode noruler |
+			\ autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+	augroup END
+endif
+
+"---------------------------------------------------------------------------}}}
+
+"{{{ --- 6. Indentguides ------------------------------------------------------
+
+" Files not be indented.
+let g:indentguides_ignorelist = ['text']
+
+" Shortcut.
+nnoremap <leader>g :IndentGuidesToggle<CR>
+
+"---------------------------------------------------------------------------}}}
+
+"{{{ --- 7. Workspace Sessions ------------------------------------------------
+
+" Create a new buffer in the existing tab instead of creating a new tab.
+let g:workspace_create_new_tabs = 0			" enabled=1 (default), disabled=0
+
+" Shortcut.
+nnoremap <leader>s :ToggleWorkspace<CR>
+
+" Change default session name.
+let g:workspace_session_name = 'Session.vim'
+
+" Save all session files in a single directory.
+"let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+
+" Not to load sssion when loading a file.
+let g:workspace_session_disable_on_args = 1
+
+" Undo history.
+let g:workspace_persist_undo_history = 1	" enabled=1 (default), disabled=0
+"let g:workspace_undodir = "tmp"
+
+" Autosave.
+let g:workspace_autosave_always = 1
+let g:workspace_autosave = 0							" reduce IO on disk
+
+" Untrailing Spaces.
+let g:workspace_autosave_untrailspaces = 0
+
+" Ignore List.
+let g:workspace_autosave_ignore = ['gitcommit']
+
+"---------------------------------------------------------------------------}}}
+
+"{{{ --- 8. VimCompletesMe ----------------------------------------------------
+"---------------------------------------------------------------------------}}}
+
+"{{{ --- 9. Fugitive ---------------------------------------------------------
+"---------------------------------------------------------------------------}}}
+
+"{{{ --- 10. Surround ---------------------------------------------------------
+"---------------------------------------------------------------------------}}}
