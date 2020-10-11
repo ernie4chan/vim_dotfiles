@@ -49,3 +49,6 @@
 [submodule "plugins/badwolf"]
 	path = plugins/badwolf
 	url = https://github.com/sjl/badwolf.git
+[submodule "plugins/gruvbox"]
+	path = plugins/gruvbox
+	url = https://github.com/morhetz/gruvbox.git
