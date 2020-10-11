@@ -35,7 +35,7 @@ $ git commit -am "Initiate Vim”
 [1]
 $ cd ~/.vim
 
-$ git submodule add https://github.com/dracula/vim.git plugins/dracula
+$ git submodule add https://github.com/dracula/dracula-theme.git plugins/dracula
 $ ln -s plugins/dracula pack/colors/opt/dracula
 $ git commit -am "Add Dracula"
 
