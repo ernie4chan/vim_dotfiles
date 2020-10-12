@@ -114,7 +114,7 @@ set ttyfast				" Send more chars while redrawing
 set wrap				" Wrap lines
 set foldenable
 set foldmethod=marker
-set foldcolumn=3
+set foldcolumn=2
 set foldlevel=1
 set foldlevelstart=0
 
