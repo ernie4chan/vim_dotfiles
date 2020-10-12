@@ -79,6 +79,3 @@
 [submodule "plugins/vim-indentguides"]
 	path = plugins/vim-indentguides
 	url = https://github.com/thaerkh/vim-indentguides.git
-[submodule "plugins/vim-workspace"]
-	path = plugins/vim-workspace
-	url = https://github.com/thaerkh/vim-workspace.git
