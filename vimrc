@@ -34,6 +34,12 @@ elseif has("unix")
 	set runtimepath+=/usr/bin/fzf
 endif
 
+" Load files.
+syntax on					" Loads syntax files
+filetype on					" Filetype detection
+filetype plugin on			" Loads ftplugin files
+filetype indent on			" Loads indent files
+
 "--------------------------------------------------------------------------}}}
 
 " Multibyte must be at the beginning of '$VIMRC'
@@ -139,12 +145,6 @@ source $HOME/.vim/vimrc_plugins
 "-----------------------------------------------------------------------------
 
 "{{{ --- Advanced features ---------------------------------------------------
-
-" Filetype detection.
-syntax on					" Loads syntax files
-filetype on					" Filetype detection
-filetype plugin on			" Loads ftplugin files
-filetype indent on			" Loads indent files
 
 " Enable mouse.
 if has('mouse')
