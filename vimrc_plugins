@@ -1,4 +1,4 @@
-"{{{ --- 0. Mappings and Basics ----------------------------------------------
+" {{{ --- 0. Mappings and Basics ---
 
 " My favorits.
 command W write
@@ -69,9 +69,9 @@ if has('autocmd')
 	augroup END
 endif
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
 
-"{{{ --- 1. netrw (Network oriented, writing and browsing) -------------------
+" {{{ --- 1. netrw (Network oriented, writing and browsing) ---
 
 " Setting the width of the directory explorer.
 let g:netrw_winsize = -31
@@ -90,9 +90,9 @@ let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
 
-"{{{ --- 2. NERDTree (File system explorer) ----------------------------------
+" {{{ --- 2. NERDTree (File system explorer) ---
 
 " Mappings.
 nnoremap <silent><Leader>f :NERDTreeFind<CR>
@@ -130,12 +130,12 @@ if has('autocmd')
 	augroup END
 endif
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
 
-"{{{ --- 3. NERDTree-git-plugin ----------------------------------------------
-"--------------------------------------------------------------------------}}}
+" {{{ --- 3. NERDTree-git-plugin ---
+" --- }}}
 
-"{{{ --- 4. VimDevIcons (Add icons to your plugins) --------------------------
+" {{{ --- 4. VimDevIcons (Add icons to your plugins) ---
 
 " Extra configuration.
 if !exists('g:syntax_on')
@@ -223,9 +223,9 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['myext'] = 'ƛ'
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}				" needed
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*jquery.*\.js$'] = 'ƛ'
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
 
-"{{{ --- 5. ale (Asynchronous Lint Engine) -----------------------------------
+" {{{ --- 5. ale (Asynchronous Lint Engine) ---
 
 "ALE offers an option g:ale_lint_on_save for enabling running the linters
 " when files are saved. This option is enabled by default. If you only wish
@@ -237,9 +237,9 @@ let g:ale_lint_on_insert_leave = 0
 " if you don't want linters to run on opening a file
 let g:ale_lint_on_enter = 0
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
 
-"{{{ --- 6. Vim-fzf (Command-line fuzzy finder) ------------------------------
+" {{{ --- 6. Vim-fzf (Command-line fuzzy finder) ---
 
 " Enable per-command history.
 let g:fzf_history_dir = '~/.vim/fzf_history'
@@ -305,9 +305,9 @@ if has('autocmd')
 		autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 endif
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
 
-"{{{ --- 7. Indentguides -----------------------------------------------------
+" {{{ --- 7. Indentguides ---
 
 " Files not be indented.
 let g:indentguides_ignorelist = ['text']
@@ -315,9 +315,9 @@ let g:indentguides_ignorelist = ['text']
 " Shortcut.
 nnoremap <leader>g :IndentGuidesToggle<CR>
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
 
-"{{{ --- 8. Vim-workspace (Persistent Vim Session) ---------------------------
+" {{{ --- 8. Vim-workspace (Persistent Vim Session) ---
 
 " Crete a new buffer in the existing tab instead of creating a new tab.
 let g:workspace_create_new_tabs = 0			" enabled=1 (default), disabled=0
@@ -348,10 +348,10 @@ let g:workspace_autosave_untrailspaces = 0
 " Ignore List.
 let g:workspace_autosave_ignore = ['gitcommit']
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
 
-"{{{ --- 9. Vim-Fugitive -----------------------------------------------------
-"--------------------------------------------------------------------------}}}
+" {{{ --- 9. Vim-Fugitive ---
+" --- }}}
 
-"{{{ --- 10. Vim-Surround ----------------------------------------------------
-"--------------------------------------------------------------------------}}}
+" {{{ --- 10. Vim-Surround ---
+" --- }}}

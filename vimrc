@@ -1,16 +1,16 @@
-"--------------------------------------------------------------------------------------
+" ---------------------------------------------------------
 " Maintainer: Ernie Lin
-"{{{ --- Chronicles of major updates ---
+" {{{ --- Chronicles of major updates ---
 " v.1: 2016/03/19 Dad back to Taiwan
 " v.2: 2017/10/09 Clau in Cebu Holidays
 " v.3: 2018/04/19 Watched Real Player One@Dot_Baires
 " v.4: 2018/05/18 TGIF, learnt Vim8 new manager plugin
 " v.5: 2018/09/21 Spring time in Argentina
 " v.6: 2020/10/10 Taiwan National Day
-"---}}}
-"--------------------------------------------------------------------------------------
+" ---}}}
+" ---------------------------------------------------------
 
-"{{{ --- How to handle Vim ---------------------------------------------------
+" {{{ --- How to handle Vim ---
 
 " Not compatible with the old-fashion VI mode.
 set nocompatible
@@ -40,11 +40,11 @@ filetype on					" Filetype detection
 filetype plugin on			" Loads ftplugin files
 filetype indent on			" Loads indent files
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
+
+" {{{ --- Encoding ---
 
 " Multibyte must be at the beginning of '$VIMRC'
-"{{{ --- Encoding ------------------------------------------------------------
-
 if has('multi_byte')
 	if &termencoding == ""
 		let &termencoding = &encoding
@@ -79,9 +79,9 @@ else
 	echoerr 'This Vim has not been compiled with "multi-byte" support!'
 endif
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
 
-"{{{ --- Features learnt throughout the years  -------------------------------
+"{{{ --- Features learnt throughout the years  ---
 
 " Indentation andspacing matters.
 set backspace=indent,eol,start
@@ -121,8 +121,7 @@ set wrap				" Wrap lines
 set foldenable
 set foldmethod=marker
 set foldcolumn=2
-set foldlevel=1
-set foldlevelstart=0
+set foldlevel=0
 
 " Searching for the one that matters.
 set hlsearch			" Highlight matches
@@ -138,13 +137,13 @@ if has('wildmenu')
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip	" macOS/Linux from CtrlP
 endif
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
 
-" --- Source in some other Vim's capabilities --------------------------------
+" --- Source-in some other Vim's capabilities -------------
 source $HOME/.vim/vimrc_plugins
-"-----------------------------------------------------------------------------
+" ---------------------------------------------------------
 
-"{{{ --- Advanced features ---------------------------------------------------
+" {{{ --- Advanced features ---
 
 " Enable mouse.
 if has('mouse')
@@ -191,4 +190,4 @@ else						" Terminal running
 	colorscheme gruvbox
 endif
 
-"--------------------------------------------------------------------------}}}
+" --- }}}
