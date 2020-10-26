@@ -1,9 +1,11 @@
 sessions/*
+fzf_history/*
+!fzf_history/.gitkeep
 !sessions/.gitkeep
 tmp/*
 !tmp/.gitkeep
-fzf_history/*
-!fzf_history/.gitkeep
+undo/*
+!undo/.gitkeep
 
 .log
 .netrwhist

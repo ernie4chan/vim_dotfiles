@@ -26,11 +26,22 @@ set viminfo='50,<1000,%,h,n$HOME/.vim/viminfo
 " How to handle backup files.
 set backupdir=$HOME/.vim/tmp//	" Where Vim stashes backup files.
 set directory=$HOME/.vim/tmp//	" Where Vim stashes swap files.
-set undodir=$HOME/.vim/tmp//	" Where Vim stashes undo files.
+set undodir=$HOME/.vim/undo//	" Where Vim stashes undo files.
 set swapfile					" Save unsaved changes.
+set undofile					" Save undo trees of the file edited for days.
 set nobackup					" No backup before editing files.
 set nowritebackup				" No need of backup file while editing.
-set undofile					" Save undo trees of the file edited for days.
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
 
 " Set Run-time path.
 if has("unix")
@@ -49,8 +60,8 @@ if has('multi_byte')
 		let &termencoding = &encoding
 	endif
 	" Detect UTF-8 and override CJK
-	" 'BOMB' (boolean) will put a 'byte order mark' or BOM for short at the
-	"  start of Unicode files. It also conflicts with UTF-8.
+	" 'BOMB' ('byte order mark' boolean) will put a BOM at the start
+	"  of Unicode files and it conflicts with UTF-8.
 	if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
 		set encoding=utf-8
 		setglobal fileencoding=utf-8
@@ -130,8 +141,8 @@ set ruler				" Show the cursor position at all time.
 set showcmd				" Show command in the bottom bar.
 set showmode			" Show current mode.
 set switchbuf=usetab	" When switching buffers, include tabs.
-set title				" Set filename in terminal title
-set ttyfast				" Send more chars while redrawing
+set title				" Set filename in terminal title.
+set ttyfast				" Send more chars while redrawing.
 
 " Autocomplete.
 set wildmenu					" Visual autocomplete for command menu at the bottom bar.
