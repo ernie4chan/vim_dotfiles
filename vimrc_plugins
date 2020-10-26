@@ -65,9 +65,9 @@ let g:netrw_browse_split=4
 let g:netrw_list_hide=&wildignore
 
 let g:netrw_winsize=-31	" Setting absolute width of the window.
-let g:netrw_banner=0		" Removing the banner on the top of window.
-let g:netrw_altv=&spr		" Vsplit to the left.
-let g:netrw_alto=&sb		" Hsplit to the top.
+let g:netrw_banner=0	" Removing the banner on the top of window.
+let g:netrw_altv=&spr	" Vsplit to the left.
+let g:netrw_alto=&sb	" Hsplit to the top.
 
 " A handy-dandy function to toggle a Netrw Vexplore sidebar.
 function! ToggleVExplorer()
