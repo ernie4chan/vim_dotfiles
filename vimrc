@@ -198,10 +198,10 @@ endif
 
 " The infamous Powerline theme for Python.
 if has('python3')
+	set t_Co=256	" Used by the termcap system that Vim users for term colors.
 	silent! python3 from powerline.vim import setup as powerline_setup
 	python3 powerline_setup()
 	python3 del powerline_setup
-	set t_Co=256
 endif
 
 " Different GUIs.

@@ -225,99 +225,13 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*jquery.*\.js$'] = 'ƛ
 
 " --- }}}
 
-" {{{ --- 5. ale (Asynchronous Lint Engine) ---
-
-"ALE offers an option g:ale_lint_on_save for enabling running the linters
-" when files are saved. This option is enabled by default. If you only wish
-" to run linters when files are saved, you can turn the other options off.
-" Write this in your vimrc file
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-" You can disable this option too
-" if you don't want linters to run on opening a file
-let g:ale_lint_on_enter = 0
-
+" {{{ --- 5. Vim-Fugitive ---
 " --- }}}
 
-" {{{ --- 6. Vim-fzf (Command-line fuzzy finder) ---
-
-" Enable per-command history.
-let g:fzf_history_dir = '~/.vim/fzf_history'
-
-" Customize fzf colors to match your color scheme
-" - fzf#wrap translates this to a set of `--color` options
-let g:fzf_colors = {
-	\ 'fg':      ['fg', 'Normal'],
-	\ 'bg':      ['bg', 'Normal'],
-	\ 'hl':      ['fg', 'Comment'],
-	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-	\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-	\ 'hl+':     ['fg', 'Statement'],
-	\ 'info':    ['fg', 'PreProc'],
-	\ 'border':  ['fg', 'Ignore'],
-	\ 'prompt':  ['fg', 'Conditional'],
-	\ 'pointer': ['fg', 'Exception'],
-	\ 'marker':  ['fg', 'Keyword'],
-	\ 'spinner': ['fg', 'Label'],
-	\ 'header':  ['fg', 'Comment']}
-
-" Default fzf layout.
-let g:ifzf_preview_window = 'down:50%'
-
-" [Buffers] Jump to the existing window if possible.
-let g:fzf_buffers_jump = 1
-
-" [[B]Commits] Customize the options used by 'git log'.
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-" [Tags] Command to generate tags file.
-let g:fzf_tags_command = 'ctags -R'
-
-" [Commands] --expect expression for directly executing the command.
-let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-
-" Advanced rigrep integration.
-function! RipgrepFzf(query, fullscreen)
-	let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-	let initial_command = printf(command_fmt, shellescape(a:query))
-	let reload_command = printf(command_fmt, '{q}')
-	let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-	call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-" Custom statusline.
-function! s:fzf_statusline()
-	" Override statusline as you like
-	highlightighlight fzf1 ctermfg=161 ctermbg=251
-	highlight fzf2 ctermfg=23 ctermbg=251
-	highlight fzf3 ctermfg=237 ctermbg=251
-	setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-
-if has('autocmd')
-	" Custom Statusline.
-	autocmd! User FzfStatusLine call <SID>fzf_statusline()
-
-	" Hide fzf statusline.
-	autocmd! FileType fzf set laststatus=0 noshowmode noruler |\
-		autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-endif
-
+" {{{ --- 6. Vim-Surround ---
 " --- }}}
 
-" {{{ --- 7. Indentguides ---
-
-" Files not be indented.
-let g:indentguides_ignorelist = ['text']
-
-" Shortcut.
-nnoremap <leader>g :IndentGuidesToggle<CR>
-
-" --- }}}
-
-" {{{ --- 8. Vim-workspace (Persistent Vim Session) ---
+" {{{ --- 7. Vim-workspace (Persistent Vim Session) ---
 
 " Crete a new buffer in the existing tab instead of creating a new tab.
 let g:workspace_create_new_tabs = 0			" enabled=1 (default), disabled=0
@@ -350,8 +264,26 @@ let g:workspace_autosave_ignore = ['gitcommit']
 
 " --- }}}
 
-" {{{ --- 9. Vim-Fugitive ---
+" {{{ --- 8. Indentguides ---
+
+" Files not be indented.
+let g:indentguides_ignorelist = ['text']
+
+" Shortcut.
+nnoremap <leader>g :IndentGuidesToggle<CR>
+
 " --- }}}
 
-" {{{ --- 10. Vim-Surround ---
+" {{{ --- 9. ale (Asynchronous Lint Engine) ---
+
+"ALE offers an option g:ale_lint_on_save for enabling running the linters
+" when files are saved. This option is enabled by default. If you only wish
+" to run linters when files are saved, you can turn the other options off.
+" Write this in your vimrc file
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+" You can disable this option too, if you don't want linters to
+"  run on opening a file.
+let g:ale_lint_on_enter = 0
+
 " --- }}}
