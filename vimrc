@@ -16,29 +16,28 @@
 set nocompatible
 
 " Store some Vim info.
-set viminfo='100,<1000,s100,n$HOME/.vim/viminfo
+set viminfo='50,<1000,%,h,n$HOME/.vim/viminfo
+"           |   |     | | + viminfo file path
+"           |   |     | + disable 'hlsearch' loading viminfo
+"           |   |     + save/restore buffer list
+"           |   + lines saved each register
+"           + files marks saved
 
 " How to handle backup files.
-set backupdir=$HOME/.vim/tmp//	" Where Vim stashes backup files
-set directory=$HOME/.vim/tmp//	" Where Vim stashes swap files
-set undodir=$HOME/.vim/tmp//	" Where Vim stashes undo files
-"set noswapfile					" No need to save unsaved changes
-set nobackup					" No need to backup before editing files
-set nowritebackup				" No need of backup file while editing
-set undofile					" Save undo trees of the file edited for days later
+set backupdir=$HOME/.vim/tmp//	" Where Vim stashes backup files.
+set directory=$HOME/.vim/tmp//	" Where Vim stashes swap files.
+set undodir=$HOME/.vim/tmp//	" Where Vim stashes undo files.
+set swapfile					" Save unsaved changes.
+set nobackup					" No backup before editing files.
+set nowritebackup				" No need of backup file while editing.
+set undofile					" Save undo trees of the file edited for days.
 
 " Set Run-time path.
-if has("mac")
-	set runtimepath+=/usr/local/opt/fzf
-elseif has("unix")
+if has("unix")
 	set runtimepath+=/usr/bin/fzf
+elseif has("mac")
+	set runtimepath+=/usr/local/opt/fzf
 endif
-
-" Load files.
-syntax on					" Loads syntax files
-filetype on					" Filetype detection
-filetype plugin on			" Loads ftplugin files
-filetype indent on			" Loads indent files
 
 " --- }}}
 
@@ -49,31 +48,40 @@ if has('multi_byte')
 	if &termencoding == ""
 		let &termencoding = &encoding
 	endif
-	if v:lang =~ "^zh_TW"		" Traditional Chinese (TW)
-		set encoding=big5
-		setglobal fileencoding=big5
-		set bomb				" Conflicts with UTF-8
-	elseif v:lang =~ "^zh_HK"	" Traditional Chinese (HK)
-		set encoding=big5-hkscs
-		setglobal fileencoding=big5-hkscs
-		set bomb				" Conflicts with UTF-8
-	elseif v:lang =~ "^zh_CN"	" Simplified Chinese
-		set encoding=gb2312
-		setglobal fileencoding=gb2312
-		set bomb				" Conflicts with UTF-8
-	elseif v:lang =~ "^ja_JP"	" Japanese
-		set encoding=euc-jp
-		setglobal fileencoding=euc-jp
-		set bomb				" Conflicts with UTF-8
-	elseif v:lang =~ "^ko_KR"	" Korean
-		set encoding=euc-kr
-		setglobal fileencoding=euc-kr
-		set bomb				" Conflicts with UTF-8
-	endif
-	if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"	" Detect UTF-8 and override CJK
+	" Detect UTF-8 and override CJK
+	" 'BOMB' (boolean) will put a 'byte order mark' or BOM for short at the
+	"  start of Unicode files. It also conflicts with UTF-8.
+	if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
 		set encoding=utf-8
 		setglobal fileencoding=utf-8
-		set fileencodings=ucs-bom,utf-8,big5,gb2312,big5-hkscs,euc-ja,euc-kr,latin1
+		" Note, this will not apply to the first, empty buffer created at Vim
+		"  startup.
+		set fileencodings=ucs-bom,utf-8,big5,big5-hkscs,gb2312,euc-ja,euc-kr,latin1
+	" Traditional Chinese (TW)
+	elseif v:lang =~ "^zh_TW"
+		set encoding=big5
+		setglobal fileencoding=big5
+		set bomb
+	" Traditional Chinese (HK)
+	elseif v:lang =~ "^zh_HK"
+		set encoding=big5-hkscs
+		setglobal fileencoding=big5-hkscs
+		set bomb
+	" Simplified Chinese (use the oldest one due to overlap with Big5)
+	elseif v:lang =~ "^zh_CN"
+		set encoding=gb2312
+		setglobal fileencoding=gb2312
+		set bomb
+	" Japanese
+	elseif v:lang =~ "^ja_JP"
+		set encoding=euc-jp
+		setglobal fileencoding=euc-jp
+		set bomb
+	" Korean
+	elseif v:lang =~ "^ko_KR"
+		set encoding=euc-kr
+		setglobal fileencoding=euc-kr
+		set bomb
 	endif
 else
 	echoerr 'This Vim has not been compiled with "multi-byte" support!'
@@ -81,61 +89,72 @@ endif
 
 " --- }}}
 
-"{{{ --- Features learnt throughout the years  ---
+"{{{ --- Features learnt throughout the years ---
 
-" Indentation andspacing matters.
-set backspace=indent,eol,start
-			\			" Allow backspacing over everything in insert mode
-set shiftwidth=4		" Affects >>, << or ==
-set softtabstop=4		" Number of spaces in tab when editing
-set tabstop=4			" Number of visual spaces per tab
-set autoindent			" 1 - Uses the indent from previous line
-"set smartindent		" 2 - Regcognizes some C syntax to indent when appropiate
-"set cindent			" 3 - Stricter than previous two and more customizable
-"set indentexpr=		" 4 - When not empty overrides 'cindent' & 'smartident'
-"set expandtab			" Try not to expand tabs to spaces (works badly with CAT)
-"set smarttab			" Insert tabs at the start of a line according to context
+" Filetype add-ons.
+syntax on				" Load syntax files.
+filetype on				" Load filetype detection.
+filetype plugin on		" Load filetype-specific plugins.
+filetype indent on		" Load filetype-specific indenting.
+
+" Indentation and spacing matters.
+set tabstop=4			" Number of visual spaces per tab.
+set shiftwidth=4		" Affects '>>', '<<' or '=='.
+set softtabstop=4		" Number of spaces in tab when editing.
+set list				" Show invisible.
+set showbreak=↳			" Show for lines that have been wrapped.
+set listchars=tab:→\ ,eol:↲,nbsp:␣
+set listchars+=extends:»,precedes:«,trail:·
+set backspace=indent,eol,start		" Allow backspacing over everything in insert mode.
+set autoindent			" 1 - autoident: Uses the indent from previous line.
+						" 2 - smartident: Regcognizes some C syntax to indent when appropiate.
+						" 3 - cident: Stricter than previous two and more customizable.
+						" 4 - indentexpr: When not empty overrides 'cindent' & 'smartident'.
+set noexpandtab			" Try not to expand tabs to spaces (works badly with CAT).
+set smarttab			" Insert tabs at the start of a line according to context.
 
 " UI preferences.
-set autochdir			" Auto change the current working directory
-set belloff=all			" Mute all beeps
-set clipboard+=unnamed	" Makes y and p to the global buffer
-set cursorline			" Highlight current line
-set fillchars=			" Remove the delimeters!
-set hidden				" Buffer becomes hidden when abandoned
-set history=2000		" Command-line history saved
-set laststatus=2		" Always show the statusline
-set lazyredraw			" Do not redraw while executing macros
-set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
-			\			" Unicode characters
-set noshowmatch			" Disable jumping to matching bracket when typing
-set number				" Display line numbers
-set ruler				" Show the cursor position at all time
-set showbreak=			" Show for lines that have been wrapped, like Emacs
-set showcmd				" Show command in the bottom bar
+"set statusline=-		" Hide file name in statusline.
+set laststatus=2		" Always show the statusline.
+set fillchars=stl:\ ,stlnc:\			 " Remove the delimeters!
+set fillchars+=vert:\ ,fold:\ ,diff:\ 	 " Remove the delimeters!
+set autochdir			" Auto change the current working directory.
+set belloff=all			" Mute all beeps.
+set clipboard+=unnamed	" Makes y and p to the global buffer.
+set hidden				" Buffer becomes hidden when abandoned.
+set history=1000		" Command-line history saved.
+set lazyredraw			" Do not redraw while executing macros.
+set noshowmatch			" Disable jumping to matching bracket when typing.
+set number				" Display line numbers.
+set ruler				" Show the cursor position at all time.
+set showcmd				" Show command in the bottom bar.
+set showmode			" Show current mode.
+set switchbuf=usetab	" When switching buffers, include tabs.
 set title				" Set filename in terminal title
 set ttyfast				" Send more chars while redrawing
 
-" Folding.
-set wrap				" Wrap lines
-set foldenable
-set foldmethod=marker
-set foldcolumn=2
-set foldlevel=0
+" Autocomplete.
+set wildmenu					" Visual autocomplete for command menu at the bottom bar.
+set wildmode=list:longest,full	" Turn on wild mode huge list.
+set wildignore=.DS_Store,*.git
+set wildignore+=*/tmp/*
 
 " Searching for the one that matters.
-set hlsearch			" Highlight matches
-set ignorecase			" Case insensitive
-set incsearch			" Search as chars are entered
-set smartcase			" Ignore case if search pattern is all lowercase
+"set cursorcolumn		" Highlight current column.
+set cursorline			" Highlight current line.
+set hlsearch			" Highlight matches.
+set incsearch			" Search as chars are entered.
+set ignorecase			" Ignore case when searching.
+set smartcase			" Ignore case if search pattern is all lowercase.
 
-" Completion options.
-if has('wildmenu')
-	set wildmenu		" Visual autocomplete for command menu at the bottom bar
-	set wildmode=list:longest,full				" Turn on wild mode huge list
-	set wildignore=.DS_Store,*.git,*.svn
-	set wildignore+=*/tmp/*,*.so,*.swp,*.zip	" macOS/Linux from CtrlP
-endif
+" Folding and wrapping.
+set formatoptions=roq	" c=autrowrap comments, r=continue comment on <enter>,
+						"  o=continue on 'o' or '0', q=allow format comment with gqgq.
+set wrap				" Wrap lines.
+set foldenable			" When off, all folds are open. Toggle with <zi> command.
+set foldmethod=marker	" Fold method.
+set foldcolumn=2		" Size of info column.
+set foldlevel=0			" Fold all levels.
 
 " --- }}}
 
@@ -147,9 +166,9 @@ source $HOME/.vim/vimrc_plugins
 
 " Enable mouse.
 if has('mouse')
-	set mouse=a				" Mouse in all modes
-	set ttymouse=xterm2		" Running mouse under tmux workaround conf
+	set mouse=a				" Mouse in all modes.
 	set mousehide			" Hide mouse pointer while typing
+	set ttymouse=xterm2		" Running mouse under tmux workaround conf.
 	" Sensible horinzontal mouse scrolling wth Logitech Ultrathin Mouse.
 	nmap <ScrollWheelLeft> <nop>
 	imap <ScrollWheelLeft> <nop>
@@ -176,17 +195,21 @@ endif
 
 " Different GUIs.
 " Colors: badwolf, dracula, gruvbox, solarized8.
-if has('gui_running')
-	set guioptions-=T		" Remove toolbar
-	"set guioptions-=L		" Remove left scrollbar
-	"set guioptions-=r		" Remove right scrollbar
-	set guioptions-=e		" Remove tabbar
+if has('gui_running')		" Emulator running.
+	set guioptions-=T		" Remove toolbar.
+	set guioptions-=e		" Remove tabbar.
+	set guioptions+=m		" Remove menubar. 
+	set guioptions-=l		" Remove left scrollbar.
+	set guioptions-=r		" Remove right scrollbar.
 	set guifont=Monofur\ Nerd\ Font\ 12
 	set lines=36
 	set columns=124
 	colorscheme badwolf
-else						" Terminal running
-	"set bg=dark
+	if has('unix')
+		set guiheadroom=0
+	endif
+else						" Terminal running.
+	set background=dark
 	colorscheme gruvbox
 endif
 
