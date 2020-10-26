@@ -1,132 +1,111 @@
 " {{{ --- 0. Mappings and Basics ---
 
-" My favorits.
+" My favorites, sometimes SHIFT gets caught.
 command W write
 command Q quit
 
 " Shortcut to clear highlights.
 nnoremap <silent><C-l> :<C-u>nohlsearch<CR><C-l>
 
-" Deploy rot13 encryption for people snooping over shoulder.
-noremap <silent><F7> <ESC>ggVGg?
+" Switching between buffers.
+" (- and + images on Fn)
+nnoremap <silent><F8> :bprev<CR>
+nnoremap <silent><F9> :bnext<CR>
 
-" Toggle auto-indenting for code paste
-nnoremap <silent><F6> :set invpaste paste?<CR>
-set pastetoggle=<F6>
-set showmode
+" Toggle auto-indenting on and off for code pasting.
+" (Lock image on Fn)
+set pastetoggle=<F3>
+
+" Deploy rot13 encryption for people snooping over shoulder.
+" (Wifi image on Fn)
+noremap <silent><F5> <ESC>ggVGg?
 
 " Display unprintable characters.
-nnoremap <silent><F9> :set list!<CR>:setlocal list?<CR>
+" (Cam image on Fn)
+nnoremap <silent><F6> :set list!<CR>:setlocal list?<CR>
 
-" Switching between buffers.
-nnoremap <F4> :bprev<CR>
-nnoremap <F5> :bnext<CR>
-
-" Destroying trailing whitespaces cleanly.
-nnoremap <Silent><F6> :let _save_pos=getpos(".") <Bar>
-	\ :let _s=@/ <Bar>
-	\ :%s/\s\+$//e <Bar>
-	\ :let @/=_s <Bar>
-	\ :nohl <Bar>
-	\ :unlet _s<Bar>
-	\ :call setpos('.', _save_pos)<Bar>
-	\ :unlet _save_pos<CR>
-
-" Vim tab mappings.
-if has('gui_macvim')
-	" Press Ctrl-Tab to switch between open tabs (like browser tabs)
-	" to the right side. Ctrl-Shift-Tab goes the other way.
-	noremap <C-Tab> :tabnext<CR>
-	noremap <C-S-Tab> :tabprev<CR>
-	" Switch to specific tab numbers with Command-number.
-	noremap <C-1> :tabn 1<CR>
-	noremap <C-2> :tabn 2<CR>
-	noremap <C-3> :tabn 3<CR>
-	noremap <C-4> :tabn 4<CR>
-	noremap <C-5> :tabn 5<CR>
-	noremap <C-6> :tabn 6<CR>
-	noremap <C-7> :tabn 7<CR>
-	noremap <C-8> :tabn 8<CR>
-	noremap <C-9> :tabn 9<CR>
-	" Command-0 goes to the last tab.
-	noremap <C-0> :tablast<CR>
-endif
+" Destroying trailing whitespaces.
+" (Projector image on Fn)
+nnoremap <silent><F7> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<Bar>:unlet _s<CR>
 
 if has('autocmd')
-	" Save when losing focus.
-	augroup vim_fixes
+	augroup auto_save_lost_focus
 		autocmd!
-		autocmd FocusLost * :silent! wall
+		autocmd TabLeave * silent! wall
+		autocmd FocusLost * silent! wall
 	augroup END
 
-	" Make sure Vim returns to the same line when you reopen a file.
 	augroup reopen_line_return
 		autocmd!
-		autocmd BufReadPost *
-			\ if line("'\"") > 0 && line("'\"") <= line("$") |
-			\	execute 'normal! g`"zvzz' |
-			\ endif
+		autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+			\| execute "normal! g`\"" | endif
 	augroup END
 endif
 
 " --- }}}
 
-" {{{ --- 1. netrw (Network oriented, writing and browsing) ---
+" {{{ --- 1. netrw (the unloved directory browser) ---
 
-" Setting the width of the directory explorer.
-let g:netrw_winsize = -31
+" Style options, press <i> to toggle between modes:
+"  - 0: thin, one file per line
+"  - 1: long, one file per line with file size and time stamp
+"  - 2: wide, which is files in columns
+"  - 3: tree style
+let g:netrw_liststyle=3
 
-" Do not display info on the top of window.
-let g:netrw_banner = 0
+" Changing how files are opened:
+"  - 0: default, re-using the same window
+"  - 1: open in a new horizontal split
+"  - 2: open in a new vertical split 
+"  - 3: open in a new tab
+"  - 4: open in previous window
+let g:netrw_browse_split=4
 
-" Creates a lots of garbage files. 3 for Tree mode.
-let g:netrw_liststyle = 3
+" netrw can inherit custom wildignores:
+let g:netrw_list_hide=&wildignore
 
-" Sort is affecting only: directories on the top, files below.
-let g:netrw_sort_sequence = '[\/]$,*'
+let g:netrw_winsize=-31	" Setting absolute width of the window.
+let g:netrw_banner=0		" Removing the banner on the top of window.
+let g:netrw_altv=&spr		" Vsplit to the left.
+let g:netrw_alto=&sb		" Hsplit to the top.
 
-" Hit enter in the file browser to open the selected file,
-" with :vsplit to the right of the browser.
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
+" A handy-dandy function to toggle a Netrw Vexplore sidebar.
+function! ToggleVExplorer()
+	if exists("t:expl_buf_num")
+		let expl_win_num = bufwinnr(t:expl_buf_num)
+		if expl_win_num != -1
+			let cur_win_nr = winnr()
+			exec expl_win_num . 'wincmd w'
+			close
+			exec cur_win_nr . 'wincmd w'
+			unlet t:expl_buf_num
+		else
+			unlet t:expl_buf_num
+		endif
+	else
+		exec '1wincmd w'
+		Vexplore
+		let t:expl_buf_num = bufnr("%")
+	endif
+endfunction
+map <silent><F4> :call ToggleVExplorer()<CR>
 
 " --- }}}
 
 " {{{ --- 2. NERDTree (File system explorer) ---
 
 " Mappings.
-nnoremap <silent><Leader>f :NERDTreeFind<CR>
-nnoremap <silent><Leader>n :NERDTreeToggle<CR>
+nnoremap <silent><F2> :NERDTreeToggle<CR>
 
-" Size of NERTree window.
-let g:NERDTreeWinSize = 31
-
-" Disable 'Bookmarks' and 'Press ?...' label.
-let g:NERDTreeMinimalUI = 1
-
-" Sort from '1, 2,.. 5..'.
-let g:NERDTreeNaturalSort = 1
-
-" Sort nodes case sensitively.
-let g:NERDTreeCaseSensitiveSort = 1
-
-" Delete no more valid buffer when deleting / renaming with context menu.
-let g:NERDTreeAutoDeleteBuffer = 1
-
-" Use global statusline with '-1'.
-let g:NERDTreeStatusLine = -1
-
-" Automatically close NERDTree when you open a file.
-let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeWinSize = 31		" Size of NERTree window.
+let g:NERDTreeMinimalUI = 1		" Disable 'Bookmarks' and 'Press?...' labels.
+let g:NERDTreeQuitOnOpen = 1	" Automatically close NERDTree when you open a file.
 
 if has('autocmd')
-	" Close Vim if the only window left open is a NERDTree.
 	augroup nerdtree_close_if_one_window
 		autocmd!
-		autocmd bufenter * 
-			\ if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) |
-			\	q |
-			\ endif
+		autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree())
+			\| q | endif
 	augroup END
 endif
 
@@ -136,154 +115,57 @@ endif
 " --- }}}
 
 " {{{ --- 4. VimDevIcons (Add icons to your plugins) ---
+" --- }}}
 
-" Extra configuration.
-if !exists('g:syntax_on')
-    syntax enable
-endif
+" {{{ --- 5. Indentguides ---
 
-" Extra configuration:
-" -------------------
-" Loading the plugin.
-let g:webdevicons_enable = 1
+" Mappings.
+nnoremap <leader>g :IndentGuidesToggle<CR>
 
-" Adding to flagship's statusline.
-let g:webdevicons_enable_flagship_statusline = 1
-
-" Turn on/off file node glyph decorations (not particularly useful).
-"let g:WebDevIconsUnicodeDecorateFileNodes = 1
-
-" Use double-width(1) or single-width(0) glyphs,
-" only manipulates padding, has no effect on terminal or set(guifont) font
-"let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-
-" Adding the flags to NERDTree.
-let g:webdevicons_enable_nerdtree = 1
-
-" Whether or not to show the nerdtree brackets around flags.
-let g:webdevicons_conceal_nerdtree_brackets = 1
-
-" The amount of space to use after the glyph character (default ' ').
-"let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-
-" Force extra padding in NERDTree so that the filetype icons line up vertically.
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-
-" Specify OS to decide an icon for unix fileformat.
-"let g:WebDevIconsOS = 'Darwin'
-
-" Character mappings:
-" ------------------
-" Change the default character when no match found.
-let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = 'ƛ'
-
-" Set a byte character marker (BOM) utf-8 symbol when retrieving file encoding
-" disabled by default with no value.
-let g:WebDevIconsUnicodeByteOrderMarkerDefaultSymbol = ''
-
-" Enable folder/directory glyph flag (disabled by default with 0).
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-
-" Enable open and close folder/directory glyph flags
-"	(disabled by default with 0).
-let g:DevIconsEnableFoldersOpenClose = 1
-
-" Enable pattern matching glyphs on folder/directory
-" (enabled by default with 1).
-let g:DevIconsEnableFolderPatternMatching = 1
-
-" Enable file extension pattern matching glyphs on folder/directory
-" (disabled by default with 0).
-let g:DevIconsEnableFolderExtensionPatternMatching = 1
-
-" Enable custom folder/directory glyph exact matching
-" (enabled by default when g:WebDevIconsUnicodeDecorateFolderNodes is set to 1).
-let WebDevIconsUnicodeDecorateFolderNodesExactMatches = 1
-
-" Change the default folder/directory glyph/icon.
-let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = 'ƛ'
-
-" Change the default open folder/directory glyph/icon (default is '').
-let g:DevIconsDefaultFolderOpenSymbol = 'ƛ'
-
-" Change the default dictionary mappings for file extension matches.
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}				" needed
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = 'ƛ'
-
-" Change the default dictionary mappings for exact file node matches.
-let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols = {}					" needed
-let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols['MyReallyCoolFile.okay'] = 'ƛ'
-
-" Add or override individual additional filetypes.
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}				" needed
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['myext'] = 'ƛ'
-
-" Add or override pattern matches for filetypes.
-" These take precedence over the file extensions.
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}				" needed
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*jquery.*\.js$'] = 'ƛ'
+" Filetypes not be indented.
+let g:indentguides_ignorelist = ['text']
 
 " --- }}}
 
-" {{{ --- 5. Vim-Fugitive ---
+" {{{ --- 6. Vim-Fugitive ---
 " --- }}}
 
-" {{{ --- 6. Vim-Surround ---
+" {{{ --- 7. Vim-Surround ---
 " --- }}}
 
-" {{{ --- 7. Vim-workspace (Persistent Vim Session) ---
+" {{{ --- 8. Vim-workspace (Persistent Vim Session) ---
 
 " Crete a new buffer in the existing tab instead of creating a new tab.
 let g:workspace_create_new_tabs = 0			" enabled=1 (default), disabled=0
 
-" Shortcut.
+" Mappings.
 nnoremap <leader>s :ToggleWorkspace<CR>
 
 " Change default session name.
-let g:workspace_session_name = 'Session.vim'
+"let g:workspace_session_name = 'Session.vim'
 
 " Save all session files in a single directory.
-"let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 
-" Not to load sssion when loading a file.
+" Not to load session when loading a file.
 let g:workspace_session_disable_on_args = 1
 
-" Undo history.
+" Undo history is persistent between sessions.
 let g:workspace_persist_undo_history = 1	" enabled=1 (default), disabled=0
-"let g:workspace_undodir = "tmp"
+let g:workspace_undodir = $HOME . '/.vim/undodir/'
 
-" Autosave.
-let g:workspace_autosave_always = 1
+" Autosave all files edited in a workspace session.
+let g:workspace_autosave_always = 1			" always autosave
 let g:workspace_autosave = 0				" reduce IO on disk
 
-" Untrailing Spaces.
+" Untrailing spaces are trimmed before a buffer is autosaved.
 let g:workspace_autosave_untrailspaces = 0
 
 " Ignore List.
+"  Git commit filetypes won't autosave (or trim trailing spaces) by default.
 let g:workspace_autosave_ignore = ['gitcommit']
 
 " --- }}}
 
-" {{{ --- 8. Indentguides ---
-
-" Files not be indented.
-let g:indentguides_ignorelist = ['text']
-
-" Shortcut.
-nnoremap <leader>g :IndentGuidesToggle<CR>
-
-" --- }}}
-
 " {{{ --- 9. ale (Asynchronous Lint Engine) ---
-
-"ALE offers an option g:ale_lint_on_save for enabling running the linters
-" when files are saved. This option is enabled by default. If you only wish
-" to run linters when files are saved, you can turn the other options off.
-" Write this in your vimrc file
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-" You can disable this option too, if you don't want linters to
-"  run on opening a file.
-let g:ale_lint_on_enter = 0
-
 " --- }}}
