@@ -62,7 +62,7 @@ if has('multi_byte')
 	" Detect UTF-8 and override CJK
 	" 'BOMB' ('byte order mark' boolean) will put a BOM at the start
 	"  of Unicode files and it conflicts with UTF-8.
-	if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
+	if v:lang =~ "UTF-8$" || v:lang =~ "utf8$"
 		set encoding=utf-8
 		setglobal fileencoding=utf-8
 		" Note, this will not apply to the first, empty buffer created at Vim
