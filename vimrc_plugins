@@ -69,6 +69,8 @@ let g:netrw_banner = 0		" Removing the banner on the top of window.
 let g:netrw_altv = &spr		" Vsplit to the left.
 let g:netrw_alto = &sb		" Hsplit to the top.
 
+" 2 {{{ - Special functions -
+
 " A handy-dandy function to toggle a Netrw Vexplore sidebar.
 function! ToggleVExplorer()
 	if exists("t:expl_buf_num")
@@ -76,7 +78,7 @@ function! ToggleVExplorer()
 		if expl_win_num != -1
 			let cur_win_nr = winnr()
 			exec expl_win_num . 'wincmd w'
-			close
+		close
 			exec cur_win_nr . 'wincmd w'
 			unlet t:expl_buf_num
 		else
@@ -89,6 +91,8 @@ function! ToggleVExplorer()
 	endif
 endfunction
 map <silent><F4> :call ToggleVExplorer()<CR>
+
+" }}} 2
 
 " --- }}}
 
@@ -158,8 +162,8 @@ let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 let g:workspace_session_disable_on_args = 1
 
 " Undo history is persistent between sessions.
-let g:workspace_persist_undo_history = 1	" enabled=1 (default), disabled=0
 let g:workspace_undodir = $HOME . '/.vim/undodir/'
+let g:workspace_persist_undo_history = 1	" enabled=1 (default), disabled=0
 
 " Autosave all files edited in a workspace session.
 let g:workspace_autosave_always = 1			" always autosave
@@ -175,4 +179,37 @@ let g:workspace_autosave_ignore = ['gitcommit']
 " --- }}}
 
 " {{{ --- 9. ale (Asynchronous Lint Engine) ---
+
+" Run linters only when files are saved.
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+" Don't run linters on opening a file.
+let g:ale_lint_on_enter = 0
+
+" Enable Linters and Fixers:
+let b:ale_linters = {
+	\ 'python': ['flake8', 'mypy'],
+	\ }
+
+" Enable Fixers:
+let b:ale_fixers = {
+	\ 'python': ['black', 'isort', 'trim_whitespace'],
+	\ }
+
+" 2 {{{ - Some explanations -
+
+" Reference page:
+"	https://sourcery.ai/blog/python-best-practices/
+" * Flake8 ensures our code follows the standard python conventions as defined
+"    in PEP8. 
+" * Black is the uncompromising Python code formatter. 
+" * isort your python imports for you so you don't have to.
+" * Mypy is an optional static type checker for Python that aims to combine
+"    the benefits of dynamic (or 'duck') typing and static typing. 
+" * Writing tests with pytest and pytest-cov are incredibly easy and removing
+"    any friction to writing tests means we will write more of them!
+
+" }}} 2
+
 " --- }}}
