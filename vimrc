@@ -50,6 +50,12 @@ elseif has("mac")
 	set runtimepath+=/usr/local/opt/fzf
 endif
 
+" Filetype add-ons.
+syntax on				" Load syntax files.
+filetype on				" Load filetype detection.
+filetype plugin on		" Load filetype-specific plugins.
+filetype indent on		" Load filetype-specific indenting.
+
 " --- }}}
 
 " {{{ --- Encoding ---
@@ -101,12 +107,6 @@ endif
 " --- }}}
 
 "{{{ --- Features learnt throughout the years ---
-
-" Filetype add-ons.
-syntax on				" Load syntax files.
-filetype on				" Load filetype detection.
-filetype plugin on		" Load filetype-specific plugins.
-filetype indent on		" Load filetype-specific indenting.
 
 " Indentation and spacing matters.
 set tabstop=4			" Number of visual spaces per tab.
@@ -188,12 +188,12 @@ if has('mouse')
 endif
 
 " Calling grep.
-if executable('rg')
-	set grepprg="rg --vimgrep --no-heading"
-	set grepformat="%f:%l:%c:%m,%f:%l:%m"
-elseif executable('grep')
-	set grepprg="grep -n $* /dev/null"
-	set grepformat="%f:%l:%m,%f:%l%m,%f %l%m"
+if executable("rg")
+	set grepprg=rg\ --vimgrep\ --no-heading
+	set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable("grep")
+	set grepprg=grep -n $* /dev/null
+	set grepformat=%f:%l:%m,%f:%l%m,%f %l%m
 endif
 
 " The infamous Powerline theme for Python.

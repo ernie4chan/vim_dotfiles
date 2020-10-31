@@ -79,3 +79,6 @@
 [submodule "plugins/vim-workspace"]
 	path = plugins/vim-workspace
 	url = https://github.com/thaerkh/vim-workspace.git
+[submodule "plugins/vim-repeat"]
+	path = plugins/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git
