@@ -1,4 +1,5 @@
 " ---------------------------------------------------------
+" File: vimrc
 " Maintainer: Ernie Lin
 " {{{ --- Chronicles of major updates ---
 " v.1: 2016/03/19 Dad back to Taiwan
