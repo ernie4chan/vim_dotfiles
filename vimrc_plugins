@@ -141,10 +141,13 @@ endif
 
 " --- }}}
 
-" {{{ --- 7. Vim-Surround ---
+" {{{ --- 7. Vim-Repeat ---
 " --- }}}
 
-" {{{ --- 8. Vim-workspace (Persistent Vim Session) ---
+" {{{ --- 8. Vim-Surround ---
+" --- }}}
+
+" {{{ --- 9. Vim-Workspace (Persistent Vim Session) ---
 
 " Mappings.
 nnoremap <leader>s :ToggleWorkspace<CR>
@@ -178,7 +181,7 @@ let g:workspace_autosave_ignore = ['gitcommit']
 
 " --- }}}
 
-" {{{ --- 9. ale (Asynchronous Lint Engine) ---
+" {{{ --- 10. ALE (Asynchronous Lint Engine) ---
 
 " Run linters only when files are saved.
 let g:ale_fix_on_save = 1
