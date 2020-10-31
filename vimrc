@@ -169,10 +169,6 @@ set foldlevel=0			" Fold all levels.
 
 " --- }}}
 
-" --- Source-in some other Vim's capabilities -------------
-source $HOME/.vim/vimrc_plugins
-" ---------------------------------------------------------
-
 " {{{ --- Advanced features ---
 
 " Enable mouse.
@@ -223,5 +219,11 @@ else						" Terminal running.
 	set background=dark
 	colorscheme gruvbox
 endif
+
+" --- }}}
+
+" {{{ --- Source-in some other Vim's capabilities ---
+
+source $HOME/.vim/vimrc_extended
 
 " --- }}}
