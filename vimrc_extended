@@ -181,7 +181,27 @@ let g:workspace_autosave_ignore = ['gitcommit']
 
 " --- }}}
 
-" {{{ --- 10. ALE (Asynchronous Lint Engine) ---
+" {{{ --- 10. Vim-Tmux-Navigator ---
+
+" Custom key bindings.
+let g:tmux_navigator_no_mappings = 1
+
+" {Left-Mapping} or {Down-Mapping} must be replaced in the above code.
+nnoremap <silent> {Left-Mapping} :TmuxNavigateLeft<cr>
+nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
+nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
+nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
+nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+
+" Write all buffers before navigating from Vim to tmux pane.
+let g:tmux_navigator_save_on_switch = 2
+
+" Disable tmux navigator when zooming the Vim pane.
+let g:tmux_navigator_disable_when_zoomed = 1
+
+" --- }}}
+
+" {{{ --- 11. ALE (Asynchronous Lint Engine) ---
 
 " Run linters only when files are saved.
 let g:ale_fix_on_save = 1
