@@ -82,3 +82,6 @@
 [submodule "plugins/vim-repeat"]
 	path = plugins/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
+[submodule "plugins/vim-tmux-navigator"]
+	path = plugins/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
