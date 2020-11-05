@@ -190,13 +190,6 @@ let g:tmux_navigator_disable_when_zoomed = 1
 
 " {{{ --- 11. ALE (Asynchronous Lint Engine) ---
 
-" Run linters only when files are saved.
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-" Don't run linters on opening a file.
-let g:ale_lint_on_enter = 0
-
 " Enable Linters and Fixers:
 let b:ale_linters = {
 	\ 'python': ['flake8', 'mypy'],
@@ -221,5 +214,12 @@ let b:ale_fixers = {
 "    any friction to writing tests means we will write more of them!
 
 " }}} 2
+
+" Run linters only when files are saved.
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+" Don't run linters on opening a file.
+let g:ale_lint_on_enter = 0
 
 " --- }}}
