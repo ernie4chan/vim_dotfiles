@@ -141,6 +141,7 @@ set number				" Display line numbers.
 set ruler				" Show the cursor position at all time.
 set showcmd				" Show command in the bottom bar.
 set showmode			" Show current mode.
+set spell spelllang=en_us
 set switchbuf=usetab	" When switching buffers, include tabs.
 set title				" Set filename in terminal title.
 set ttyfast				" Send more chars while redrawing.

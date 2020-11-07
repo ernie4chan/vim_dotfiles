@@ -85,3 +85,6 @@
 [submodule "plugins/vim-tmux-navigator"]
 	path = plugins/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "plugins/tagbar"]
+	path = plugins/tagbar
+	url = https://github.com/preservim/tagbar.git
