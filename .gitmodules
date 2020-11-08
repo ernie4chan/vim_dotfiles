@@ -88,3 +88,6 @@
 [submodule "plugins/tagbar"]
 	path = plugins/tagbar
 	url = https://github.com/preservim/tagbar.git
+[submodule "plugins/vim-fzf"]
+	path = plugins/vim-fzf
+	url = https://github.com/junegunn/fzf.vim.git

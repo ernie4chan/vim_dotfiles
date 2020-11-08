@@ -127,7 +127,6 @@ set smarttab			" Insert tabs at the start of a line according to context.
 
 " UI preferences.
 "set statusline=-		" Hide file name in statusline.
-set laststatus=2		" Always show the statusline.
 set fillchars=stl:\ ,stlnc:\			 " Remove the delimeters!
 set fillchars+=vert:\ ,fold:\ ,diff:\ 	 " Remove the delimeters!
 set autochdir			" Auto change the current working directory.
@@ -196,7 +195,8 @@ endif
 
 " The infamous Powerline theme for Python.
 if has('python3')
-	set t_Co=256	" Used by the termcap system that Vim users for term colors.
+	set laststatus=2	" Always show the statusline.
+	set t_Co=256		" Used by the termcap system that Vim users for term colors.
 	silent! python3 from powerline.vim import setup as powerline_setup
 	python3 powerline_setup()
 	python3 del powerline_setup
@@ -226,7 +226,7 @@ endif
 
 " {{{ --- Source-in some other Vim's capabilities ---
 
-if filereadable(expand("vimrc_extended"))
+if filereadable(expand('$HOME/.vim/vimrc_extended'))
 	source $HOME/.vim/vimrc_extended
 endif
 
