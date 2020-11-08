@@ -1,16 +1,12 @@
 " {{{ --- 0. Mappings and Basics ---
 
-" My favorites, sometimes SHIFT gets caught.
-command W write
-command Q quit
-
 " Mappings.
 noremap <silent><F2> :NERDTreeToggle<CR>
 noremap <silent><F3> :TagbarToggle<CR>
 
-nnoremap <leader>s :call ToggleVExplorer()<CR>
 nnoremap <leader>g :IndentGuidesToggle<CR>
 nnoremap <leader>w :ToggleWorkspace<CR>
+nnoremap <leader>s :call ToggleVExplorer()<CR>
 
 " Toggle auto-indenting on and off for code pasting.
 " (Lock image on Fn)
