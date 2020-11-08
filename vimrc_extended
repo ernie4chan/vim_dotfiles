@@ -187,8 +187,6 @@ let g:tmux_navigator_disable_when_zoomed = 1
 " --- }}}
 
 " {{{ --- 11. Tagbar ---
-
-
 " --- }}}
 
 " {{{ --- 12. ALE (Asynchronous Lint Engine) ---
