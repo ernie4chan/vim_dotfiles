@@ -88,3 +88,6 @@
 [submodule "plugins/tagbar"]
 	path = plugins/tagbar
 	url = https://github.com/preservim/tagbar.git
+[submodule "plugins/vista"]
+	path = plugins/vista
+	url = https://github.com/liuchengxu/vista.vim.git
