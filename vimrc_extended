@@ -18,7 +18,7 @@ set pastetoggle=<F4>
 
 " Switching between buffers.
 " (- and + images on Fn)
-"nnoremap <silent><F5> :bprev<CR>
+nnoremap <silent><F5> :bprev<CR>
 nnoremap <silent><F6> :bnext<CR>
 
 " Display unprintable characters.
@@ -34,7 +34,7 @@ nnoremap <silent><F8> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<Bar>:
 nnoremap <silent><F9> <ESC>ggVGg?
 
 " Shortcut to clear highlights.
-nnoremap <silent><C-l> :<C-u>nohlsearch<CR><C-l>
+noremap <silent><C-l> :<C-u>nohlsearch<CR><C-l>
 
 if has('autocmd')
 	augroup auto_save_lost_focus
@@ -64,7 +64,7 @@ let g:netrw_liststyle = 3
 " Changing how files are opened:
 "  - 0: default, re-using the same window
 "  - 1: open in a new horizontal split
-"  - 2: open in a new vertical split 
+"  - 2: open in a new vertical split
 "  - 3: open in a new tab
 "  - 4: open in previous window
 let g:netrw_browse_split = 4
@@ -163,7 +163,7 @@ let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 let g:workspace_session_disable_on_args = 1
 
 " Undo history is persistent between sessions.
-let g:workspace_undodir = $HOME . '/.vim/undodir/'
+let g:workspace_undodir = expand(&undodir)
 let g:workspace_persist_undo_history = 1	" enabled=1 (default), disabled=0
 
 " Autosave all files edited in a workspace session.
@@ -208,11 +208,11 @@ let b:ale_fixers = {
 " Reference page:
 "	https://sourcery.ai/blog/python-best-practices/
 " * Flake8 ensures our code follows the standard python conventions as defined
-"    in PEP8. 
-" * Black is the uncompromising Python code formatter. 
+"    in PEP8.
+" * Black is the uncompromising Python code formatter.
 " * isort your python imports for you so you don't have to.
 " * Mypy is an optional static type checker for Python that aims to combine
-"    the benefits of dynamic (or 'duck') typing and static typing. 
+"    the benefits of dynamic (or 'duck') typing and static typing.
 " * Writing tests with pytest and pytest-cov are incredibly easy and removing
 "    any friction to writing tests means we will write more of them!
 
