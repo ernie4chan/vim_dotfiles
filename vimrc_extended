@@ -4,29 +4,37 @@
 command W write
 command Q quit
 
-" Shortcut to clear highlights.
-nnoremap <silent><C-l> :<C-u>nohlsearch<CR><C-l>
+" Mappings.
+nnoremap <silent><F2> :NERDTreeToggle<CR>
+nnoremap <silent><F3> :TagbarToggle<CR>
 
-" Switching between buffers.
-" (- and + images on Fn)
-nnoremap <silent><F8> :bprev<CR>
-nnoremap <silent><F9> :bnext<CR>
+nnoremap <leader>s :call ToggleVExplorer()<CR>
+nnoremap <leader>g :IndentGuidesToggle<CR>
+nnoremap <leader>w :ToggleWorkspace<CR>
 
 " Toggle auto-indenting on and off for code pasting.
 " (Lock image on Fn)
-set pastetoggle=<F3>
+set pastetoggle=<F4>
 
-" Deploy rot13 encryption for people snooping over shoulder.
-" (Wifi image on Fn)
-noremap <silent><F5> <ESC>ggVGg?
+" Switching between buffers.
+" (- and + images on Fn)
+"nnoremap <silent><F5> :bprev<CR>
+nnoremap <silent><F6> :bnext<CR>
 
 " Display unprintable characters.
 " (Cam image on Fn)
-nnoremap <silent><F6> :set list!<CR>:setlocal list?<CR>
+nnoremap <silent><F7> :set list!<CR>:setlocal list?<CR>
 
 " Destroying trailing whitespaces.
 " (Projector image on Fn)
-nnoremap <silent><F7> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<Bar>:unlet _s<CR>
+nnoremap <silent><F8> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<Bar>:unlet _s<CR>
+
+" Deploy rot13 encryption for people snooping over shoulder.
+" (Wifi image on Fn)
+nnoremap <silent><F9> <ESC>ggVGg?
+
+" Shortcut to clear highlights.
+nnoremap <silent><C-l> :<C-u>nohlsearch<CR><C-l>
 
 if has('autocmd')
 	augroup auto_save_lost_focus
@@ -90,16 +98,12 @@ function! ToggleVExplorer()
 		let t:expl_buf_num = bufnr("%")
 	endif
 endfunction
-map <silent><F4> :call ToggleVExplorer()<CR>
 
 " }}} 2
 
 " --- }}}
 
 " {{{ --- 2. NERDTree (File system explorer) ---
-
-" Mappings.
-nnoremap <silent><F2> :NERDTreeToggle<CR>
 
 let g:NERDTreeWinSize = 31		" Size of NERTree window.
 let g:NERDTreeMinimalUI = 1		" Disable 'Bookmarks' and 'Press?...' labels.
@@ -123,9 +127,6 @@ endif
 
 " {{{ --- 5. Indentguides ---
 
-" Mappings.
-nnoremap <leader>g :IndentGuidesToggle<CR>
-
 " Filetypes not be indented.
 let g:indentguides_ignorelist = ['text']
 
@@ -148,9 +149,6 @@ endif
 " --- }}}
 
 " {{{ --- 9. Vim-Workspace (Persistent Vim Session) ---
-
-" Mappings.
-nnoremap <leader>s :ToggleWorkspace<CR>
 
 " Crete a new buffer in the existing tab instead of creating a new tab.
 let g:workspace_create_new_tabs = 0			" enabled=1 (default), disabled=0
@@ -188,7 +186,12 @@ let g:tmux_navigator_disable_when_zoomed = 1
 
 " --- }}}
 
-" {{{ --- 11. ALE (Asynchronous Lint Engine) ---
+" {{{ --- 11. Tagbar ---
+
+
+" --- }}}
+
+" {{{ --- 12. ALE (Asynchronous Lint Engine) ---
 
 " Enable Linters and Fixers:
 let b:ale_linters = {

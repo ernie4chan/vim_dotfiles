@@ -226,6 +226,8 @@ endif
 
 " {{{ --- Source-in some other Vim's capabilities ---
 
-source $HOME/.vim/vimrc_extended
+if filereadable(expand("vimrc_extended"))
+	source $HOME/.vim/vimrc_extended
+endif
 
 " --- }}}
