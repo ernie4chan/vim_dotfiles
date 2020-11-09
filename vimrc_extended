@@ -68,7 +68,7 @@ let g:netrw_browse_split = 4
 " netrw can inherit custom wildignores:
 let g:netrw_list_hide = &wildignore
 
-let g:netrw_winsize = -31	" Setting absolute width of the window.
+let g:netrw_winsize = -32	" Setting absolute width of the window.
 let g:netrw_banner = 0		" Removing the banner on the top of window.
 let g:netrw_altv = &spr		" Vsplit to the left.
 let g:netrw_alto = &sb		" Hsplit to the top.
@@ -101,7 +101,7 @@ endfunction
 
 " {{{ --- 2. NERDTree (File system explorer) ---
 
-let g:NERDTreeWinSize = 31		" Size of NERTree window.
+let g:NERDTreeWinSize = 32		" Size of NERTree window.
 let g:NERDTreeMinimalUI = 1		" Disable 'Bookmarks' and 'Press?...' labels.
 let g:NERDTreeQuitOnOpen = 1	" Automatically close NERDTree when you open a file.
 
@@ -205,19 +205,12 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
 
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
 " --- }}}
 
 " {{{ --- 13. ALE (Asynchronous Lint Engine) ---
-
-" Enable Linters and Fixers:
-let b:ale_linters = {
-	\ 'python': ['flake8', 'mypy'],
-	\ }
-
-" Enable Fixers:
-let b:ale_fixers = {
-	\ 'python': ['black', 'isort', 'trim_whitespace'],
-	\ }
 
 " 2 {{{ - Some explanations -
 
@@ -233,6 +226,14 @@ let b:ale_fixers = {
 "    any friction to writing tests means we will write more of them!
 
 " }}} 2
+" Enable Linters and Fixers:
+let b:ale_linters = {
+	\ 'python': ['flake8', 'mypy'],
+	\ }
+
+let b:ale_fixers = {
+	\ 'python': ['black', 'isort', 'trim_whitespace'],
+	\ }
 
 " Run linters only when files are saved.
 let g:ale_fix_on_save = 1
