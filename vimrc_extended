@@ -30,7 +30,7 @@ nnoremap <silent><F8> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<Bar>:
 nnoremap <silent><F9> <ESC>ggVGg?
 
 " Shortcut to clear highlights.
-noremap <silent><C-l> :<C-u>nohlsearch<CR><C-l>
+nnoremap <silent><C-l> :<C-u>nohlsearch<CR><C-l>
 
 if has('autocmd')
 	augroup auto_save_lost_focus
