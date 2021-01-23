@@ -15,6 +15,7 @@
 
 " Not compatible with the old-fashion VI mode.
 set nocompatible
+set shortmess+=I
 
 " Store some Vim info.
 set viminfo='50,<1000,%,h,n$HOME/.vim/viminfo
