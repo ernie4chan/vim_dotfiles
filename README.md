@@ -20,7 +20,7 @@ $ git remote add origin <your_remote_repo>
 
 2. Building up our Vim in Git by typing: 'git submodule add <git_repo> <path_to_submodule>'.
 ```
-$ mkdir -p ~/.vim/pack/{addons,colors}/{start,opt}
+$ mkdir -p ~/.vim/pack/addons/{start,opt}
 $ cd ~/.vim; git init
 $ git commit -am "Initiate Vim”
 $ cd ~/.vim
