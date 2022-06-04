@@ -182,7 +182,7 @@ endif
 " Colorschemes: badwolf, gruvbox, solarized, jellybeans.
 if has("gui_running")		" Emulator running.
 	if has("mac")
-		set guifont=Code\ New\ Roman\ Nerd\ Font\ Complete\ Mono:h12
+		set guifont=Code\ New\ Roman\ Nerd\ Font\ Complete\ Mono:h14
 	elseif has("linux")
 		set guifont=Monofur\ Nerd\ Font\ 14
 		set guiheadroom=0	" Ugly gap in gVim.
@@ -194,11 +194,12 @@ if has("gui_running")		" Emulator running.
 	set guioptions-=r		" Remove right scrollbar.
 	set lines=50
 	set columns=96
-	colorscheme macvim
+	packadd solarized.vim
+	colorscheme solarized
 else						" Terminal running.
 	if has("mac")
-		packadd solarized.vim
-		colorscheme solarized
+		packadd jellybeans.vim
+		colorscheme jellybeans
 	elseif has("linux")
 		colorscheme default
 	endif
