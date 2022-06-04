@@ -1,0 +1,12 @@
+tmp/
+tmp/swp/
+tmp/undo/
+
+.netrwhist
+viminfo
+
+*.log
+*.old
+*.tmp
+
+!/**/.keep
