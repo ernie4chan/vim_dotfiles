@@ -194,14 +194,12 @@ if has("gui_running")		" Emulator running.
 	set guioptions-=r		" Remove right scrollbar.
 	set lines=50
 	set columns=96
-	colorscheme badwolf
+	colorscheme macvim
 else						" Terminal running.
 	if has("mac")
-		colorscheme jellybeans
-		"let ayucolor = "dark"
-		"colorscheme ayu
+		colorscheme solarized
 	elseif has("linux")
-		colorscheme badwolf
+		colorscheme default
 	endif
 endif
 

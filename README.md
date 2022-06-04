@@ -40,7 +40,7 @@ $ git commit -am "Add Vim-Surround"
 $ git submodule add https://github.com/junegunn/fzf.vim.git ./pack/addons/opt/fzf.vim
 $ git commit -am "Add fzf.vim"
 
-$ git submodule add https://github.com/altercation/vim-colors-solarized.git .pack/addons/opt/solarized.vim
+$ git submodule add https://github.com/altercation/vim-colors-solarized.git ./pack/addons/opt/solarized.vim
 $ git commit -am "Add color Solarized"
 
 $ git submodule add https://github.com/morhetz/gruvbox.git ./pack/addons/opt/gruvbox.vim
