@@ -94,6 +94,6 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " {{{ --- 6. Vifm for Vim. ---
 
-"packadd vifm.vim
+packadd vifm.vim
 
 " }}}

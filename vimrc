@@ -197,6 +197,7 @@ if has("gui_running")		" Emulator running.
 	colorscheme macvim
 else						" Terminal running.
 	if has("mac")
+		packadd solarized.vim
 		colorscheme solarized
 	elseif has("linux")
 		colorscheme default
