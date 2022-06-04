@@ -19,3 +19,6 @@
 [submodule "pack/addons/opt/solarized.vim"]
 	path = pack/addons/opt/solarized.vim
 	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "pack/addons/opt/jellybeans.vim"]
+	path = pack/addons/opt/jellybeans.vim
+	url = https://github.com/nanotech/jellybeans.vim.git
