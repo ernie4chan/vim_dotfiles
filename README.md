@@ -40,14 +40,17 @@ $ git commit -am "Add Vim-Surround"
 $ git submodule add https://github.com/junegunn/fzf.vim.git ./pack/addons/start/fzf.vim
 $ git commit -am "Add fzf.vim"
 
-$ git submodule add https://github.com/morhetz/gruvbox.git ./pack/addons/opt/gruvbox
-$ git commit -am "Add colorscheme Gruvbox"
+$ git submodule add https://github.com/altercation/vim-colors-solarized.git .pack/addons/opt/solarized.vim
+$ git commit -am "Add color Solarized"
 
-$ git submodule add https://github.com/nanotech/jellybeans.vim.git ./pack/addons/opt/jellybeans
-$ git commit -am "Add colorscheme Jellybeans"
+$ git submodule add https://github.com/morhetz/gruvbox.git ./pack/addons/opt/gruvbox.vim
+$ git commit -am "Add color Gruvbox"
 
-$ git submodule add https://github.com/sjl/badwolf.git ./pack/addons/opt/badwolf
-$ git commit -am "Add colorscheme Badwolf"
+$ git submodule add https://github.com/nanotech/jellybeans.vim.git ./pack/addons/opt/jellybeans.vim
+$ git commit -am "Add color Jellybeans"
+
+$ git submodule add https://github.com/sjl/badwolf.git ./pack/addons/opt/badwolf.vim
+$ git commit -am "Add color Badwolf"
 
 ```
 
