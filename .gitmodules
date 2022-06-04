@@ -1,3 +1,6 @@
 [submodule "pack/addons/start/ale"]
 	path = pack/addons/start/ale
 	url = https://github.com/dense-analysis/ale.git
+[submodule "pack/addons/start/vim-devicons"]
+	path = pack/addons/start/vim-devicons
+	url = https://github.com/ryanoasis/vim-devicons
