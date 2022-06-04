@@ -37,7 +37,7 @@ $ git commit -am "Add Vim-Fugitive"
 $ git submodule add https://github.com/tpope/vim-surround.git ./pack/addons/start/vim-surround
 $ git commit -am "Add Vim-Surround"
 
-$ git submodule add https://github.com/junegunn/fzf.vim.git ./pack/addons/start/fzf.vim
+$ git submodule add https://github.com/junegunn/fzf.vim.git ./pack/addons/opt/fzf.vim
 $ git commit -am "Add fzf.vim"
 
 $ git submodule add https://github.com/altercation/vim-colors-solarized.git .pack/addons/opt/solarized.vim

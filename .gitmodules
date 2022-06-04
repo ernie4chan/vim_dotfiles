@@ -10,9 +10,6 @@
 [submodule "pack/addons/start/vim-surround"]
 	path = pack/addons/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "pack/addons/start/fzf.vim"]
-	path = pack/addons/start/fzf.vim
-	url = https://github.com/junegunn/fzf.vim.git
 [submodule "pack/addons/opt/vifm.vim"]
 	path = pack/addons/opt/vifm.vim
 	url = https://github.com/vifm/vifm.vim.git
