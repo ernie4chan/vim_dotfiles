@@ -22,3 +22,6 @@
 [submodule "pack/addons/opt/jellybeans.vim"]
 	path = pack/addons/opt/jellybeans.vim
 	url = https://github.com/nanotech/jellybeans.vim.git
+[submodule "pack/addons/opt/badwolf.vim"]
+	path = pack/addons/opt/badwolf.vim
+	url = https://github.com/sjl/badwolf.git
