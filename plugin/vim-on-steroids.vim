@@ -50,19 +50,10 @@ endif
 " {{{ --- 3. Vim-Fugitive. ---
 " }}}
 
-" {{{ --- 4. Vim-Repeat. ---
+" {{{ --- 4. Vim-Surround. ---
 " }}}
 
-" {{{ --- 5. Vim-Surround. ---
-" }}}
-
-" {{{ --- 6. Vifm for Vim. (opt)  ---
-
-"packadd vifm.vim
-
-" }}}
-
-" {{{ --- 7. FZF for Vim. (opt) ---
+" {{{ --- 5. FZF for Vim. ---
 
 " Set Run-time path.
 if has("mac")
@@ -98,5 +89,11 @@ omap <leader><tab> <plug>(fzf-maps-o)
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" }}}
+
+" {{{ --- 6. Vifm for Vim. ---
+
+"packadd vifm.vim
 
 " }}}
