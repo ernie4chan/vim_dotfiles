@@ -25,3 +25,6 @@
 [submodule "pack/addons/opt/badwolf.vim"]
 	path = pack/addons/opt/badwolf.vim
 	url = https://github.com/sjl/badwolf.git
+[submodule "pack/addons/opt/gruvbox.vim"]
+	path = pack/addons/opt/gruvbox.vim
+	url = https://github.com/morhetz/gruvbox.git
