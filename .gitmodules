@@ -28,3 +28,6 @@
 [submodule "pack/addons/opt/gruvbox.vim"]
 	path = pack/addons/opt/gruvbox.vim
 	url = https://github.com/morhetz/gruvbox.git
+[submodule "pack/addons/opt/molokai.vim"]
+	path = pack/addons/opt/molokai.vim
+	url = https://github.com/tomasr/molokai.git
