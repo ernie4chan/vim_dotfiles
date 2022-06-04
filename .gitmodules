@@ -16,3 +16,6 @@
 [submodule "pack/addons/opt/fzf.vim"]
 	path = pack/addons/opt/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
+[submodule ".pack/addons/opt/solarized.vim"]
+	path = .pack/addons/opt/solarized.vim
+	url = https://github.com/altercation/vim-colors-solarized.git
