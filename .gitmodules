@@ -31,3 +31,6 @@
 [submodule "pack/addons/opt/molokai.vim"]
 	path = pack/addons/opt/molokai.vim
 	url = https://github.com/tomasr/molokai.git
+[submodule "pack/addons/opt/ayu.vim"]
+	path = pack/addons/opt/ayu.vim
+	url = https://github.com/ayu-theme/ayu-vim.git
