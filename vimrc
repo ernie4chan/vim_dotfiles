@@ -198,8 +198,8 @@ if has("gui_running")		" Emulator running.
 	colorscheme jellybeans
 else						" Terminal running.
 	if has("mac")
-		packadd molokai.vim
-		colorscheme molokai
+		packadd gruvbox.vim
+		colorscheme gruvbox
 	elseif has("linux")
 		colorscheme default
 	endif
