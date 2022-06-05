@@ -198,8 +198,9 @@ if has("gui_running")		" Emulator running.
 	colorscheme jellybeans
 else						" Terminal running.
 	if has("mac")
-		packadd gruvbox.vim
-		colorscheme gruvbox
+		packadd ayu.vim
+		let ayucolor="dark"
+		colorscheme ayu
 	elseif has("linux")
 		colorscheme default
 	endif
