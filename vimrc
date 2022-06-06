@@ -199,7 +199,6 @@ if has("gui_running")		" Emulator running.
 else						" Terminal running.
 	if has("mac")
 		packadd ayu.vim
-		let ayucolor="dark"
 		colorscheme ayu
 	elseif has("linux")
 		colorscheme default
