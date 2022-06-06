@@ -201,7 +201,8 @@ else						" Terminal running.
 		packadd ayu.vim
 		colorscheme ayu
 	elseif has("linux")
-		colorscheme default
+		packadd badwolf.vim
+		colorscheme badwolf
 	endif
 endif
 
