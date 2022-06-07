@@ -1,6 +1,6 @@
-tmp/
-tmp/swp/
-tmp/undo/
+temp/
+temp/swap/
+temp/undo/
 
 .netrwhist
 viminfo
