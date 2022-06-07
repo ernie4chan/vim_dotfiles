@@ -29,9 +29,9 @@ set viminfo='100,<50,%,h,n$HOME/.vim/viminfo
 "           + files marks saved
 
 " How to handle backup files.
-set backupdir=$HOME/.vim/tmp//		" Where Vim stashes backup files.
-set directory=$HOME/.vim/tmp/swp//	" Where Vim stashes swap files.
-set undodir=$HOME/.vim/tmp/undo//	" Where Vim stashes undo files.
+set backupdir=$HOME/.vim/temp//			" Where Vim stashes backup files.
+set directory=$HOME/.vim/temp/swap//	" Where Vim stashes swap files.
+set undodir=$HOME/.vim/temp/undo//		" Where Vim stashes undo files.
 set swapfile					" Save unsaved changes.
 set undofile					" Save undo trees of the file edited for days.
 set writebackup					" Backup files while editing.
