@@ -53,7 +53,7 @@ endif
 " {{{ --- 4. Vim-Surround. ---
 " }}}
 
-" {{{ --- 5. FZF for Vim. ---
+" {{{ --- 5. fzf for Vim. ---
 
 " Set Run-time path.
 if has("mac")
