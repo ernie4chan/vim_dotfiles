@@ -1,6 +1,8 @@
 " ---------------------------------------------------------
 " File: vim-on-steroids.vim
 " Maintainer: Ernie Lin
+"
+" Update: 2022-06-08
 " ---------------------------------------------------------
 
 " {{{ --- 1. ALE (Asynchronous Lint Engine). ---
@@ -23,8 +25,8 @@
 " Enable Global Linters and Fixers:
 let g:ale_fixers = {
 	\ '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
-	\ 'python': [ 'black', 'isort' ],
 	\ 'javascript': ['eslint'],
+	\ 'python': [ 'black', 'isort' ],
 \ }
 
 " Automatically fix files when you save.
@@ -34,8 +36,6 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 " Don't run linters on opening a file.
 let g:ale_lint_on_enter = 0
-" Enable completion where available. This setting must be set before ALE is loaded.
-let g:ale_completion_enabled = 1
 
 " }}}
 
@@ -62,8 +62,6 @@ elseif has('linux')
 	set runtimepath+=/usr/bin/fzf
 endif
 
-packadd fzf.vim
-
 " Hide statusline while FZFing.
 au! FileType fzf set laststatus=0 noshowmode noruler
 			\ | au BufLeave <buffer> set laststatus=2 showmode ruler
@@ -80,15 +78,17 @@ let g:fzf_buffers_jump = 1
 " [[B]Commits] Customize the options used by 'git log'.
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
-" FZF Mapping selecting mappings.
+" fzf Mapping selecting mappings.
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
-" FZF Insert mode completion.
+" fzf Insert mode completion.
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+packadd fzf.vim
 
 " }}}
 
