@@ -251,7 +251,6 @@ endif
 " File located in '~/.vim/plugin/vim-on-steroids.vim'
 
 " --- Put these at the very end of your '$VIMRC'. ---
-
 " Load all plugins now.
 "  Plugins need to be added to runtimepath before helptags can be generated.
 packloadall!
