@@ -177,6 +177,8 @@ if has("termguicolors") && (has ("gui_macvim") || $LC_TERMINAL ==# 'iTerm2')
 	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 	" Enable true color.
 	set termguicolors
+	" Kitty fix.
+	let &t_ut=''
 endif
 
 " Colorschemes: badwolf, gruvbox, solarized, jellybeans.
