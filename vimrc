@@ -184,9 +184,9 @@ endif
 " Colorschemes: badwolf, gruvbox, solarized, jellybeans.
 if has("gui_running")		" Emulator running.
 	if has("mac")
-		set guifont=Code\ New\ Roman\ Nerd\ Font\ Complete\ Mono:h14
+		set guifont=agave\ Nerd\ Font:h13
 	elseif has("linux")
-		set guifont=Monofur\ Nerd\ Font\ 14
+		set guifont=agave\ Nerd\ Font\ 13
 		set guiheadroom=0	" Ugly gap in gVim.
 	endif
 	set guioptions-=T		" Remove toolbar.
