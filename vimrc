@@ -170,7 +170,18 @@ set ambiwidth=single
 
 " {{{ --- Advanced features. ---
 
-" Colorschemes: badwolf, gruvbox, solarized, jellybeans.
+" True Color.
+if has("termguicolors")
+	" Fix true color bug for Vim.
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+	" Enable true color.
+	set termguicolors
+	" Kitty fix.
+	let &t_ut=''
+endif
+
+" Colorschemes.
 if has("gui_running")		" Emulator running.
 	if has("mac")
 		set guifont=agave\ Nerd\ Font:h13
@@ -178,13 +189,6 @@ if has("gui_running")		" Emulator running.
 		set guifont=agave\ Nerd\ Font\ 13
 		set guiheadroom=0	" Ugly gap in gVim.
 	endif
-	" True Color: fix true color bug for Vim.
-	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-	" Enable true color.
-	set termguicolors
-	" Kitty fix.
-	let &t_ut=''
 	set guioptions-=T		" Remove toolbar.
 	set guioptions-=e		" Remove tabbar.
 	set guioptions+=m		" Remove menubar.
