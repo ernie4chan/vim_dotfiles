@@ -34,3 +34,6 @@
 [submodule "pack/addons/opt/ayu.vim"]
 	path = pack/addons/opt/ayu.vim
 	url = https://github.com/ayu-theme/ayu-vim.git
+[submodule "pack/addons/opt/dracula.vim"]
+	path = pack/addons/opt/dracula.vim
+	url = https://github.com/dracula/vim.git
