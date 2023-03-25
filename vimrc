@@ -203,8 +203,8 @@ else						" Terminal running.
 		packadd ayu.vim
 		colorscheme ayu
 	elseif has("linux")
-		packadd badwolf.vim
-		colorscheme badwolf
+		packadd solarized.vim
+		colorscheme solarized
 	endif
 endif
 
