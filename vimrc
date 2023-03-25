@@ -209,11 +209,11 @@ else						" Terminal running.
 endif
 
 " The infamous Powerline-status from Python.
-if has("python3")
-	python3 from powerline.vim import setup as powerline_setup
-	python3 powerline_setup()
-	python3 del powerline_setup
-endif
+"if has("python3")
+"	python3 from powerline.vim import setup as powerline_setup
+"	python3 powerline_setup()
+"	python3 del powerline_setup
+"endif
 
 " Enable mouse.
 if has("mouse")
@@ -239,7 +239,7 @@ endif
 
 " Remove '~/.viminfo'.
 if filereadable(expand("$HOME/.viminfo"))
-	silent !mv $HOME/.viminfo $HOME/.vim/tmp/viminfo.old
+	silent !mv $HOME/.viminfo $HOME/.vim/temp/viminfo.old
 endif
 
 " }}}
