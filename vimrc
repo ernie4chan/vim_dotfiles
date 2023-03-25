@@ -203,6 +203,7 @@ else						" Terminal running.
 		packadd ayu.vim
 		colorscheme ayu
 	elseif has("linux")
+		set background=dark
 		packadd solarized.vim
 		colorscheme solarized
 	endif
