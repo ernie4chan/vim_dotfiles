@@ -34,3 +34,6 @@
 [submodule "pack/addons/opt/ayu.vim"]
 	path = pack/addons/opt/ayu.vim
 	url = https://github.com/ayu-theme/ayu-vim.git
+[submodule "pack/addons/opt/holokai.vim"]
+	path = pack/addons/opt/holokai.vim
+	url = https://github.com/changyuheng/color-scheme-holokai.vim.git
