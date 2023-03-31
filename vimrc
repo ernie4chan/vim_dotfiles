@@ -162,9 +162,9 @@ set ttyfast				" Send more chars while redrawing.
 " Useful settings for Powerline statusline according to docs:
 set laststatus=2		" Always display the statusline in all windows.
 set noshowmode			" Hide the default mode text.
-set showtabline=1		" Always display the tabline.
-set fillchars+=stl:\ ,stlnc:\
-set ambiwidth=single
+"set showtabline=1		" Always display the tabline.
+"set fillchars+=stl:\ ,stlnc:\
+"set ambiwidth=single
 
 " }}}
 
@@ -177,16 +177,19 @@ if has("termguicolors")
 	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 	" Enable true color.
 	set termguicolors
-	" Kitty fix.
-	let &t_ut=''
+	" Kitty fix: Vim hardcodes background color erase even if the terminfo
+	" file does not contain bce. This causes incorrect background rendering
+	" when using a color theme with a background color in terminals such as
+	" kitty that do not support background color erase.
+	"let &t_ut=''
 endif
 
 " Colorschemes.
 if has("gui_running")		" Emulator running.
 	if has("mac")
-		set guifont=agave\ Nerd\ Font:h13
+		set guifont=Hack\ Nerd\ Font:h13
 	elseif has("linux")
-		set guifont=agave\ Nerd\ Font\ 13
+		set guifont=Hack\ Nerd\ Font\ 13
 		set guiheadroom=0	" Ugly gap in gVim.
 	endif
 	set guioptions-=T		" Remove toolbar.
@@ -209,7 +212,7 @@ else						" Terminal running.
 	endif
 endif
 
-" The infamous Powerline-status from Python.
+" The infamous Powerline-status from Python. Currently using Vim-airline.
 "if has("python3")
 "	python3 from powerline.vim import setup as powerline_setup
 "	python3 powerline_setup()
@@ -219,7 +222,7 @@ endif
 " Enable mouse.
 if has("mouse")
 	set mouse=a			" Mouse in all modes.
-	set mousehide		" Hide mouse pointer while typing
+	set mousehide		" Hide mouse pointer while typing.
 	" Sensible horinzontal mouse scrolling wth Logitech Ultrathin Mouse.
 	nmap <ScrollWheelLeft> <nop>
 	imap <ScrollWheelLeft> <nop>
@@ -233,7 +236,7 @@ if executable("rg")
 	set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-" list of dictionary files for keyword completion
+" list of dictionary files for keyword completion.
 if has("mac")
 	set dictionary=/usr/share/dict/words
 endif
