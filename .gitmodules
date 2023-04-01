@@ -19,3 +19,6 @@
 [submodule "pack/addons/start/vim-airline"]
 	path = pack/addons/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
+[submodule "pack/colors/start/vim-colorschemes"]
+	path = pack/colors/start/vim-colorschemes
+	url = https://github.com/rafi/awesome-vim-colorschemes.git
