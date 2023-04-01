@@ -7,31 +7,27 @@
 
 " {{{ 1. ALE (Asynchronous Lint Engine).
 
-" Reference page:
-"	https://sourcery.ai/blog/python-best-practices/
-" * Flake8 ensures our code follows the standard python conventions
-"    as defined in PEP8.
-" * Black is the uncompromising Python code formatter.
-" * isort your python imports for you so you don't have to.
-" * Mypy is an optional static type checker for Python that aims to combine
-"    the benefits of dynamic (or 'duck') typing and static typing.
-" * Writing tests with pytest and pytest-cov are incredibly easy and removing
-"    any friction to writing tests means we will write more of them!
-
 " Enable Global Linters and Fixers:
+" Reference page for Python fixers:
+" 'https://sourcery.ai/blog/python-best-practices/'
 let g:ale_fixers = {
 	\ '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
-	\ 'javascript': ['eslint'],
-	\ 'python': [ 'black', 'isort' ],
+	\ 'javascript': ['prettier', 'eslint'],
+	\ 'python': [ 'black'],
 \ }
 
 " Automatically fix files when you save.
 let g:ale_fix_on_save = 1
+
 " Run linters when you save.
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
+
 " Don't run linters on opening a file.
 let g:ale_lint_on_enter = 0
+
+" Disable whitespace warnings
+let g:ale_warn_about_trailing_whitespace = 0
 
 " }}}
 
@@ -40,6 +36,12 @@ let g:ale_lint_on_enter = 0
 if has("mac")
 	let g:WebDevIconsOS = 'Darwin'
 endif
+
+" Adding to Vim-Airline's tabline.
+let g:webdevicons_enable_airline_tabline = 1
+
+" Adding to Vim-Airline's statusline.
+let g:webdevicons_enable_airline_statusline = 1
 
 " }}}
 
@@ -88,13 +90,13 @@ packadd fzf.vim
 
 " }}}
 
-" {{{ 6. Vifm for Vim.
+" {{{ 6. vifm for Vim.
 
 packadd vifm.vim
 
 " }}}
 
-" {{{ 7. Vim Airline.
+" {{{ 7. Vim-Airline.
 
 "let g:airline#extensions#tabline#enabled = 1
 
