@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:     SQL with SQLite and other additions.
-" Maintainer:   Lorance Stinson <Lorance Stinson AT gmail DOT com>
-" Last Change:  Sun, Aug 21, 2011
+" Maintainer:   Jessica K McIntosh AT gmail DOT com
+" Last Changed: Thu Jan 23 06:00 PM 2014 EST
 
 " More complete SQL matching with error reporting.
 " Only matches types inside 'CREATE TABLE ();'.
@@ -22,7 +22,7 @@ syn case ignore
 syn cluster sqlALL          contains=TOP
 
 " Various error conditions.
-syn match   sqlError        "\<\w\+("           " Not a known function.
+"syn match   sqlError        "\<\w\+("           " Not a known function.
 syn match   sqlError        ")"                 " Lonely closing paren.
 syn match   sqlError        ",\(\_\s*[;)]\)\@=" " Comma before a paren or semicolon.
 syn match   sqlError        " $"                " Space at the end of a line.
@@ -46,7 +46,7 @@ syn keyword sqlKeyword      initial inner into is join key left level loop
 syn keyword sqlKeyword      maxextents mode modify nocompress nowait object of
 syn keyword sqlKeyword      off offline on online option order outer pctfree
 syn keyword sqlKeyword      primary privileges procedure public references
-syn keyword sqlKeyword      referencing release resource return role row
+syn keyword sqlKeyword      referencing release resource return role row rowid
 syn keyword sqlKeyword      rowlabel rownum rows schema session share size
 syn keyword sqlKeyword      start successful synonym then to transaction trigger
 syn keyword sqlKeyword      uid user using validate values view virtual whenever
@@ -77,28 +77,42 @@ syn keyword sqlKeyword      wal_autocheckpoint wal_checkpoint writable_schema
 
 " Operators
 syn keyword sqlOperator     all and any between case distinct elif else end
-syn keyword sqlOperator     exists if in intersect is like match matches minus
-syn keyword sqlOperator     not or out prior regexp some then union unique when
+syn keyword sqlOperator     exit exists if in intersect is like match matches
+syn keyword sqlOperator     minus not or out prior regexp some then union
+syn keyword sqlOperator     unique when
 syn match   sqlOperator     "||\|:="
+
+" Conditionals
+syn match   sqlConditional  "=\|<\|>\|+\|-"
+
+" Unknown functions.
+syn match   sqlUnknownFunc  "\<\w\+(\@="
 
 " Functions - Only valid with a '(' after them.
 syn match   sqlFunction     "\<\(abs\|acos\|asin\|atan2\?\|avg\|cardinality\)(\@="
 syn match   sqlFunction     "\<\(cast\|changes\|char_length\|character_length\)(\@="
-syn match   sqlFunction     "\<\(coalesce\|cos\|count\|\(date\)\?\(time\)\?\)(\@="
-syn match   sqlFunction     "\<\(exp\|filetoblob\|filetoclob\|glob\|group_concat\)(\@="
+syn match   sqlFunction     "\<\(coalesce\|concat\|cos\|count\|\(date\)\?\(time\)\?\)(\@="
+syn match   sqlFunction     "\<\(exp\|filetoblob\|filetoclob\|floor\|glob\|group_concat\)(\@="
 syn match   sqlFunction     "\<\(hex\|ifnull\|initcap\|isnull\|julianday\|last_insert_rowid\)(\@="
 syn match   sqlFunction     "\<\(length\|log10\|logn\|lower\|lpad\|ltrin\|max\|min\)(\@="
 syn match   sqlFunction     "\<\(mod\|nullif\|octet_length\|pow\|quote\|random\)(\@="
 syn match   sqlFunction     "\<\(range\|replace\|root\|round\|rpad\|sin\|soundex\)(\@="
 syn match   sqlFunction     "\<\(sqrtstdev\|strftime\|substr\|substring\|sum\|sysdate\|tan\)(\@="
-syn match   sqlFunction     "\<\(to_char\|to_date\|total\|trim\|trunc\|typeof\)(\@="
+syn match   sqlFunction     "\<\(to_char\|to_date\|to_number\|total\|trim\|trunc\|typeof\)(\@="
 syn match   sqlFunction     "\<\(upper\|variance\)(\@="
+
+" Oracle DBMS functions.
+syn match   sqlFunction     "\<dbms_\w\+\.\w\+(\@="
+
+" Oracle Exception Functions.
+syn match   sqlFunction     "\<raise_application_error(\@="
 
 " SQLite Functions
 syn match   sqlFunction     "\<\(last_insert_rowid\|load_extension\|randomblob\)(\@="
 syn match   sqlFunction     "\<\(sqlite_compileoption_get\|sqlite_compileoption_used\)(\@="
 syn match   sqlFunction     "\<\(sqlite_source_id\|sqlite_version\|sqlite_version\)(\@="
 syn match   sqlFunction     "\<\(zeroblob\|ltrim\|rtrim\)(\@="
+
 " SQLite Command Line Client Functions
 syn match   sqlFunction     "^\.\w\+"
 
@@ -128,7 +142,9 @@ syn match   sqlType         contained "\<character\s\+varying\>"
 syn match   sqlType         contained "\<double\s\+precision\>"
 
 " Oracle Variables
-syn match   sqlVariable     contained "&\a\w\+"
+syn match   sqlVariable     "&\a\w\+"
+syn match   sqlVariable     ":\w\+"
+syn match   sqlVariable     "SQL%\w\+"
 
 " Strings
 syn region sqlString        start=+"+  skip=+\\\\\|\\"+  end=+"+ contains=sqlVariable
@@ -148,18 +164,23 @@ syn keyword sqlTodo         contained DEBUG FIXME NOTE TODO XXX
 " Comments
 syn region sqlComment       start="/\*"  end="\*/" contains=sqlTodo
 syn match  sqlComment       "--.*$" contains=sqlTodo
+syn match  sqlComment       "rem.*$" contains=sqlTodo
 
 " Mark correct paren use. Different colors for different purposes.
 syn region  sqlParens       transparent matchgroup=sqlParen start="(" end=")"
 syn match   sqlParenEmpty   "()"
 syn region  sqlParens       transparent matchgroup=sqlParenFunc start="\(\<\w\+\>\)\@<=(" end=")"
 
-" Highlight types correctly inside 'CREATE TABLE ();' statements.
+" Highlight types correctly inside create table and procedure statements.
 " All other SQL is properly highlighted as well.
 syn region  sqlTypeParens   contained matchgroup=sqlType start="(" end=")" contains=@sqlALL
 syn match   sqlTypeMatch    contained "\(\(^\|[,(]\)\s*\S\+\s\+\)\@<=\w\+\(\s*([^)]\+)\)\?" contains=sqlType,sqlTypeParens
 syn match   sqlTypeMatch    contained "\(\(^\|[,(]\)\s*\S\+\s\+\)\@<=character\s\+varying\s*([^)]\+)" contains=sqlType,sqlTypeParens
 syn region  sqlTypeRegion   matchgroup=sqlParen start="\(create\s\+table\s\+[^(]\+\s\+\)\@<=(" end=")" contains=@sqlALL,sqlTypeMatch
+syn region  sqlTypeRegion   matchgroup=sqlParen start="\(create\s\+\(or\s\+replace\s\+\)\?procedure\s\+[^(]\+\s*\)\@<=(" end=")" contains=@sqlALL,sqlTypeMatch
+
+" SQL Embedded in a statement.
+syn region  sqlquoteRegion  matchgroup=sqlParen start="\(execute\s\+immediate\s*\)\@<=('" end="')" contains=@sqlALL
 
 " Special Oracle Statements
 syn match   sqlStatement    "^\s*\(prompt\|spool\)\>" nextgroup=sqlAnyString
@@ -215,7 +236,9 @@ if version >= 508 || !exists("did_sql_syn_inits")
     HiLink sqlComment       Comment
     HiLink sqlError         Error
     HiLink sqlFunction      Function
+    HiLink sqlUnknownFunc   Exception
     HiLink sqlKeyword       Special
+    HiLink sqlConditional   Conditional
     HiLink sqlNumber        Number
     HiLink sqlOperator      Operator
     HiLink sqlParen         Comment
