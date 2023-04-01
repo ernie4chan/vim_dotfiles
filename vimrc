@@ -1,8 +1,8 @@
-" ---------------------------------------------------------
-" File: vimrc
+" -------------------------------------------------------------
+" File: ~/.vim/vimrc
 " Maintainer: Ernie Lin
-" {{{ --- Chronicles of major updates. ---
-
+"
+" Chronicles of major updates:
 " v.1: 2016/03/19 Dad back to Taiwan.
 " v.2: 2017/10/09 Clau in Cebu Holidays.
 " v.3: 2018/04/19 Watched Real Player One@Dot_Baires.
@@ -10,11 +10,10 @@
 " v.5: 2018/09/21 Spring time in Argentina.
 " v.6: 2020/10/10 Taiwan National Day (Lenovo T430s).
 " v.7: 2021/11/08 MBP2015 is back after being broken for 2 yrs.
+" v.8: 2023/03/31 Zephyrus WSL2 with Windows 11.
+" -------------------------------------------------------------
 
-" }}}
-" ---------------------------------------------------------
-
-" {{{ --- How to handle Vim. ---
+" {{{ How to handle Vim.
 
 " Not compatible with the old-fashion VI mode.
 set nocompatible
@@ -47,7 +46,7 @@ unlet i
 
 " }}}
 
-" {{{ --- Encoding. ---
+" {{{ Encoding.
 
 " Multibyte must be at the beginning of '$VIMRC'.
 if has("multi_byte")
@@ -101,7 +100,7 @@ endif
 
 " --- }}}
 
-" {{{ --- Features. ---
+" {{{ General features.
 
 " Filetype detection, filetype-specific plugins and indenting.
 filetype plugin indent on
@@ -134,41 +133,39 @@ set foldlevel=0			" Fold all levels.
 set foldmethod=marker	" Fold method.
 set wrap				" Wrap lines.
 
-" Text visualization.
-set showbreak=↳			" Show for lines that have been wrapped.
-set list				" Show invisible.
-set listchars=tab:⇥\ \ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
-
 " Autocomplete.
 set wildmenu			" Visual autocomplete for command menu at the bottom bar.
 set wildmode=list:longest,full	" Turn on wild mode huge list.
 set wildignore=.DS_Store,*.git
 set wildignore+=*/tmp/*
 
+" Text visualization.
+set list				" Show invisible.
+set listchars=tab:⇥\ \ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+set showbreak=↳			" Show for lines that have been wrapped.
+set showtabline=1		" Display the tabline when there are at least 2.
+set fillchars+=stl:\ ,stlnc:\
+
 " UI preferences.
+set ambiwidth=single	" East Asian width class ambiguous characters.
 set autochdir			" Auto change the current working directory.
 set belloff=all			" Mute all beeps.
 set clipboard+=unnamed	" Makes y and p to the global buffer.
-set cursorcolumn		" Highlight current column.
-set cursorline			" Highlight current line.
+"set cursorcolumn		" Highlight current column.
+"set cursorline			" Highlight current line.
 set hidden				" Buffer becomes hidden when abandoned.
+set laststatus=2		" Always display the statusline in all windows.
 set noshowmatch			" Disable jumping to matching bracket when typing.
+set noshowmode			" Hide the default mode text.
 set notitle				" Set filename in terminal title.
 set number				" Display line numbers.
-set ruler				" Show the cursor position at all time.
+set ruler				" The ruler is displayed on the status line.
 set switchbuf=usetab	" When switching buffers, include tabs.
 set ttyfast				" Send more chars while redrawing.
 
-" Useful settings for Powerline statusline according to docs:
-set laststatus=2		" Always display the statusline in all windows.
-set noshowmode			" Hide the default mode text.
-"set showtabline=1		" Always display the tabline.
-"set fillchars+=stl:\ ,stlnc:\
-"set ambiwidth=single
-
 " }}}
 
-" {{{ --- Advanced features. ---
+" {{{ Advanced features.
 
 " True Color.
 if has("termguicolors")
@@ -230,6 +227,16 @@ if has("mouse")
 	imap <ScrollWheelRight> <nop>
 endif
 
+" }}}
+
+" {{{ Extra features.
+
+" Netrw (The Unloved Directory Browser).
+" File located in '~/.vim/plugin/better-netrw.vim'
+
+" Vim Addons.
+" File located in '~/.vim/plugin/vim-on-steroids.vim'
+
 " Calling grep.
 if executable("rg")
 	set grepprg=rg\ --vimgrep\ --no-heading
@@ -245,16 +252,6 @@ endif
 if filereadable(expand("$HOME/.viminfo"))
 	silent !mv $HOME/.viminfo $HOME/.vim/temp/viminfo.old
 endif
-
-" }}}
-
-" {{{ --- Extra features. ---
-
-" Netrw (The Unloved Directory Browser).
-" File located in '~/.vim/plugin/better-netrw.vim'
-
-" Vim Addons.
-" File located in '~/.vim/plugin/vim-on-steroids.vim'
 
 " --- Put these at the very end of your '$VIMRC'. ---
 " Load all plugins now.

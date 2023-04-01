@@ -1,5 +1,5 @@
 " ---------------------------------------------------------
-" File: better-netrw.vim
+" File: ~/.vim/plugin/better-netrw.vim
 " Description: Making a more intuitive Netrw.
 "
 " Update: 2022-06-08

@@ -1,13 +1,11 @@
-" ---------------------------------------------------------
-" File: vim-on-steroids.vim
+" ---------------------------------------------
+" File: ~/.vim/plugin/vim-on-steroids.vim
 " Maintainer: Ernie Lin
 "
 " Update: 2022-06-08
-" ---------------------------------------------------------
+" ---------------------------------------------
 
-" {{{ --- 1. ALE (Asynchronous Lint Engine). ---
-
-" {{{2 --- Some explanations. ---
+" {{{ 1. ALE (Asynchronous Lint Engine).
 
 " Reference page:
 "	https://sourcery.ai/blog/python-best-practices/
@@ -19,8 +17,6 @@
 "    the benefits of dynamic (or 'duck') typing and static typing.
 " * Writing tests with pytest and pytest-cov are incredibly easy and removing
 "    any friction to writing tests means we will write more of them!
-
-" 2}}}
 
 " Enable Global Linters and Fixers:
 let g:ale_fixers = {
@@ -39,7 +35,7 @@ let g:ale_lint_on_enter = 0
 
 " }}}
 
-" {{{ --- 2. Vim-DevIcons. ---
+" {{{ 2. Vim-DevIcons.
 
 if has("mac")
 	let g:WebDevIconsOS = 'Darwin'
@@ -47,13 +43,13 @@ endif
 
 " }}}
 
-" {{{ --- 3. Vim-Fugitive. ---
+" {{{ 3. Vim-Fugitive.
 " }}}
 
-" {{{ --- 4. Vim-Surround. ---
+" {{{ 4. Vim-Surround.
 " }}}
 
-" {{{ --- 5. fzf for Vim. ---
+" {{{ 5. fzf for Vim.
 
 " Set Run-time path.
 if has("mac")
@@ -62,7 +58,7 @@ elseif has('linux')
 	set runtimepath+=/usr/bin/fzf
 endif
 
-" Hide statusline while FZFing.
+" Hide statusline while fzf-ing.
 au! FileType fzf set laststatus=0 noshowmode noruler
 			\ | au BufLeave <buffer> set laststatus=2 showmode ruler
 
@@ -92,13 +88,13 @@ packadd fzf.vim
 
 " }}}
 
-" {{{ --- 6. Vifm for Vim. ---
+" {{{ 6. Vifm for Vim.
 
 packadd vifm.vim
 
 " }}}
 
-" {{{ --- 7. Vim Airline. ---
+" {{{ 7. Vim Airline.
 
 "let g:airline#extensions#tabline#enabled = 1
 
