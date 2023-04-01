@@ -5,12 +5,11 @@
 " Chronicles of major updates:
 " v.1: 2016/03/19 Dad back to Taiwan.
 " v.2: 2017/10/09 Clau in Cebu Holidays.
-" v.3: 2018/04/19 Watched Real Player One@Dot_Baires.
-" v.4: 2018/05/18 TGIF, learnt Vim8 new manager plugin.
-" v.5: 2018/09/21 Spring time in Argentina.
-" v.6: 2020/10/10 Taiwan National Day (Lenovo T430s).
-" v.7: 2021/11/08 MBP2015 is back after being broken for 2 yrs.
-" v.8: 2023/03/31 Zephyrus WSL2 with Windows 11.
+" v.3: 2018/04/19 Watched Real Player One @Dot_Baires.
+" v.4: 2018/05/18 Learning Vim8 new manager plugin.
+" v.5: 2020/10/10 Taiwan National Day (Lenovo T430s).
+" v.6: 2021/11/08 MBP2015 is back after being broken for 2 yrs.
+" v.7: 2023/03/31 Zephyrus WSL2 with Windows 11.
 " -------------------------------------------------------------
 
 " {{{ How to handle Vim.
@@ -31,10 +30,10 @@ set viminfo='100,<50,%,h,n$HOME/.vim/viminfo
 set backupdir=$HOME/.vim/temp//			" Where Vim stashes backup files.
 set directory=$HOME/.vim/temp/swap//	" Where Vim stashes swap files.
 set undodir=$HOME/.vim/temp/undo//		" Where Vim stashes undo files.
-set swapfile					" Save unsaved changes.
-set undofile					" Save undo trees of the file edited for days.
-set writebackup					" Backup files while editing.
-set nobackup					" No backup files before editing.
+set swapfile			" Save unsaved changes.
+set undofile			" Save undo trees of the file edited for days.
+set writebackup			" Backup files while editing.
+set nobackup			" No backup files before editing.
 
 " Make those folders automatically if they don't already exist.
 for i in [ &backupdir, &directory, &undodir ]
