@@ -16,24 +16,6 @@
 [submodule "pack/addons/opt/fzf.vim"]
 	path = pack/addons/opt/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
-[submodule "pack/addons/opt/solarized.vim"]
-	path = pack/addons/opt/solarized.vim
-	url = https://github.com/altercation/vim-colors-solarized.git
-[submodule "pack/addons/opt/jellybeans.vim"]
-	path = pack/addons/opt/jellybeans.vim
-	url = https://github.com/nanotech/jellybeans.vim.git
-[submodule "pack/addons/opt/badwolf.vim"]
-	path = pack/addons/opt/badwolf.vim
-	url = https://github.com/sjl/badwolf.git
-[submodule "pack/addons/opt/gruvbox.vim"]
-	path = pack/addons/opt/gruvbox.vim
-	url = https://github.com/morhetz/gruvbox.git
-[submodule "pack/addons/opt/molokai.vim"]
-	path = pack/addons/opt/molokai.vim
-	url = https://github.com/tomasr/molokai.git
-[submodule "pack/addons/opt/ayu.vim"]
-	path = pack/addons/opt/ayu.vim
-	url = https://github.com/ayu-theme/ayu-vim.git
 [submodule "pack/addons/start/vim-airline"]
 	path = pack/addons/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
