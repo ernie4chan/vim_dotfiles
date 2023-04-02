@@ -3,13 +3,13 @@
 " Maintainer: Ernie Lin
 "
 " Chronicles of major updates:
-" v.1: 2016/03/19 Dad back to Taiwan.
-" v.2: 2017/10/09 Clau in Cebu Holidays.
-" v.3: 2018/04/19 Watched Real Player One @Dot_Baires.
-" v.4: 2018/05/18 Learning Vim8 new manager plugin.
-" v.5: 2020/10/10 Taiwan National Day (Lenovo T430s).
-" v.6: 2021/11/08 MBP2015 is back after being broken for 2 yrs.
-" v.7: 2023/03/31 Zephyrus WSL2 with Windows 11.
+" v.1: 2016/03/19 Dad back to Taiwan. @Tw.
+" v.2: 2017/10/09 Clau in Cebu Holidays. @Ar.
+" v.3: 2018/04/19 Watched Real Player One @Dot_Baires. @ Ar.
+" v.4: 2018/05/18 Learning Vim8 new manager plugin. @Ar.
+" v.5: 2020/10/10 Taiwan National Day (Lenovo T430s). @Ar.
+" v.6: 2021/11/08 MBP2015 is back after being down for 2 yrs, @Ar.
+" v.7: 2023/03/31 Zephyrus WSL2 with Windows 11, @Ar.
 " -------------------------------------------------------------
 
 " {{{ How to handle Vim.
