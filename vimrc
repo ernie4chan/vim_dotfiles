@@ -204,13 +204,6 @@ else						" Terminal running.
 	endif
 endif
 
-" The infamous Powerline-status from Python. Currently using Vim-airline.
-"if has("python3")
-"	python3 from powerline.vim import setup as powerline_setup
-"	python3 powerline_setup()
-"	python3 del powerline_setup
-"endif
-
 " Enable mouse.
 if has("mouse")
 	set mouse=a			" Mouse in all modes.
@@ -222,15 +215,16 @@ if has("mouse")
 	imap <ScrollWheelRight> <nop>
 endif
 
+" The infamous Powerline-status from Python. Currently using Vim-airline.
+"if has("python3")
+"	python3 from powerline.vim import setup as powerline_setup
+"	python3 powerline_setup()
+"	python3 del powerline_setup
+"endif
+
 " }}}
 
 " {{{ Extra features.
-
-" Netrw (The Unloved Directory Browser).
-" File located in '~/.vim/plugin/better-netrw.vim'
-
-" Vim Addons.
-" File located in '~/.vim/plugin/vim-on-steroids.vim'
 
 " Calling grep.
 if executable("rg")
@@ -247,6 +241,14 @@ endif
 if filereadable(expand("$HOME/.viminfo"))
 	silent !mv $HOME/.viminfo $HOME/.vim/temp/viminfo.old
 endif
+
+" --- ---
+
+" Netrw (The Unloved Directory Browser).
+" File located in '~/.vim/plugin/better-netrw.vim'
+
+" Vim Addons.
+" File located in '~/.vim/plugin/vim-on-steroids.vim'
 
 " --- Put these at the very end of your '$VIMRC'. ---
 " Load all plugins now.
