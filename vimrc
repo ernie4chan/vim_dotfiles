@@ -16,7 +16,6 @@
 
 " Not compatible with the old-fashion VI mode.
 set nocompatible
-set shortmess+=I
 
 " Store some Vim info.
 set viminfo='100,<50,%,h,n$HOME/.vim/viminfo
@@ -42,6 +41,9 @@ for i in [ &backupdir, &directory, &undodir ]
 	endif
 endfor
 unlet i
+
+" No intro message.
+set shortmess+=I
 
 " }}}
 
