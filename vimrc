@@ -94,7 +94,7 @@ endif
 
 " The menu language must go before ft detection.
 if has("gui_macvim")
-	"set langmenu=zh_TW.UTF-8
+	set langmenu=zh_TW.UTF-8
 else
 	set langmenu=none
 endif
@@ -235,7 +235,7 @@ if executable("rg")
 endif
 
 " list of dictionary files for keyword completion.
-if has("mac")
+if has("linux")
 	set dictionary=/usr/share/dict/words
 endif
 
