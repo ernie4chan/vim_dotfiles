@@ -2,14 +2,15 @@
 " File: ~/.vim/vimrc
 " Maintainer: Ernie Lin
 "
-" Chronicles of major updates:
-" v.1: 2016/03/19 Dad back to Taiwan. @Tw.
-" v.2: 2017/10/09 Clau in Cebu Holidays. @Ar.
-" v.3: 2018/04/19 Watched Real Player One @Dot_Baires. @ Ar.
-" v.4: 2018/05/18 Learning Vim8 new manager plugin. @Ar.
-" v.5: 2020/10/10 Taiwan National Day (Lenovo T430s). @Ar.
-" v.6: 2021/11/08 MBP2015 is back after being down for 2 yrs. @Ar.
-" v.7: 2023/03/31 Zephyrus WSL2 with Windows 11. @Ar.
+" {{{ Chronicles of major updates.
+" v.1: 2016/03/19 Dad back to Taiwan. MBP2015, @TW.
+" v.2: 2017/10/09 Clau in Cebu Holidays. MBP2015, @AR.
+" v.3: 2018/04/19 Watched Real Player One @Dot_Baires. MBP2015, @AR.
+" v.4: 2018/05/18 Learning Vim8 new manager plugin.MBP2015,  @AR.
+" v.5: 2020/10/10 TW National Day and using Lenovo T430s. @AR.
+" v.6: 2021/11/08 MBP2015 is back after being down for 2 yrs. @AR.
+" v.7: 2023/03/31 Zephyrus WSL2 with Windows 11. @AR.
+" }}}}
 " -------------------------------------------------------------
 
 " {{{ How to handle Vim.
@@ -168,6 +169,17 @@ set ttyfast				" Send more chars while redrawing.
 
 " {{{ Advanced features.
 
+" Enable mouse.
+if has("mouse")
+	set mouse=a			" Mouse in all modes.
+	set mousehide		" Hide mouse pointer while typing.
+	" Sensible horinzontal mouse scrolling wth Logitech Ultrathin Mouse.
+	nmap <ScrollWheelLeft> <nop>
+	imap <ScrollWheelLeft> <nop>
+	nmap <ScrollWheelRight> <nop>
+	imap <ScrollWheelRight> <nop>
+endif
+
 " True Color.
 if has("termguicolors")
 	" Fix true color bug for Vim.
@@ -182,7 +194,32 @@ if has("termguicolors")
 	"let &t_ut=''
 endif
 
-" Colorschemes.
+" Calling grep.
+if executable("rg")
+	set grepprg=rg\ --vimgrep\ --no-heading
+	set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+" list of dictionary files for keyword completion.
+if has("linux")
+	set dictionary=/usr/share/dict/words
+endif
+
+" Remove '~/.viminfo'.
+if filereadable(expand("$HOME/.viminfo"))
+	silent !mv $HOME/.viminfo $HOME/.vim/temp/viminfo.old
+endif
+
+" The infamous Powerline-status from Python. Currently using Vim-airline.
+"if has("python3")
+"	python3 from powerline.vim import setup as powerline_setup
+"	python3 powerline_setup()
+"	python3 del powerline_setup
+"endif
+
+" }}}
+
+" {{{ Colorschemes.
 if has("gui_running")		" Emulator running.
 	if has("mac")
 		set guifont=Hack\ Nerd\ Font:h13
@@ -207,45 +244,11 @@ else						" Terminal running.
 	endif
 endif
 
-" Enable mouse.
-if has("mouse")
-	set mouse=a			" Mouse in all modes.
-	set mousehide		" Hide mouse pointer while typing.
-	" Sensible horinzontal mouse scrolling wth Logitech Ultrathin Mouse.
-	nmap <ScrollWheelLeft> <nop>
-	imap <ScrollWheelLeft> <nop>
-	nmap <ScrollWheelRight> <nop>
-	imap <ScrollWheelRight> <nop>
-endif
-
-" The infamous Powerline-status from Python. Currently using Vim-airline.
-"if has("python3")
-"	python3 from powerline.vim import setup as powerline_setup
-"	python3 powerline_setup()
-"	python3 del powerline_setup
-"endif
-
 " }}}
 
-" {{{ Extra features.
+" {{{ Extra plugins.
 
-" Calling grep.
-if executable("rg")
-	set grepprg=rg\ --vimgrep\ --no-heading
-	set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
-
-" list of dictionary files for keyword completion.
-if has("linux")
-	set dictionary=/usr/share/dict/words
-endif
-
-" Remove '~/.viminfo'.
-if filereadable(expand("$HOME/.viminfo"))
-	silent !mv $HOME/.viminfo $HOME/.vim/temp/viminfo.old
-endif
-
-" --- ---
+" --- The following files are loaded at startup without convoking. ---
 
 " Netrw (The Unloved Directory Browser).
 " File located in '~/.vim/plugin/better-netrw.vim'
@@ -254,11 +257,13 @@ endif
 " File located in '~/.vim/plugin/vim-on-steroids.vim'
 
 " --- Put these at the very end of your '$VIMRC'. ---
-" Load all plugins now.
-"  Plugins need to be added to runtimepath before helptags can be generated.
+
+" Load all plugins now. Plugins need to be added to runtimepath
+" before helptags can be generated.
 packloadall!
+
 " Load all of the helptags now, after plugins have been loaded.
-"  All messages and errors will be ignored.
+" All messages and errors will be ignored.
 silent! helptags ALL
 
 " }}}
