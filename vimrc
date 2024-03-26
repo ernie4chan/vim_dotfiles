@@ -239,7 +239,7 @@ else						" Terminal running.
 	if has("mac")
 		colorscheme ayu
 	elseif has("linux")
-		colorscheme blue
+		colorscheme molokai
 		hi Normal guibg=NONE ctermbg=NONE
 	endif
 endif
