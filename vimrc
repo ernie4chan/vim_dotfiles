@@ -224,7 +224,7 @@ if has("gui_running")		" Emulator running.
 	if has("linux")
 		set guifont=Hack\ Nerd\ Font\ 13
 		set guiheadroom=0	" Ugly gap in gVim.
-	elseif has("linux")
+	elseif has("mac")
 		set guifont=Hack\ Nerd\ Font:h13
 	endif
 	set guioptions-=T		" Remove toolbar.
