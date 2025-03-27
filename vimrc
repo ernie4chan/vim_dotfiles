@@ -221,11 +221,11 @@ endif
 
 " {{{ Colorschemes.
 if has("gui_running")		" Emulator running.
-	if has("mac")
-		set guifont=Hack\ Nerd\ Font:h13
-	elseif has("linux")
+	if has("linux")
 		set guifont=Hack\ Nerd\ Font\ 13
 		set guiheadroom=0	" Ugly gap in gVim.
+	elseif has("linux")
+		set guifont=Hack\ Nerd\ Font:h13
 	endif
 	set guioptions-=T		" Remove toolbar.
 	set guioptions-=e		" Remove tabbar.
@@ -236,10 +236,8 @@ if has("gui_running")		" Emulator running.
 	set columns=96
 	colorscheme jellybeans
 else						" Terminal running.
-	if has("mac")
-		colorscheme ayu
-	elseif has("linux")
-		colorscheme sierra
+	colorscheme molokai
+	if has("linux")
 		hi Normal guibg=NONE ctermbg=NONE
 	endif
 endif
