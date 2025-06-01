@@ -153,8 +153,8 @@ set ambiwidth=single	" East Asian width class ambiguous characters.
 set autochdir			" Auto change the current working directory.
 set belloff=all			" Mute all beeps.
 set clipboard+=unnamed	" Makes y and p to the global buffer.
-"set cursorcolumn		" Highlight current column.
-"set cursorline			" Highlight current line.
+set cursorcolumn		" Highlight current column.
+set cursorline			" Highlight current line.
 set hidden				" Buffer becomes hidden when abandoned.
 set laststatus=2		" Always display the statusline in all windows.
 set noshowmatch			" Disable jumping to matching bracket when typing.
