@@ -236,7 +236,7 @@ if has("gui_running")		" Emulator running.
 	set columns=96
 	colorscheme jellybeans
 else						" Terminal running.
-	colorscheme molokai
+	colorscheme deus
 	if has("linux")
 		hi Normal guibg=NONE ctermbg=NONE
 	endif
