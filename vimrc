@@ -10,7 +10,7 @@
 " v.5: 2020/10/10 TW National Day and using Lenovo T430s. @AR.
 " v.6: 2021/11/08 MBP2015 is back after being down for 2 yrs. @AR.
 " v.7: 2023/03/31 Zephyrus WSL2 with Windows 11. @AR.
-" }}}}
+" }}}
 " -------------------------------------------------------------
 
 " {{{ How to handle Vim.
