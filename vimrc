@@ -3,14 +3,16 @@
 " Maintainer: Ernie Lin
 "
 " {{{ Chronicles of major updates.
-" v.1: 2016/03/19 Dad back to Taiwan. MBP2015, @TXG.
-" v.2: 2017/10/09 Clau in Cebu Holidays. MBP2015, @AR.
-" v.3: 2018/04/19 Watched Real Player One @Dot_Baires. MBP2015, @AR.
-" v.4: 2018/05/18 Learning Vim8 new manager plugin.MBP2015,  @AR.
-" v.5: 2020/10/10 TW National Day and using Lenovo T430s. @AR.
-" v.6: 2021/11/08 MBP2015 is back after being down for 2 yrs. @AR.
-" v.7: 2023/03/31 Zephyrus WSL2 with Windows 11. @AR.
-" v.8: 2026/05/02 Arch on WSL2. @TNN.
+
+" v.1: 2016/03/19 Dad back to Taiwan. MBP2015 @TXG.
+" v.2: 2017/10/09 Clau in Cebu Holidays. MBP2015 @BUA.
+" v.3: 2018/04/19 Watched Real Player One @Dot_Baires. MBP2015 @BUA.
+" v.4: 2018/05/18 Learning Vim8 new manager plugin. MBP2015 @BUA.
+" v.5: 2020/10/10 TW National Day and using Lenovo T430s again. @BUA.
+" v.6: 2021/11/08 MBP2015 is back after being down for 2 yrs. @BUA.
+" v.7: 2023/03/31 Ubuntu on WSL2. Zephyrus @BUA.
+" v.8: 2026/05/02 Arch on WSL2. Zephyrus @TNN.
+
 " }}}
 " -------------------------------------------------------------
 
