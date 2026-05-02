@@ -156,7 +156,7 @@ set showtabline=1		" Show tabline when at least 2 tabs are open.
 
 set list				" Show invisible characters.
 " Replace the glyphs below with your preferred Nerd Font symbols.
-set listchars=tab:⇥\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+set listchars=tab:⇥\ \ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 set showbreak=↳			" Marker shown at the start of a wrapped line.
 
 set autochdir			" Automatically change to the directory of the current file.
@@ -195,10 +195,10 @@ endif
 
 " Additional support for WSL2.
 if filereadable('/proc/version') && system('grep -i microsoft /proc/version') != ''
-	" Copy to clipboard
+	" Copy to clipboard.
 	vnoremap <leader>y :w !clip.exe<CR><CR>
 
-	" Paste from clipboard
+	" Paste from clipboard.
 	nnoremap <leader>p :r !powershell.exe -command "Get-Clipboard"<CR>
 endif
 
