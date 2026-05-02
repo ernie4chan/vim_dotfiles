@@ -1,4 +1,5 @@
 " -------------------------------------------------------------
+" vim: filetype=vim
 " File: ~/.vim/vimrc
 " Maintainer: Ernie Lin
 "
@@ -21,18 +22,23 @@
 " Not compatible with the old-fashion VI mode.
 set nocompatible
 
-" Store some Vim info.
-set viminfo='100,<50,%,h,n$HOME/.vim/viminfo
-"           |    |   | | + viminfo file path
-"           |    |   | + disable 'hlsearch' loading viminfo
-"           |    |   + save/restore buffer list
-"           |    + lines saved each register
-"           + files marks saved
-
 " Remove '~/.viminfo'.
 if filereadable(expand("$HOME/.viminfo"))
 	silent !mv $HOME/.viminfo $HOME/.vim/temp/viminfo.old
 endif
+
+" Store Vim info.
+" Marks (') — remembers cursor positions in recently edited files
+" Registers (<) — saves yanked/deleted text
+" Buffers (%) — restores open files on next launch
+" Search (h, /) — saves search history and highlight state
+" Commands (:) — saves command-line history
+" Variables (!) — saves global variables
+" File path (n) — where to store the viminfo file
+" Input (@) — saves input line history
+" Media (r) — excludes removable drives from mark saving
+" Size (s) — limits register item size to prevent huge viminfo files
+set viminfo='100,<50,h,n$HOME/.vim/viminfo
 
 " How to handle backup files.
 set backupdir=$HOME/.vim/temp//			" Where Vim stashes backup files.
@@ -239,15 +245,72 @@ endif
 
 " }}}
 
+" {{{ Mappings.
+
+" Function Keys.
+nnoremap <f2>			:set list!<cr>		" Toggle unprintable characters.
+nnoremap <f3>			:set spell!<cr>		" Toggle spell check.
+set pastetoggle=<f4>						" Toggle paste mode.
+nnoremap <f12>			ggVGg?				" Rot13 encoding.
+
+" Clear search highlights.
+nnoremap <silent> <c-l>	:nohlsearch<cr><c-l>
+
+" Remove trailing whitespace.
+nnoremap <leader>w
+	\ :let _save_pos=getpos(".")<bar>
+	\ :let _s=@/<bar>
+	\ :%s/\s\+$//e<bar>
+	\ :let @/=_s<bar>
+	\ :nohl<bar>
+	\ :unlet _s<bar>
+	\ :call setpos('.', _save_pos)<bar>
+	\ :unlet _save_pos<cr><cr>
+
+" Tab manipulation
+nnoremap ,t		:tabnew<cr>			" New tab.
+nnoremap ,h		:tabprevious<cr>	" Previous tab.
+nnoremap ,l		:tabnext<cr>		" Next tab.
+nnoremap ,q		:tabclose<cr>		" Close tab.
+
+" Buffer manipulation.
+nnoremap ,b		:enew<cr>			" New buffer.
+nnoremap ,[		:bprevious<cr>		" Previous buffer.
+nnoremap ,]		:bnext<cr>			" Next buffer.
+nnoremap ,x		:bdelete<cr>		" Delete buffer.
+
+" Yank fold title.
+nnoremap yt :let @"=matchstr(getline('.'), '\v\{\{\{ \zs.*')<cr>:echo 'Yanked: ' . @"<cr>
+
+" }}}
+
 " {{{ Plugins.
 
 " --- The following files are loaded at startup without convoking. ---
 
 " Netrw (The Unloved Directory Browser).
-" File located in '~/.vim/plugin/better-netrw.vim'
+" '~/.vim/plugin/better-netrw.vim'
 
-" Vim Addons.
-" File located in '~/.vim/plugin/vim-on-steroids.vim'
+" ALE (Asynchronous Lint Engine).
+" '~/.vim/plugin/ale.vim'
+
+" Vim-Fugitive.
+" No file!
+"
+" Vim-Surround.
+" No file!
+
+" Vim-DevIcons.
+" '~/.vim/plugin/vim-devicons.vim'
+
+" Vim-Airline.
+" '~/.vim/plugin/vim-airline.vim'
+
+" fzf for Vim.
+" '~/.vim/plugin/fzf_for_vim.vim'
+
+" vifm for Vim.
+" '~/.vim/plugin/vifm_for_vim.vim'
 
 " --- Put these at the very end of your '$VIMRC'. ---
 
