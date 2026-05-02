@@ -53,6 +53,13 @@ endfor
 " No intro message.
 set shortmess+=I
 
+" The menu language must go before ft detection.
+if has("gui_macvim")
+	set langmenu=zh_TW.UTF-8
+else
+	set langmenu=none
+endif
+
 " }}}
 
 " {{{ Encoding.
@@ -98,13 +105,6 @@ if has("multi_byte")
 	endif
 else
 	echoerr 'This version of Vim has not been compiled with "multi-byte" support!'
-endif
-
-" The menu language must go before ft detection.
-if has("gui_macvim")
-	set langmenu=zh_TW.UTF-8
-else
-	set langmenu=none
 endif
 
 " }}}
@@ -170,6 +170,11 @@ set wildmode=list:longest,full	" Show full list, then cycle matches.
 set wildignore+=.DS_Store,*.git
 set wildignore+=*/tmp/*
 
+" Word list for keyword completion.
+if has('linux') && filereadable('/usr/share/dict/words')
+	set dictionary=/usr/share/dict/words
+endif
+
 if has("mouse")
 	set mouse=a			" Enable mouse in all modes.
 	set mousehide		" Hide mouse pointer while typing.
@@ -178,11 +183,6 @@ if has("mouse")
 	imap <ScrollWheelRight> <nop>
 	nmap <ScrollWheelLeft> <nop>
 	nmap <ScrollWheelRight> <nop>
-endif
-
-" Word list for keyword completion.
-if has('linux') && filereadable('/usr/share/dict/words')
-	set dictionary=/usr/share/dict/words
 endif
 
 " }}}
