@@ -1,0 +1,52 @@
+" ---------------------------------------------
+" vim: filetype=vim
+" Title: fzf for Vim
+" File: fzf_for_vim.vim
+" Maintainer: Ernie Lin
+" Update: 2026/05/03
+" ---------------------------------------------
+
+" Set Run-time path.
+if has('linux')
+	set runtimepath+=/usr/bin/fzf
+elseif has("mac")
+	set runtimepath+=/usr/local/opt/fzf
+endif
+
+" Load plugin.
+packadd fzf.vim
+
+" Layout.  See `man fzf-tmux` for available options
+let g:fzf_layout = { 'down': '40%' }
+
+" Hide statusline while fzf is active.
+au! FileType fzf set laststatus=0 noshowmode noruler
+		\ | au BufLeave <buffer> set laststatus=2 showmode ruler
+
+" Disable preview window.
+let g:fzf_preview_window = []
+
+" [Buffers] Jump to the existing window if possible.
+let g:fzf_buffers_jump = 1
+
+" [[B]Commits] Customize the options used by 'git log'.
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" fzf Mapping selecting mappings.
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" fzf Insert mode completion.
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Fuzzy find files.
+nnoremap <leader>f		:Files<cr>
+
+" Fuzzy find buffers.
+nnoremap <leader>b		:Buffers<cr>
+
+" Fuzzy find in current file.
+nnoremap <leader>/		:BLines<cr>
