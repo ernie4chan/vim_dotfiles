@@ -109,7 +109,7 @@ endif
 
 " }}}
 
-" {{{ Editing.
+" {{{ Display.
 
 " Filetype detection, filetype-specific plugins and indenting.
 filetype plugin indent on
@@ -117,77 +117,70 @@ filetype plugin indent on
 " Load syntax files and can override default.
 syntax on
 
-" Spacing matters.
-set backspace=indent,eol,start	" Backspacing over everything in insert mode.
-set tabstop=4			" Number of visual spaces per tab.
-set shiftwidth=4		" The size of an ident, affects '>>', '<<' or '=='.
-set softtabstop=0		" Number of spaces in tab when editing.
-" Enabling this will make the tab key (insert mode) insert spaces instead of
-"  tab characters. Try not to expand tabs to spaces (works badly with CAT).
-set noexpandtab
-set smarttab			" Insert tabs at the start of a line according to context.
-set autoindent			" Uses the indent from previous line.
+set backspace=indent,eol,start	" Backspace over everything in insert mode.
+set shiftwidth=4				" Size of an ident, affects '>>', '<<' or '=='.
+set softtabstop=0				" Number of spaces a tab counts for in editing.
+set tabstop=4					" Number of visual spaces per tab.
 
-" }}}
-
-" {{{ Searching.
+set ambiwidth=single	" Treat ambiguous-width East Asian chars as single-width.
+set autoindent			" Inherit indent from previous line.
+set noexpandtab			" Keep real tabs (CAT tool compatibility).
+set smarttab			" Insert tabs at line start based on context.
 
 set hlsearch			" Highlight matches.
 set incsearch			" Search as chars are entered.
 set ignorecase			" Ignore case when searching.
-set smartcase			" Ignore case if search pattern is all lowercase.
+set smartcase			" Case-sensitive if pattern contains uppercase.
 
-" }}}
-
-" {{{ Display.
-
-set foldcolumn=2		" Size of info column.
-set foldenable			" When off, all folds are open. Toggle with <zi> command.
-set foldlevel=0			" Fold all levels.
-set foldmethod=marker	" Fold method.
-set wrap				" Wrap lines.
-
-set list				" Show invisible.
-set listchars=tab:⇥\ \ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
-set showbreak=↳			" Show for lines that have been wrapped.
-
-set fillchars+=stl:\ ,stlnc:\
-set laststatus=2		" Always display the statusline in all windows.
-set showtabline=1		" Display the tabline when there are at least 2.
-
-set autochdir			" Auto change the current working directory.
-set belloff=all			" Mute all beeps.
-set hidden				" Buffer becomes hidden when abandoned.
-set switchbuf=usetab	" When switching buffers, include tabs.
-"set ttyfast				" No-op in Vim 8+; removed.
-
-set ambiwidth=single	" East Asian width class ambiguous characters.
 set cursorcolumn		" Highlight current column.
 set cursorline			" Highlight current line.
 set noshowmatch			" Disable jumping to matching bracket when typing.
-set noshowmode			" Hide the default mode text.
-set notitle				" Disables setting the terminal title to the filename.
+set noshowmode			" Hide the default mode text (e.g. -- INSERT --).
+set notitle				" Do not set the terminal title to the filename.
+
 set number				" Display line numbers.
 set ruler				" The ruler is displayed on the status line.
 
-" Autocomplete.
-set wildmenu			" Visual autocomplete for command menu at the bottom bar.
-set wildmode=list:longest,full	" Turn on wild mode huge list.
-set wildignore=.DS_Store,*.git
+set foldcolumn=2		" Show fold indicator column (width 2).
+set foldenable			" Enable folding.
+set foldlevel=0			" Fold all levels on open.
+set foldmethod=marker	" Use markers for folding.
+set wrap				" Wrap long lines.
+
+" Fill characters in the status line:
+" stl:\  — fills the active window's status line with spaces
+" stlnc:\ — fills inactive windows' status lines with backslashes
+set fillchars+=stl:\ ,stlnc:\
+set laststatus=2		" Always show the status line.
+set showtabline=1		" Show tabline when at least 2 tabs are open.
+
+set list				" Show invisible characters.
+" Replace the glyphs below with your preferred Nerd Font symbols.
+set listchars=tab:⇥\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+set showbreak=↳			" Marker shown at the start of a wrapped line.
+
+set autochdir			" Automatically change to the directory of the current file.
+set belloff=all			" Mute all bell sounds.
+set hidden				" Allow switching buffers without saving.
+set switchbuf=usetab	" Include tabs when switching buffers.
+"set ttyfast				" No-op in Vim 8+; removed.
+
+set wildmenu					" Enable visual autocomplete in the command bar.
+set wildmode=list:longest,full	" Show full list, then cycle matches.
+set wildignore+=.DS_Store,*.git
 set wildignore+=*/tmp/*
 
-" Enable mouse.
 if has("mouse")
-	set mouse=a			" Mouse in all modes.
+	set mouse=a			" Enable mouse in all modes.
 	set mousehide		" Hide mouse pointer while typing.
-	" Sensible horizontal scroll with Logitech Ultrathin Mouse.
+	" Disable sensible horizontal scroll with Logitech Ultrathin Mouse.
 	imap <ScrollWheelLeft> <nop>
 	imap <ScrollWheelRight> <nop>
 	nmap <ScrollWheelLeft> <nop>
 	nmap <ScrollWheelRight> <nop>
 endif
 
-" Dictionary files for keyword completion.
+" Word list for keyword completion.
 if has('linux') && filereadable('/usr/share/dict/words')
 	set dictionary=/usr/share/dict/words
 endif
