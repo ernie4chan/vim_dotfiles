@@ -3,17 +3,18 @@
 " Maintainer: Ernie Lin
 "
 " {{{ Chronicles of major updates.
-" v.1: 2016/03/19 Dad back to Taiwan. MBP2015, @TW.
+" v.1: 2016/03/19 Dad back to Taiwan. MBP2015, @TXG.
 " v.2: 2017/10/09 Clau in Cebu Holidays. MBP2015, @AR.
 " v.3: 2018/04/19 Watched Real Player One @Dot_Baires. MBP2015, @AR.
 " v.4: 2018/05/18 Learning Vim8 new manager plugin.MBP2015,  @AR.
 " v.5: 2020/10/10 TW National Day and using Lenovo T430s. @AR.
 " v.6: 2021/11/08 MBP2015 is back after being down for 2 yrs. @AR.
 " v.7: 2023/03/31 Zephyrus WSL2 with Windows 11. @AR.
+" v.8: 2026/05/02 Arch on WSL2. @TNN.
 " }}}
 " -------------------------------------------------------------
 
-" {{{ How to handle Vim.
+" {{{ Startup.
 
 " Not compatible with the old-fashion VI mode.
 set nocompatible
@@ -25,6 +26,11 @@ set viminfo='100,<50,%,h,n$HOME/.vim/viminfo
 "           |    |   + save/restore buffer list
 "           |    + lines saved each register
 "           + files marks saved
+
+" Remove '~/.viminfo'.
+if filereadable(expand("$HOME/.viminfo"))
+	silent !mv $HOME/.viminfo $HOME/.vim/temp/viminfo.old
+endif
 
 " How to handle backup files.
 set backupdir=$HOME/.vim/temp//			" Where Vim stashes backup files.
@@ -41,7 +47,6 @@ for i in [ &backupdir, &directory, &undodir ]
 		call mkdir(expand(i), "p", 0700)
 	endif
 endfor
-unlet i
 
 " No intro message.
 set shortmess+=I
@@ -57,7 +62,7 @@ if has("multi_byte")
 		" Caveats: 'setglobal' will not apply to the first, empty buffer
 		"  created at Vim startup. But I am not loading the first buffer.
 		set encoding=big5
-		set bomb
+		setlocal bomb
 	" Traditional Chinese (HK).
 	elseif v:lang =~ "^zh_HK"
 		set encoding=big5-hkscs
@@ -65,15 +70,15 @@ if has("multi_byte")
 	" Simplified Chinese (use the oldest one due to overlap with Big5).
 	elseif v:lang =~ "^zh_CN"
 		set encoding=gb2312
-		set bomb
+		setlocal bomb
 	" Japanese.
 	elseif v:lang =~ "^ja_JP"
 		set encoding=euc-jp
-		set bomb
+		setlocal bomb
 	" Korean.
 	elseif v:lang =~ "^ko_KR"
 		set encoding=euc-kr
-		set bomb
+		setlocal bomb
 	endif
 	if &fileencoding == ""
 		let &fileencoding = &encoding
@@ -100,9 +105,9 @@ else
 	set langmenu=none
 endif
 
-" --- }}}
+" }}}
 
-" {{{ General features.
+" {{{ Editing.
 
 " Filetype detection, filetype-specific plugins and indenting.
 filetype plugin indent on
@@ -115,25 +120,53 @@ set backspace=indent,eol,start	" Backspacing over everything in insert mode.
 set tabstop=4			" Number of visual spaces per tab.
 set shiftwidth=4		" The size of an ident, affects '>>', '<<' or '=='.
 set softtabstop=0		" Number of spaces in tab when editing.
-
 " Enabling this will make the tab key (insert mode) insert spaces instead of
 "  tab characters. Try not to expand tabs to spaces (works badly with CAT).
 set noexpandtab
 set smarttab			" Insert tabs at the start of a line according to context.
 set autoindent			" Uses the indent from previous line.
 
-" Searching for the one that matters.
+" }}}
+
+" {{{ Searching.
+
 set hlsearch			" Highlight matches.
 set incsearch			" Search as chars are entered.
 set ignorecase			" Ignore case when searching.
 set smartcase			" Ignore case if search pattern is all lowercase.
 
-" Folding and wrapping.
+" }}}
+
+" {{{ Display.
+
 set foldcolumn=2		" Size of info column.
 set foldenable			" When off, all folds are open. Toggle with <zi> command.
 set foldlevel=0			" Fold all levels.
 set foldmethod=marker	" Fold method.
 set wrap				" Wrap lines.
+
+set list				" Show invisible.
+set listchars=tab:⇥\ \ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+set showbreak=↳			" Show for lines that have been wrapped.
+
+set fillchars+=stl:\ ,stlnc:\
+set laststatus=2		" Always display the statusline in all windows.
+set showtabline=1		" Display the tabline when there are at least 2.
+
+set autochdir			" Auto change the current working directory.
+set belloff=all			" Mute all beeps.
+set hidden				" Buffer becomes hidden when abandoned.
+set switchbuf=usetab	" When switching buffers, include tabs.
+"set ttyfast				" No-op in Vim 8+; removed.
+
+set ambiwidth=single	" East Asian width class ambiguous characters.
+set cursorcolumn		" Highlight current column.
+set cursorline			" Highlight current line.
+set noshowmatch			" Disable jumping to matching bracket when typing.
+set noshowmode			" Hide the default mode text.
+set notitle				" Disables setting the terminal title to the filename.
+set number				" Display line numbers.
+set ruler				" The ruler is displayed on the status line.
 
 " Autocomplete.
 set wildmenu			" Visual autocomplete for command menu at the bottom bar.
@@ -141,85 +174,52 @@ set wildmode=list:longest,full	" Turn on wild mode huge list.
 set wildignore=.DS_Store,*.git
 set wildignore+=*/tmp/*
 
-" Text visualization.
-set list				" Show invisible.
-set listchars=tab:⇥\ \ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
-set showbreak=↳			" Show for lines that have been wrapped.
-set showtabline=1		" Display the tabline when there are at least 2.
-set fillchars+=stl:\ ,stlnc:\
-
-" UI preferences.
-set ambiwidth=single	" East Asian width class ambiguous characters.
-set autochdir			" Auto change the current working directory.
-set belloff=all			" Mute all beeps.
-set clipboard+=unnamed	" Makes y and p to the global buffer.
-set cursorcolumn		" Highlight current column.
-set cursorline			" Highlight current line.
-set hidden				" Buffer becomes hidden when abandoned.
-set laststatus=2		" Always display the statusline in all windows.
-set noshowmatch			" Disable jumping to matching bracket when typing.
-set noshowmode			" Hide the default mode text.
-set notitle				" Set filename in terminal title.
-set number				" Display line numbers.
-set ruler				" The ruler is displayed on the status line.
-set switchbuf=usetab	" When switching buffers, include tabs.
-set ttyfast				" Send more chars while redrawing.
-
-" }}}
-
-" {{{ Advanced features.
-
 " Enable mouse.
 if has("mouse")
 	set mouse=a			" Mouse in all modes.
 	set mousehide		" Hide mouse pointer while typing.
-	" Sensible horinzontal mouse scrolling wth Logitech Ultrathin Mouse.
-	nmap <ScrollWheelLeft> <nop>
+	" Sensible horizontal scroll with Logitech Ultrathin Mouse.
 	imap <ScrollWheelLeft> <nop>
-	nmap <ScrollWheelRight> <nop>
 	imap <ScrollWheelRight> <nop>
+	nmap <ScrollWheelLeft> <nop>
+	nmap <ScrollWheelRight> <nop>
 endif
 
-" True Color.
+" Dictionary files for keyword completion.
+if has('linux') && filereadable('/usr/share/dict/words')
+	set dictionary=/usr/share/dict/words
+endif
+
+" }}}
+
+" {{{ Copy & Paste.
+
+if has('clipboard')
+	set clipboard+=unnamedplus	" Makes y and p to the global buffer.
+endif
+
+" Additional support for WSL2.
+if filereadable('/proc/version') && system('grep -i microsoft /proc/version') != ''
+	" Copy to clipboard
+	vnoremap <leader>y :w !clip.exe<CR><CR>
+
+	" Paste from clipboard
+	nnoremap <leader>p :r !powershell.exe -command "Get-Clipboard"<CR>
+endif
+
+" }}}
+
+" {{{ Terminal & Colors.
+
 if has("termguicolors")
 	" Fix true color bug for Vim.
 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 	" Enable true color.
 	set termguicolors
-	" Kitty fix: Vim hardcodes background color erase even if the terminfo
-	" file does not contain bce. This causes incorrect background rendering
-	" when using a color theme with a background color in terminals such as
-	" kitty that do not support background color erase.
-	"let &t_ut=''
 endif
 
-" Calling grep.
-if executable("rg")
-	set grepprg=rg\ --vimgrep\ --no-heading
-	set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
-
-" list of dictionary files for keyword completion.
-if has("linux")
-	set dictionary=/usr/share/dict/words
-endif
-
-" Remove '~/.viminfo'.
-if filereadable(expand("$HOME/.viminfo"))
-	silent !mv $HOME/.viminfo $HOME/.vim/temp/viminfo.old
-endif
-
-" The infamous Powerline-status from Python. Currently using Vim-airline.
-"if has("python3")
-"	python3 from powerline.vim import setup as powerline_setup
-"	python3 powerline_setup()
-"	python3 del powerline_setup
-"endif
-
-" }}}
-
-" {{{ Colorschemes.
+" True Color.
 if has("gui_running")		" Emulator running.
 	if has("linux")
 		set guifont=Hack\ Nerd\ Font\ 13
@@ -229,7 +229,7 @@ if has("gui_running")		" Emulator running.
 	endif
 	set guioptions-=T		" Remove toolbar.
 	set guioptions-=e		" Remove tabbar.
-	set guioptions+=m		" Remove menubar.
+	set guioptions-=m		" Remove menubar.
 	set guioptions-=l		" Remove left scrollbar.
 	set guioptions-=r		" Remove right scrollbar.
 	set lines=50
@@ -244,7 +244,7 @@ endif
 
 " }}}
 
-" {{{ Extra plugins.
+" {{{ Plugins.
 
 " --- The following files are loaded at startup without convoking. ---
 
