@@ -252,10 +252,7 @@ if has("gui_running")		" Emulator running.
 	set columns=96
 	colorscheme jellybeans
 else						" Terminal running.
-	colorscheme deus
-	if has("linux")
-		hi Normal guibg=NONE ctermbg=NONE
-	endif
+	colorscheme retrobox
 endif
 
 " }}}
@@ -316,7 +313,7 @@ nnoremap <leader>w :call TrimWhitespace()<cr>
 
 " Apply transparent background.
 let g:transparent_bg = 0
-function! TransparentBGon()
+function! ApplyTransparentBG()
 	if g:transparent_bg
 		hi Normal guibg=NONE ctermbg=NONE
 		let g:transparent_bg = 0
@@ -326,7 +323,7 @@ function! TransparentBGon()
 	endif
 endfunction
 
-nnoremap <leader>tb :call TransparentBGon()<cr>
+nnoremap <leader>tb :call ApplyTransparentBG()<cr>
 	\ :echo 'Transparent background applied.'<cr>
 
 " Clear search highlights.
@@ -356,6 +353,11 @@ nnoremap <leader>cs :source $MYVIMRC<cr>
 " }}}
 
 " {{{ Autocommands.
+
+augroup TransparentBG
+    autocmd!
+    autocmd ColorScheme * if has("linux") | call ApplyTransparentBG() | endif
+augroup END
 
 " Auto-reload vimrc on save.
 augroup ReloadVimrc
