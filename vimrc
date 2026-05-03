@@ -315,8 +315,28 @@ nnoremap <leader>cr :source $MYVIMRC<cr>
 
 " Auto-reload vimrc on save.
 augroup ReloadVimrc
-		autocmd!
-		autocmd BufWritePost $MYVIMRC source $MYVIMRC | echo 'vimrc reloaded.'
+    au!
+    au BufWritePost $MYVIMRC source $MYVIMRC | echo 'vimrc reloaded.'
+augroup END
+
+" Return to last cursor position when reopening a file.
+augroup CursorPosition
+    au!
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
+        \ | exe "normal! g'\""
+        \ | endif
+augroup END
+
+" Set spell check for text files.
+augroup FileSettings
+    au!
+    au FileType markdown,text,gitcommit setlocal spell
+augroup END
+
+" Resize splits when window is resized.
+augroup ResizeUI
+    au!
+    au VimResized * wincmd =
 augroup END
 
 " }}}
