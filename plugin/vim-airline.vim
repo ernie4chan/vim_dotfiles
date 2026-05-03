@@ -9,6 +9,7 @@
 " --- Tabline ---
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_close_button = 0	" Remove close button.
+let g:airline#extensions#tabline#show_tab_count = 0		" Don't show tab numbers on the right.
 let g:airline#extensions#tabline#show_tab_type = 1 		" Show tab type (tab/buf).
 
 " --- Tabs ---
@@ -17,7 +18,7 @@ let g:airline#extensions#tabline#tab_nr_type = 1		" Show tab number.
 
 " --- Buffers ---
 let g:airline#extensions#tabline#buffer_min_count = 2	" Show when 2+ buffers open.
-let g:airline#extensions#tabline#buffer_nr_show = 1	" Show buffer number.
+let g:airline#extensions#tabline#buffer_nr_show = 1		" Show buffer number.
 
 " --- Extensions ---
 let g:airline#extensions#ale#enabled = 1				" Show ALE errors in statusline.
