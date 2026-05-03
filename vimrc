@@ -314,6 +314,21 @@ endfunction
 nnoremap <leader>w :call TrimWhitespace()<cr>
 	\ :echo 'Trailing whitespace trimmed.'<cr>
 
+" Apply transparent background.
+let g:transparent_bg = 0
+function! TransparentBGon()
+	if g:transparent_bg
+		hi Normal guibg=NONE ctermbg=NONE
+		let g:transparent_bg = 0
+	else
+		hi Normal guibg=NONE ctermbg=NONE
+		let g:transparent_bg = 1
+	endif
+endfunction
+
+nnoremap <leader>tb :call TransparentBGon()<cr>
+	\ :echo 'Transparent background applied.'<cr>
+
 " Clear search highlights.
 nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 	\ :echo 'Search cleared.'<cr>
