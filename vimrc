@@ -354,7 +354,7 @@ nnoremap <leader>cs :source $MYVIMRC<cr>
 
 " {{{ Autocommands.
 
-augroup TransparentBG
+augroup ApplyTransparentBG
     autocmd!
     autocmd ColorScheme * if has("linux") | call ApplyTransparentBG() | endif
 augroup END
