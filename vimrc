@@ -315,8 +315,8 @@ nnoremap <leader>w :call TrimWhitespace()<cr>
 	\ :echo 'Trailing whitespace trimmed.'<cr>
 
 " Clear search highlights.
-nnoremap <silent> <c-l> :nohlsearch<cr>
-	\ :echo 'Search cleared.'<cr><c-l>
+nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
+	\ :echo 'Search cleared.'<cr>
 
 " Toggle line wrap.
 nnoremap ,w :set wrap!<cr>
@@ -335,7 +335,7 @@ nnoremap <leader>m :redir > ~/vim-mappings.txt
 " Edit and reload vimrc.
 nnoremap <leader>ce :edit $MYVIMRC<cr>
 	\ :echo 'Editing vimrc.'<cr>
-nnoremap <leader>cr :source $MYVIMRC<cr>
+nnoremap <leader>cs :source $MYVIMRC<cr>
 	\ :echo 'vimrc reloaded.'<cr>
 
 " }}}
