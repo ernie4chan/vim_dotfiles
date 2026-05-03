@@ -253,20 +253,6 @@ nnoremap <f3>			:set spell!<cr>		" Toggle spell check.
 set pastetoggle=<f4>						" Toggle paste mode.
 nnoremap <f12>			ggVGg?				" Rot13 encoding.
 
-" Clear search highlights.
-nnoremap <silent> <c-l>	:nohlsearch<cr><c-l>
-
-" Remove trailing whitespace.
-nnoremap <leader>w
-	\ :let _save_pos=getpos(".")<bar>
-	\ :let _s=@/<bar>
-	\ :%s/\s\+$//e<bar>
-	\ :let @/=_s<bar>
-	\ :nohl<bar>
-	\ :unlet _s<bar>
-	\ :call setpos('.', _save_pos)<bar>
-	\ :unlet _save_pos<cr><cr>
-
 " Tab manipulation
 nnoremap ,t		:tabnew<cr>			" New tab.
 nnoremap ,h		:tabprevious<cr>	" Previous tab.
@@ -287,11 +273,35 @@ nnoremap [h		5<c-w>-		" Decrease pane height.
 nnoremap ]=		<c-w>=		" Equalize pane sizes.
 nnoremap [=		:only<cr>	" Zoom to single pane.
 
+" Trim trailing whitespace.
+function! TrimWhitespace()
+    let l:save_pos = getpos('.')
+    let l:save_search = @/
+    %s/\s\+$//e
+    let @/ = l:save_search
+    call setpos('.', l:save_pos)
+endfunction
+
+nnoremap <leader>w :call TrimWhitespace()<cr>
+		\ :echo 'Trailing whitespace trimmed.'<cr>
+
+" Clear search highlights.
+nnoremap <silent> <c-l> :nohlsearch<cr>
+		\ :echo 'Search cleared.'<cr><c-l>
+
+" Toggle line wrap.
+nnoremap ,w :set wrap!<cr>
+		\ :echo 'Wrap ' . (&wrap ? 'on' : 'off')<cr>
+
 " Yank fold title.
-nnoremap yt :let @"=matchstr(getline('.'), '\v\{\{\{ \zs.*')<cr>:echo 'Yanked: ' . @"<cr>
+nnoremap yt :let @"=matchstr(getline('.'), '\v\{\{\{ \zs.*')<cr>
+		\ :echo 'Yanked: ' . @"<cr>
 
 " Dump all mappings to file.
-nnoremap <leader>m :redir > ~/vim-mappings.txt <bar> silent map <bar> redir END<cr>
+nnoremap <leader>m :redir > ~/vim-mappings.txt
+		\ <bar> silent map
+		\ <bar> redir END<cr>
+		\ :echo 'Mappings dumped to ~/vim-mappings.txt'<cr>
 
 " }}}
 

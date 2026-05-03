@@ -16,10 +16,10 @@ nnoremap <Leader>na :Lexplore <CR>
 
 if &columns < 90
 	" If the screen is small, occupy half;
-	let g:netrw_winsize = 50
+	let g:netrw_winsize = 40
 else
 	" else take 30%.
-	let g:netrw_winsize = 30
+	let g:netrw_winsize = 20
 endif
 
 " Sync current directory and browsing directory, which
