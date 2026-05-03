@@ -312,15 +312,8 @@ nnoremap <leader>w :call TrimWhitespace()<cr>
 	\ :echo 'Trailing whitespace trimmed.'<cr>
 
 " Apply transparent background.
-let g:transparent_bg = 0
 function! ApplyTransparentBG()
-	if g:transparent_bg
-		hi Normal guibg=NONE ctermbg=NONE
-		let g:transparent_bg = 0
-	else
-		hi Normal guibg=NONE ctermbg=NONE
-		let g:transparent_bg = 1
-	endif
+	hi Normal guibg=NONE ctermbg=NONE
 endfunction
 
 nnoremap <leader>tb :call ApplyTransparentBG()<cr>
@@ -354,12 +347,7 @@ nnoremap <leader>cs :source $MYVIMRC<cr>
 
 " {{{ Autocommands.
 
-augroup ApplyTransparentBG
-    autocmd!
-    autocmd ColorScheme * if has("linux") | call ApplyTransparentBG() | endif
-augroup END
-
-" Auto-reload vimrc on save.
+" Auto-reload vimrc on ++save.
 augroup ReloadVimrc
 	autocmd!
 	autocmd BufWritePost $MYVIMRC source $MYVIMRC | echo 'vimrc reloaded.'
@@ -383,6 +371,11 @@ augroup END
 augroup ResizeUI
 	autocmd!
 	autocmd VimResized * wincmd =
+augroup END
+
+augroup ApplyTransparentBG
+	autocmd!
+    au ColorScheme * call ApplyTransparentBG()
 augroup END
 
 " }}}
