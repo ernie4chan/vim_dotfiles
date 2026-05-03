@@ -81,7 +81,7 @@ if has("multi_byte")
 	" Traditional Chinese (HK).
 	elseif v:lang =~ "^zh_HK"
 		set encoding=big5-hkscs
-		setl bomb
+		setlocal bomb
 	" Simplified Chinese (use the oldest one due to overlap with Big5).
 	elseif v:lang =~ "^zh_CN"
 		set encoding=gb2312
@@ -344,28 +344,28 @@ nnoremap <leader>cs :source $MYVIMRC<cr>
 
 " Auto-reload vimrc on save.
 augroup ReloadVimrc
-	au!
-	au BufWritePost $MYVIMRC source $MYVIMRC | echo 'vimrc reloaded.'
+	autocmd!
+	autocmd BufWritePost $MYVIMRC source $MYVIMRC | echo 'vimrc reloaded.'
 augroup END
 
 " Return to last cursor position when reopening a file.
 augroup CursorPosition
-	au!
-	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
+	autocmd!
+	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
 		\ | exe "normal! g'\""
 		\ | endif
 augroup END
 
 " Set spell check for text files.
 augroup SpellCheck
-	au!
-	au FileType markdown,text,gitcommit setlocal spell
+	autocmd!
+	autocmd FileType markdown,text,gitcommit setlocal spell
 augroup END
 
 " Resize splits when window is resized.
 augroup ResizeUI
-	au!
-	au VimResized * wincmd =
+	autocmd!
+	autocmd VimResized * wincmd =
 augroup END
 
 " }}}
