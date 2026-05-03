@@ -371,6 +371,8 @@ augroup END
 
 " Vim-Repeat.
 " No file!
+" This plugin supports: surround.vim, speeddating.vim, unimpaired.vim,
+" vim-easyclip, vim-radical.
 
 " Vim-DevIcons.
 " '~/.vim/plugin/vim-devicons.vim'
