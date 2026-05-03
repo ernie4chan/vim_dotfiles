@@ -303,6 +303,22 @@ nnoremap <leader>m :redir > ~/vim-mappings.txt
 		\ <bar> redir END<cr>
 		\ :echo 'Mappings dumped to ~/vim-mappings.txt'<cr>
 
+" Edit and reload vimrc.
+nnoremap <leader>ce :edit $MYVIMRC<cr>
+		\ :echo 'Editing vimrc.'<cr>
+nnoremap <leader>cr :source $MYVIMRC<cr>
+		\ :echo 'vimrc reloaded.'<cr>
+
+" }}}
+
+" {{{ Autocommands.
+
+" Auto-reload vimrc on save.
+augroup ReloadVimrc
+		autocmd!
+		autocmd BufWritePost $MYVIMRC source $MYVIMRC | echo 'vimrc reloaded.'
+augroup END
+
 " }}}
 
 " {{{ Plugins.
