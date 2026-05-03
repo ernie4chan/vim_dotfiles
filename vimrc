@@ -1,8 +1,8 @@
 " -------------------------------------------------------------
 " vim: filetype=vim
+" Title: Vim Run Commands
 " File: ~/.vim/vimrc
 " Maintainer: Ernie Lin
-"
 " {{{ Chronicles of major updates.
 
 " v.1: 2016/03/19 Dad back to Taiwan. MBP2015 @TXG.
@@ -279,8 +279,19 @@ nnoremap ,[		:bprevious<cr>		" Previous buffer.
 nnoremap ,]		:bnext<cr>			" Next buffer.
 nnoremap ,x		:bdelete<cr>		" Delete buffer.
 
+" Pane resizing.
+nnoremap ]w		5<c-w>>		" Increase pane width.
+nnoremap [w		5<c-w><		" Decrease pane width.
+nnoremap ]h		5<c-w>+		" Increase pane height.
+nnoremap [h		5<c-w>-		" Decrease pane height.
+nnoremap ]=		<c-w>=		" Equalize pane sizes.
+nnoremap [=		:only<cr>	" Zoom to single pane.
+
 " Yank fold title.
 nnoremap yt :let @"=matchstr(getline('.'), '\v\{\{\{ \zs.*')<cr>:echo 'Yanked: ' . @"<cr>
+
+" Dump all mappings to file.
+nnoremap <leader>m :redir > ~/vim-mappings.txt <bar> silent map <bar> redir END<cr>
 
 " }}}
 
