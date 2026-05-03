@@ -1,7 +1,7 @@
 " ---------------------------------------------
 " vim: filetype=vim
+" File: ~/.vim/plugin/fzf_for_vim.vim
 " Title: fzf for Vim
-" File: fzf_for_vim.vim
 " Maintainer: Ernie Lin
 " Update: 2026/05/03
 " ---------------------------------------------

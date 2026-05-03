@@ -1,6 +1,6 @@
 " ---------------------------------------------
 " vim: filetype=vim
-" File: ale.vim
+" File: ~/.vim/plugin/ale.vim
 " Title: ALE (Asynchronous Lint Engine)
 " Maintainer: Ernie Lin
 " Update: 2026/05/03

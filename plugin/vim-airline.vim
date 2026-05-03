@@ -1,6 +1,7 @@
 " ---------------------------------------------
 " vim: filetype=vim
-" File: Vim-Airline
+" File: ~/.vim/plugin/vim-airline.vim
+" Title: Vim-Airline
 " Maintainer: Ernie Lin
 " Update: 2026/05/03
 " ---------------------------------------------

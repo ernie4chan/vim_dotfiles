@@ -1,7 +1,7 @@
 " ---------------------------------------------
 " vim: filetype=vim
+" File: ~/.vim/plugin/vim-devicons.vim
 " Title: Vim-DevIcons
-" File: vim-devicons.vim
 " Maintainer: Ernie Lin
 " Update: 2026/05/03
 " ---------------------------------------------

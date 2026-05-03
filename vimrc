@@ -1,7 +1,7 @@
 " -------------------------------------------------------------
 " vim: filetype=vim
-" Title: Vim Run Commands
 " File: ~/.vim/vimrc
+" Title: Vim Run Commands
 " Maintainer: Ernie Lin
 " {{{ Chronicles of major updates.
 
