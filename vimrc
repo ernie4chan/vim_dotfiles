@@ -115,7 +115,7 @@ endif
 
 " }}}
 
-" {{{ Display.
+" {{{ Editing.
 
 " Filetype detection, filetype-specific plugins and indenting.
 filetype plugin indent on
@@ -133,19 +133,27 @@ set autoindent			" Inherit indent from previous line.
 set noexpandtab			" Keep real tabs (CAT tool compatibility).
 set smarttab			" Insert tabs at line start based on context.
 
+" }}}
+
+" {{{ Searching.
+
 set hlsearch			" Highlight matches.
 set incsearch			" Search as chars are entered.
 set ignorecase			" Ignore case when searching.
 set smartcase			" Case-sensitive if pattern contains uppercase.
+
+" }}}
+
+" {{{ Display.
+
+set number				" Display line numbers.
+set ruler				" The ruler is displayed on the status line.
 
 set cursorcolumn		" Highlight current column.
 set cursorline			" Highlight current line.
 set noshowmatch			" Disable jumping to matching bracket when typing.
 set noshowmode			" Hide the default mode text (e.g. -- INSERT --).
 set notitle				" Do not set the terminal title to the filename.
-
-set number				" Display line numbers.
-set ruler				" The ruler is displayed on the status line.
 
 set foldcolumn=2		" Show fold indicator column (width 2).
 set foldenable			" Enable folding.
@@ -164,6 +172,10 @@ set list				" Show invisible characters.
 " Replace the glyphs below with your preferred Nerd Font symbols.
 set listchars=tab:⇥\ \ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 set showbreak=↳			" Marker shown at the start of a wrapped line.
+
+" }}}
+
+" {{{ Behavior.
 
 set autochdir			" Automatically change to the directory of the current file.
 set belloff=all			" Mute all bell sounds.
