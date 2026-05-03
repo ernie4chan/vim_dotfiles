@@ -22,6 +22,9 @@
 " Not compatible with the old-fashion VI mode.
 set nocompatible
 
+" No intro message.
+set shortmess+=I
+
 " Remove '~/.viminfo'.
 if filereadable(expand("$HOME/.viminfo"))
 	silent !mv $HOME/.viminfo $HOME/.vim/temp/viminfo.old
@@ -55,9 +58,6 @@ for i in [ &backupdir, &directory, &undodir ]
 		call mkdir(expand(i), "p", 0700)
 	endif
 endfor
-
-" No intro message.
-set shortmess+=I
 
 " The menu language must go before ft detection.
 if has("gui_macvim")
@@ -263,10 +263,20 @@ endif
 " {{{ Mappings.
 
 " Function Keys.
-nnoremap <f2>			:set list!<cr>		" Toggle unprintable characters.
-nnoremap <f3>			:set spell!<cr>		" Toggle spell check.
-set pastetoggle=<f4>						" Toggle paste mode.
-nnoremap <f12>			ggVGg?				" Rot13 encoding.
+" Toggle unprintable characters.
+nnoremap <f2>  :set list!<cr>
+	\ :echo 'Invisibles ' . (&list ? 'on' : 'off')<cr>
+" Toggle spell check.
+nnoremap <f3>  :set spell!<cr>
+	\ :echo 'Spell check ' . (&spell ? 'on' : 'off')<cr>
+" Toggle PASTE mode (disable auto-indent and others when pasting).
+nnoremap <f4>  :set paste!<cr>
+	\ :echo 'PASTE mode ' . (&paste ? 'on' : 'off')<cr>
+" ROT13 encoding.
+let g:rot13_on = 0
+nnoremap <f12> ggVGg?
+	\ :let g:rot13_on = !g:rot13_on<cr>
+	\ :echo 'ROT13 ' . (g:rot13_on ? 'on' : 'off')<cr>
 
 " Tab manipulation
 nnoremap ,t		:tabnew<cr>			" New tab.
@@ -290,39 +300,39 @@ nnoremap [=		:only<cr>	" Zoom to single pane.
 
 " Trim trailing whitespace.
 function! TrimWhitespace()
-    let l:save_pos = getpos('.')
-    let l:save_search = @/
-    %s/\s\+$//e
-    let @/ = l:save_search
-    call setpos('.', l:save_pos)
+	let l:save_pos = getpos('.')
+	let l:save_search = @/
+	%s/\s\+$//e
+	let @/ = l:save_search
+	call setpos('.', l:save_pos)
 endfunction
 
 nnoremap <leader>w :call TrimWhitespace()<cr>
-		\ :echo 'Trailing whitespace trimmed.'<cr>
+	\ :echo 'Trailing whitespace trimmed.'<cr>
 
 " Clear search highlights.
 nnoremap <silent> <c-l> :nohlsearch<cr>
-		\ :echo 'Search cleared.'<cr><c-l>
+	\ :echo 'Search cleared.'<cr><c-l>
 
 " Toggle line wrap.
 nnoremap ,w :set wrap!<cr>
-		\ :echo 'Wrap ' . (&wrap ? 'on' : 'off')<cr>
+	\ :echo 'Wrap ' . (&wrap ? 'on' : 'off')<cr>
 
 " Yank fold title.
 nnoremap yt :let @"=matchstr(getline('.'), '\v\{\{\{ \zs.*')<cr>
-		\ :echo 'Yanked: ' . @"<cr>
+	\ :echo 'Yanked: ' . @"<cr>
 
 " Dump all mappings to file.
 nnoremap <leader>m :redir > ~/vim-mappings.txt
-		\ <bar> silent map
-		\ <bar> redir END<cr>
-		\ :echo 'Mappings dumped to ~/vim-mappings.txt'<cr>
+	\ <bar> silent map
+	\ <bar> redir END<cr>
+	\ :echo 'Mappings dumped to ~/vim-mappings.txt'<cr>
 
 " Edit and reload vimrc.
 nnoremap <leader>ce :edit $MYVIMRC<cr>
-		\ :echo 'Editing vimrc.'<cr>
+	\ :echo 'Editing vimrc.'<cr>
 nnoremap <leader>cr :source $MYVIMRC<cr>
-		\ :echo 'vimrc reloaded.'<cr>
+	\ :echo 'vimrc reloaded.'<cr>
 
 " }}}
 
@@ -330,28 +340,28 @@ nnoremap <leader>cr :source $MYVIMRC<cr>
 
 " Auto-reload vimrc on save.
 augroup ReloadVimrc
-    au!
-    au BufWritePost $MYVIMRC source $MYVIMRC | echo 'vimrc reloaded.'
+	au!
+	au BufWritePost $MYVIMRC source $MYVIMRC | echo 'vimrc reloaded.'
 augroup END
 
 " Return to last cursor position when reopening a file.
 augroup CursorPosition
-    au!
-    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
-        \ | exe "normal! g'\""
-        \ | endif
+	au!
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
+		\ | exe "normal! g'\""
+		\ | endif
 augroup END
 
 " Set spell check for text files.
 augroup FileSettings
-    au!
-    au FileType markdown,text,gitcommit setlocal spell
+	au!
+	au FileType markdown,text,gitcommit setlocal spell
 augroup END
 
 " Resize splits when window is resized.
 augroup ResizeUI
-    au!
-    au VimResized * wincmd =
+	au!
+	au VimResized * wincmd =
 augroup END
 
 " }}}
