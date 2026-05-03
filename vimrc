@@ -133,9 +133,6 @@ set autoindent			" Inherit indent from previous line.
 set noexpandtab			" Keep real tabs (CAT tool compatibility).
 set smarttab			" Insert tabs at line start based on context.
 
-" Spell check language.
-set spelllang=en_us
-
 " }}}
 
 " {{{ Searching.
@@ -190,6 +187,9 @@ set wildmenu					" Enable visual autocomplete in the command bar.
 set wildmode=list:longest,full	" Show full list, then cycle matches.
 set wildignore+=.DS_Store,*.git
 set wildignore+=*/tmp/*
+
+" Spell check language.
+set spelllang=en_us
 
 " Word list for keyword completion.
 if has('linux') && filereadable('/usr/share/dict/words')
@@ -262,22 +262,6 @@ endif
 
 " {{{ Mappings.
 
-" Function Keys.
-" Toggle unprintable characters.
-nnoremap <f2>  :set list!<cr>
-	\ :echo 'Invisibles ' . (&list ? 'on' : 'off')<cr>
-" Toggle spell check.
-nnoremap <f3>  :set spell!<cr>
-	\ :echo 'Spell check ' . (&spell ? 'on' : 'off')<cr>
-" Toggle PASTE mode (disable auto-indent and others when pasting).
-nnoremap <f4>  :set paste!<cr>
-	\ :echo 'PASTE mode ' . (&paste ? 'on' : 'off')<cr>
-" ROT13 encoding.
-let g:rot13_on = 0
-nnoremap <f12> ggVGg?
-	\ :let g:rot13_on = !g:rot13_on<cr>
-	\ :echo 'ROT13 ' . (g:rot13_on ? 'on' : 'off')<cr>
-
 " Tab manipulation
 nnoremap ,t		:tabnew<cr>			" New tab.
 nnoremap ,h		:tabprevious<cr>	" Previous tab.
@@ -297,6 +281,26 @@ nnoremap ]h		5<c-w>+		" Increase pane height.
 nnoremap [h		5<c-w>-		" Decrease pane height.
 nnoremap ]=		<c-w>=		" Equalize pane sizes.
 nnoremap [=		:only<cr>	" Zoom to single pane.
+
+" Function Keys.
+" Toggle unprintable characters.
+nnoremap <f2>  :set list!<cr>
+	\ :echo 'Invisibles ' . (&list ? 'on' : 'off')<cr>
+" Toggle spell check.
+nnoremap <f3>  :set spell!<cr>
+	\ :echo 'Spell check ' . (&spell ? 'on' : 'off')<cr>
+" Toggle PASTE mode (disable auto-indent and others when pasting).
+nnoremap <f4>  :set paste!<cr>
+	\ :echo 'PASTE mode ' . (&paste ? 'on' : 'off')<cr>
+" ROT13 encoding.
+let g:rot13_on = 0
+nnoremap <f12> ggVGg?
+	\ :let g:rot13_on = !g:rot13_on<cr>
+	\ :echo 'ROT13 ' . (g:rot13_on ? 'on' : 'off')<cr>
+
+" Generate tags recursively from current directory.
+nnoremap <leader>t :!ctags -R<cr>
+	\ :echo 'Tags generated.'<cr>
 
 " Trim trailing whitespace.
 function! TrimWhitespace()
