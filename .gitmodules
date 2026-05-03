@@ -22,3 +22,6 @@
 [submodule "pack/colors/start/vim-colorschemes"]
 	path = pack/colors/start/vim-colorschemes
 	url = https://github.com/rafi/awesome-vim-colorschemes.git
+[submodule "pack/addons/start/vim-repeat"]
+	path = pack/addons/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git

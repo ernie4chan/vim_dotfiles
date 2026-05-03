@@ -357,6 +357,9 @@ augroup END
 " Vim-Surround.
 " No file!
 
+" Vim-Repeat.
+" No file!
+
 " Vim-DevIcons.
 " '~/.vim/plugin/vim-devicons.vim'
 
