@@ -357,7 +357,7 @@ augroup CursorPosition
 augroup END
 
 " Set spell check for text files.
-augroup FileSettings
+augroup SpellCheck
 	au!
 	au FileType markdown,text,gitcommit setlocal spell
 augroup END
