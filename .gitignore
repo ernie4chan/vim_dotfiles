@@ -2,11 +2,13 @@ temp/
 temp/swap/
 temp/undo/
 
-.netrwhist
+spell/
+
 viminfo
+
+.netrwhist
+!/**/.keep
 
 *.log
 *.old
 *.tmp
-
-!/**/.keep

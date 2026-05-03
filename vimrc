@@ -133,6 +133,9 @@ set autoindent			" Inherit indent from previous line.
 set noexpandtab			" Keep real tabs (CAT tool compatibility).
 set smarttab			" Insert tabs at line start based on context.
 
+" Spell check language.
+set spelllang=en_us
+
 " }}}
 
 " {{{ Searching.
