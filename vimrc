@@ -280,17 +280,17 @@ nnoremap ]=	<c-w>=			" Equalize pane sizes.
 nnoremap [=	:only<cr>		" Zoom to single pane.
 
 " Function Keys.
-" Toggle unprintable characters.
-nnoremap <f2>	:set list!<cr>
-	\:echo 'Invisibles ' . (&list ? 'on' : 'off')<cr>
-" Toggle spell check.
-nnoremap <f3>	:set spell!<cr>
-	\:echo 'Spell check ' . (&spell ? 'on' : 'off')<cr>
 " Toggle PASTE mode (disable auto-indent and others when pasting).
-nnoremap <f4>	:set paste!<cr>
+nnoremap <f2>	:set paste!<cr>
 	\:echo 'PASTE mode ' . (&paste ? 'on' : 'off')<cr>
+" Toggle spell check.
+nnoremap <f7>	:set spell!<cr>
+	\:echo 'Spell check ' . (&spell ? 'on' : 'off')<cr>
+" Toggle unprintable characters.
+nnoremap <f8>	:set list!<cr>
+	\:echo 'Invisibles ' . (&list ? 'on' : 'off')<cr>
 " Toggle line wrap.
-nnoremap <f10>	:set wrap!<cr>
+nnoremap <f9>	:set wrap!<cr>
 	\:echo 'Wrap ' . (&wrap ? 'on' : 'off')<cr>
 " ROT13 encoding.
 let g:rot13_on = 0
