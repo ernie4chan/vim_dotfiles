@@ -20,8 +20,8 @@ packadd fzf.vim
 let g:fzf_layout = { 'down': '40%' }
 
 " Hide statusline while fzf is active.
-au! FileType fzf set laststatus=0 noshowmode noruler
-		\ | au BufLeave <buffer> set laststatus=2 showmode ruler
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+		\ | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " Disable preview window.
 let g:fzf_preview_window = []

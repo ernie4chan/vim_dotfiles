@@ -260,44 +260,47 @@ endif
 " {{{ Mappings.
 
 " Tab manipulation
-nnoremap ,t		:tabnew<cr>			" New tab.
-nnoremap ,h		:tabprevious<cr>	" Previous tab.
-nnoremap ,l		:tabnext<cr>		" Next tab.
-nnoremap ,q		:tabclose<cr>		" Close tab.
+nnoremap ,t	:tabnew<cr>			" New tab.
+nnoremap ,h	:tabprevious<cr>	" Previous tab.
+nnoremap ,l	:tabnext<cr>		" Next tab.
+nnoremap ,q	:tabclose<cr>		" Close tab.
 
 " Buffer manipulation.
-nnoremap ,b		:enew<cr>			" New buffer.
-nnoremap ,[		:bprevious<cr>		" Previous buffer.
-nnoremap ,]		:bnext<cr>			" Next buffer.
-nnoremap ,x		:bdelete<cr>		" Delete buffer.
+nnoremap ,b	:enew<cr>			" New buffer.
+nnoremap ,[	:bprevious<cr>		" Previous buffer.
+nnoremap ,]	:bnext<cr>			" Next buffer.
+nnoremap ,x	:bdelete<cr>		" Delete buffer.
 
 " Pane resizing.
-nnoremap ]w		5<c-w>>		" Increase pane width.
-nnoremap [w		5<c-w><		" Decrease pane width.
-nnoremap ]h		5<c-w>+		" Increase pane height.
-nnoremap [h		5<c-w>-		" Decrease pane height.
-nnoremap ]=		<c-w>=		" Equalize pane sizes.
-nnoremap [=		:only<cr>	" Zoom to single pane.
+nnoremap ]w	5<c-w>>			" Increase pane width.
+nnoremap [w	5<c-w><			" Decrease pane width.
+nnoremap ]h	5<c-w>+			" Increase pane height.
+nnoremap [h	5<c-w>-			" Decrease pane height.
+nnoremap ]=	<c-w>=			" Equalize pane sizes.
+nnoremap [=	:only<cr>		" Zoom to single pane.
 
 " Function Keys.
 " Toggle unprintable characters.
-nnoremap <f2>  :set list!<cr>
-	\ :echo 'Invisibles ' . (&list ? 'on' : 'off')<cr>
+nnoremap <f2>	:set list!<cr>
+	\:echo 'Invisibles ' . (&list ? 'on' : 'off')<cr>
 " Toggle spell check.
-nnoremap <f3>  :set spell!<cr>
-	\ :echo 'Spell check ' . (&spell ? 'on' : 'off')<cr>
+nnoremap <f3>	:set spell!<cr>
+	\:echo 'Spell check ' . (&spell ? 'on' : 'off')<cr>
 " Toggle PASTE mode (disable auto-indent and others when pasting).
-nnoremap <f4>  :set paste!<cr>
-	\ :echo 'PASTE mode ' . (&paste ? 'on' : 'off')<cr>
+nnoremap <f4>	:set paste!<cr>
+	\:echo 'PASTE mode ' . (&paste ? 'on' : 'off')<cr>
+" Toggle line wrap.
+nnoremap <f10>	:set wrap!<cr>
+	\:echo 'Wrap ' . (&wrap ? 'on' : 'off')<cr>
 " ROT13 encoding.
 let g:rot13_on = 0
-nnoremap <f12> ggVGg?
-	\ :let g:rot13_on = !g:rot13_on<cr>
-	\ :echo 'ROT13 ' . (g:rot13_on ? 'on' : 'off')<cr>
+nnoremap <f12>	ggVGg?
+	\:let g:rot13_on = !g:rot13_on<cr>
+	\:echo 'ROT13 ' . (g:rot13_on ? 'on' : 'off')<cr>
 
 " Generate tags recursively from current directory.
 nnoremap <leader>t :!ctags -R<cr>
-	\ :echo 'Tags generated.'<cr>
+	\:echo 'Tags generated.'<cr>
 
 " Trim trailing whitespace.
 function! TrimWhitespace()
@@ -309,7 +312,7 @@ function! TrimWhitespace()
 endfunction
 
 nnoremap <leader>w :call TrimWhitespace()<cr>
-	\ :echo 'Trailing whitespace trimmed.'<cr>
+	\:echo 'Trailing whitespace trimmed.'<cr>
 
 " Apply transparent background.
 function! ApplyTransparentBG()
@@ -317,41 +320,30 @@ function! ApplyTransparentBG()
 endfunction
 
 nnoremap <leader>tb :call ApplyTransparentBG()<cr>
-	\ :echo 'Transparent background applied.'<cr>
+	\:echo 'Transparent background applied.'<cr>
 
 " Clear search highlights.
 nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
-	\ :echo 'Search cleared.'<cr>
-
-" Toggle line wrap.
-nnoremap ,w :set wrap!<cr>
-	\ :echo 'Wrap ' . (&wrap ? 'on' : 'off')<cr>
+	\:echo 'Search cleared.'<cr>
 
 " Yank fold title.
 nnoremap yt :let @"=matchstr(getline('.'), '\v\{\{\{ \zs.*')<cr>
-	\ :echo 'Yanked: ' . @"<cr>
+	\:echo 'Yanked: ' . @"<cr>
 
 " Dump all mappings to file.
-nnoremap <leader>m :redir > ~/vim-mappings.txt
-	\ <bar> silent map
-	\ <bar> redir END<cr>
-	\ :echo 'Mappings dumped to ~/vim-mappings.txt'<cr>
+nnoremap <leader>m :redir! > ~/vim-mappings.txt
+	\ <bar> silent map <bar> redir END<cr>
+	\:echo 'Mappings dumped to ~/vim-mappings.txt'<cr>
 
 " Edit and reload vimrc.
 nnoremap <leader>ce :edit $MYVIMRC<cr>
-	\ :echo 'Editing vimrc.'<cr>
+	\:echo 'Editing vimrc.'<cr>
 nnoremap <leader>cs :source $MYVIMRC<cr>
-	\ :echo 'vimrc reloaded.'<cr>
+	\:echo 'vimrc reloaded.'<cr>
 
 " }}}
 
 " {{{ Autocommands.
-
-" Auto-reload vimrc on ++save.
-augroup ReloadVimrc
-	autocmd!
-	autocmd BufWritePost $MYVIMRC source $MYVIMRC | echo 'vimrc reloaded.'
-augroup END
 
 " Return to last cursor position when reopening a file.
 augroup CursorPosition
