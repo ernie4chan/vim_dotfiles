@@ -1,13 +1,6 @@
 temp/
 spell/
 
-tags
 viminfo
-
-.netrwhist
-
-*.log
-*.old
-*.tmp
 
 !/**/.keep
