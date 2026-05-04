@@ -298,6 +298,14 @@ nnoremap <f12>	ggVGg?
 	\:let g:rot13_on = !g:rot13_on<cr>
 	\:echo 'ROT13 ' . (g:rot13_on ? 'on' : 'off')<cr>
 
+" Clear search highlights.
+nnoremap <c-l> :nohlsearch<cr><c-l>
+	\:echo 'All cleared.'<cr>
+
+" Yank fold title.
+nnoremap yt :let @"=matchstr(getline('.'), '\v\{\{\{ \zs.*')<cr>
+	\:echo 'Yanked: ' . @"<cr>
+
 " Generate tags recursively from current directory.
 nnoremap <leader>t :!ctags -R<cr>
 	\:echo 'Tags generated.'<cr>
@@ -321,14 +329,6 @@ endfunction
 
 nnoremap <leader>tb :call ApplyTransparentBG()<cr>
 	\:echo 'Transparent background applied.'<cr>
-
-" Clear search highlights.
-nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
-	\:echo 'Search cleared.'<cr>
-
-" Yank fold title.
-nnoremap yt :let @"=matchstr(getline('.'), '\v\{\{\{ \zs.*')<cr>
-	\:echo 'Yanked: ' . @"<cr>
 
 " Dump all mappings to file.
 nnoremap <leader>m :redir! > ~/vim-mappings.txt
