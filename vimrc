@@ -382,7 +382,7 @@ augroup END
 
 " {{{ Plugins.
 
-" --- The following files are loaded at startup without convoking. ---
+" --- The following files are loaded at startup. ---
 
 " Netrw (The Unloved Directory Browser).
 " '~/.vim/plugin/better-netrw.vim'
