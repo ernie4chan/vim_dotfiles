@@ -236,21 +236,21 @@ if has("termguicolors")
 endif
 
 " True Color.
-if has("gui_running")		" Emulator running.
+if has("gui_running")
+	colorscheme jellybeans
 	if has("linux")
 		set guifont=Hack\ Nerd\ Font\ 13
 		set guiheadroom=0	" Ugly gap in gVim.
 	elseif has("mac")
 		set guifont=Hack\ Nerd\ Font:h13
 	endif
-	set guioptions-=T		" Remove toolbar.
-	set guioptions-=e		" Remove tabbar.
 	set guioptions-=m		" Remove menubar.
+	set guioptions-=e		" Remove tabbar.
+	set guioptions-=T		" Remove toolbar.
 	set guioptions-=l		" Remove left scrollbar.
 	set guioptions-=r		" Remove right scrollbar.
 	set lines=50
 	set columns=96
-	colorscheme jellybeans
 else						" Terminal running.
 	colorscheme retrobox
 endif
