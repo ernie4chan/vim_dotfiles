@@ -59,13 +59,6 @@ for i in [ &backupdir, &directory, &undodir ]
 	endif
 endfor
 
-" The menu language must go before ft detection.
-if has("gui_macvim")
-	set langmenu=zh_TW.UTF-8
-else
-	set langmenu=none
-endif
-
 " }}}
 
 " {{{ Encoding.
@@ -111,6 +104,39 @@ if has("multi_byte")
 	endif
 else
 	echoerr 'This version of Vim has not been compiled with "multi-byte" support!'
+endif
+
+" }}}
+
+" {{{ Colors.
+
+if has("termguicolors")
+	" Fix true color bug for Vim.
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+	" Enable true color.
+	set termguicolors
+endif
+
+" True Color.
+if has("gui_running")
+	colorscheme jellybeans
+	if has("linux")
+		set guifont=Hack\ Nerd\ Font\ 13
+		set guiheadroom=0	" Ugly gap in gVim.
+	elseif has("mac")
+		set guifont=Hack\ Nerd\ Font:h13
+	endif
+	set guioptions-=m		" Remove menubar.
+	set guioptions-=e		" Remove tabbar.
+	set guioptions-=T		" Remove toolbar.
+	set guioptions-=l		" Remove left scrollbar.
+	set guioptions-=r		" Remove right scrollbar.
+	set lines=50
+	set columns=96
+else						" Terminal running.
+	set t_ut=				" disable BCE, fixes white flash in Windows Terminal.
+	colorscheme retrobox
 endif
 
 " }}}
@@ -161,10 +187,10 @@ set foldlevel=0			" Fold all levels on open.
 set foldmethod=marker	" Use markers for folding.
 set wrap				" Wrap long lines.
 
-" Fill characters in the status line:
+" Fill characters in the status line (it will be overrided by airline):
 " stl:\  — fills the active window's status line with spaces
 " stlnc:\ — fills inactive windows' status lines with backslashes
-set fillchars+=stl:\ ,stlnc:\
+"set fillchars+=stl:\ ,stlnc:\
 set laststatus=2		" Always show the status line.
 set showtabline=1		" Show tabline when at least 2 tabs are open.
 
@@ -177,10 +203,11 @@ set showbreak=↳			" Marker shown at the start of a wrapped line.
 
 " {{{ Behavior.
 
-set autochdir			" Automatically change to the directory of the current file.
 set belloff=all			" Mute all bell sounds.
 set hidden				" Allow switching buffers without saving.
 set switchbuf=usetab	" Include tabs when switching buffers.
+"set autochdir			" Automatically change to the directory of the current file.
+						" It may conflicts with Netrw.
 "set ttyfast				" No-op in Vim 8+; removed.
 
 set wildmenu					" Enable visual autocomplete in the command bar.
@@ -215,44 +242,12 @@ if has('clipboard')
 endif
 
 " Additional support for WSL2.
-if filereadable('/proc/version') && system('grep -i microsoft /proc/version') != ''
+if !empty($WSL_DISTRO_NAME)
 	" Copy to clipboard.
 	vnoremap <leader>y :w !clip.exe<CR><CR>
 
 	" Paste from clipboard.
 	nnoremap <leader>p :r !powershell.exe -command "Get-Clipboard"<CR>
-endif
-
-" }}}
-
-" {{{ Terminal & Colors.
-
-if has("termguicolors")
-	" Fix true color bug for Vim.
-	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-	" Enable true color.
-	set termguicolors
-endif
-
-" True Color.
-if has("gui_running")
-	colorscheme jellybeans
-	if has("linux")
-		set guifont=Hack\ Nerd\ Font\ 13
-		set guiheadroom=0	" Ugly gap in gVim.
-	elseif has("mac")
-		set guifont=Hack\ Nerd\ Font:h13
-	endif
-	set guioptions-=m		" Remove menubar.
-	set guioptions-=e		" Remove tabbar.
-	set guioptions-=T		" Remove toolbar.
-	set guioptions-=l		" Remove left scrollbar.
-	set guioptions-=r		" Remove right scrollbar.
-	set lines=50
-	set columns=96
-else						" Terminal running.
-	colorscheme retrobox
 endif
 
 " }}}
@@ -347,6 +342,12 @@ nnoremap <leader>cs :source $MYVIMRC<cr>
 
 " {{{ Autocommands.
 
+augroup transparent_bg
+	autocmd!
+    au ColorScheme * call ApplyTransparentBG()
+augroup END
+call ApplyTransparentBG()	" Apply once on startup.
+
 " Return to last cursor position when reopening a file.
 augroup cursor_position
 	autocmd!
@@ -365,11 +366,6 @@ augroup END
 augroup resize_ui
 	autocmd!
 	autocmd VimResized * wincmd =
-augroup END
-
-augroup transparent_bg
-	autocmd!
-    au ColorScheme * call ApplyTransparentBG()
 augroup END
 
 augroup help_fullscreen

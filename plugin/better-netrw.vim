@@ -16,6 +16,20 @@ let g:netrw_winsize = &columns < 92 ? 32 : 22
 " Hide banner.
 let g:netrw_banner = 1
 
+" Open files in:
+" 0 Same window (default)
+" 1 Horizontal split
+" 2 Vertical split
+" 3 New tab
+" 4 Previous/existing window
+let g:netrw_browse_split = 0
+
+" Preview in vertical split instead of horizontal.
+let g:netrw_preview = 0
+
+" Vertical split opens to the right of Netrw.
+let g:netrw_altv = 1
+
 " Keep the current directory and the browsing directory synced.
 " This helps you avoid the move files error.
 let g:netrw_keepdir = 0
@@ -56,11 +70,15 @@ function! NetrwMapping()
 	nmap <buffer> h -^
 	" Open a directory/file.
 	nmap <buffer> l <cr>
-
-	" Close the preview window.
-	nmap <buffer> pp <c-w>z
 	" Toggle hidden files.
 	nmap <buffer> za gh
+
+	" p — preview, cursor stays in Netrw, file opens in a new split.
+	" P — opens file in previously used window, cursor moves to that window.
+	" Open file and jump back to Netrw.
+	nmap <buffer> pp <cr><c-w>p
+	" Close the preview window.
+	nmap <buffer> PP <c-w>z
 
 	" -----
 	" Mark a file in the current buffer.
