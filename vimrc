@@ -25,6 +25,22 @@ set nocompatible
 " No intro message.
 set shortmess+=I
 
+" How to handle backup files.
+set backupdir=$HOME/.vim/temp//			" Where Vim stashes backup files.
+set directory=$HOME/.vim/temp/swap//	" Where Vim stashes swap files.
+set undodir=$HOME/.vim/temp/undo//		" Where Vim stashes undo files.
+set swapfile			" Save unsaved changes.
+set undofile			" Save undo trees of the file edited for days.
+set writebackup			" Backup files while editing.
+set nobackup			" No backup files before editing.
+
+" Make those folders automatically if they don't already exist.
+for i in [ &backupdir, &directory, &undodir ]
+	if !isdirectory(expand(i))
+		call mkdir(expand(i), "p", 0700)
+	endif
+endfor
+
 " Remove '~/.viminfo'.
 if filereadable(expand("$HOME/.viminfo"))
 	silent !mv $HOME/.viminfo $HOME/.vim/temp/viminfo.old
@@ -41,23 +57,7 @@ endif
 " Input (@) — saves input line history
 " Media (r) — excludes removable drives from mark saving
 " Size (s) — limits register item size to prevent huge viminfo files
-set viminfo='100,<50,h,n$HOME/.vim/viminfo
-
-" How to handle backup files.
-set backupdir=$HOME/.vim/temp//			" Where Vim stashes backup files.
-set directory=$HOME/.vim/temp/swap//	" Where Vim stashes swap files.
-set undodir=$HOME/.vim/temp/undo//		" Where Vim stashes undo files.
-set swapfile			" Save unsaved changes.
-set undofile			" Save undo trees of the file edited for days.
-set writebackup			" Backup files while editing.
-set nobackup			" No backup files before editing.
-
-" Make those folders automatically if they don't already exist.
-for i in [ &backupdir, &directory, &undodir ]
-	if !isdirectory(expand(i))
-		call mkdir(expand(i), "p", 0700)
-	endif
-endfor
+let &viminfo="'100,<50,h,n" .. expand("$HOME/.vim/viminfo")
 
 " }}}
 
@@ -108,6 +108,16 @@ endif
 
 " }}}
 
+" {{{ Filetype & Syntax.
+
+" Filetype detection, filetype-specific plugins and indenting.
+filetype plugin indent on
+
+" Load syntax files and can override default.
+syntax on
+
+" }}}
+
 " {{{ Colors.
 
 if has("termguicolors")
@@ -141,13 +151,7 @@ endif
 
 " }}}
 
-" {{{ Editing.
-
-" Filetype detection, filetype-specific plugins and indenting.
-filetype plugin indent on
-
-" Load syntax files and can override default.
-syntax on
+" {{{ Editing and Searching.
 
 set backspace=indent,eol,start	" Backspace over everything in insert mode.
 set shiftwidth=4				" Size of an ident, affects '>>', '<<' or '=='.
@@ -158,10 +162,6 @@ set ambiwidth=single	" Treat ambiguous-width East Asian chars as single-width.
 set autoindent			" Inherit indent from previous line.
 set noexpandtab			" Keep real tabs (CAT tool compatibility).
 set smarttab			" Insert tabs at line start based on context.
-
-" }}}
-
-" {{{ Searching.
 
 set hlsearch			" Highlight matches.
 set incsearch			" Search as chars are entered.
@@ -206,8 +206,7 @@ set showbreak=↳			" Marker shown at the start of a wrapped line.
 set belloff=all			" Mute all bell sounds.
 set hidden				" Allow switching buffers without saving.
 set switchbuf=usetab	" Include tabs when switching buffers.
-"set autochdir			" Automatically change to the directory of the current file.
-						" It may conflicts with Netrw.
+"set autochdir			" !! It may conflicts with Netrw.
 "set ttyfast				" No-op in Vim 8+; removed.
 
 set wildmenu					" Enable visual autocomplete in the command bar.
