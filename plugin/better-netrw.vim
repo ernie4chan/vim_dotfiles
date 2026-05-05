@@ -160,5 +160,4 @@ augroup netrw_tabline
 	autocmd BufLeave * if &filetype != 'netrw' | set showtabline=2 | endif
 	autocmd BufEnter * if &filetype == 'netrw' | set showtabline=0 | endif
 augroup END
-
 " }}}
