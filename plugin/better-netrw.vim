@@ -57,25 +57,10 @@ function! NetrwMapping()
 	" Open a directory/file.
 	nmap <buffer> l <cr>
 
-	" Toggle hidden files.
-	nmap <buffer> za gh
 	" Close the preview window.
 	nmap <buffer> pp <c-w>z
-
-	" -----
-	" Query 'bookmarks' = qb (default).
-	" Query marked files.
-	nmap <buffer> qm :echo join(netrw#Expose("netrwmarkfilelist"), "\n")<cr>
-	" Query target directory.
-	nmap <buffer> qt :echo 'Target:' . netrw#Expose("netrwmftgt")<cr>
-
-	" -----
-	" Create a 'Bookmark'.
-	nmap <buffer> bb mb
-	" Remove the most recent 'bookmark'.
-	nmap <buffer> bd mB
-	" Jump to the most recent 'bookmark'.
-	nmap <buffer> bl gb
+	" Toggle hidden files.
+	nmap <buffer> za gh
 
 	" -----
 	" Mark a file in the current buffer.
@@ -84,6 +69,16 @@ function! NetrwMapping()
 	nmap <buffer> <s-tab> mF
 	" Unmark all files.
 	nmap <buffer> <leader><tab> mu
+
+	" -----
+	" Create a 'Bookmark'.
+	nmap <buffer> bb mb
+	" Remove the most recent 'bookmark'.
+	nmap <buffer> bd mB
+	" Jump to the most recent 'bookmark'.
+	nmap <buffer> bl gb
+	" Query 'bookmarks'.
+	nmap <buffer> bq qb
 
 	" -----
 	" Create a file for real.
@@ -103,6 +98,10 @@ function! NetrwMapping()
 
 	" Execute a command on marked files.
 	nmap <buffer> fe mx
+	" Query the list of marked files.
+	nmap <buffer> fl :echo join(netrw#Expose("netrwmarkfilelist"), "\n")<cr>
+	" Query target directory.
+	nmap <buffer> fq :echo 'Target:' . netrw#Expose("netrwmftgt")<cr>
 
 endfunction
 
