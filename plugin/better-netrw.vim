@@ -33,15 +33,15 @@ hi! link netrwMarkFile Search
 
 " {{{ Mappings
 
+" Toggle the Netrw window and opens in the current working directory (pwd).
+nnoremap <leader>e :call ToggleNetrw()<cr>
+
 " Open Netrw in the current file's directory.
 " Example: current file:  ~/projects/foo/bar.txt
 "		%		→	bar.txt
 "		%:p		→	/home/user/projects/foo/bar.txt
 "		%:p:h	→	/home/user/projects/foo
 nnoremap <leader>ee :Lexplore %:p:h<cr>:echo 'Netrw: opened at file location.'<cr>
-
-" Toggle the Netrw window and opens in the current working directory (pwd).
-nnoremap <leader>e :call ToggleNetrw()<cr>
 
 " Better keymaps for Netrw.
 function! NetrwMapping()
