@@ -137,9 +137,10 @@ augroup END
 
 " Hide airline tabline in Netrw, restore when leaving.
 augroup netrw_tabline
-    autocmd!
-    autocmd FileType netrw set showtabline=0
-    autocmd BufLeave * if &filetype != 'netrw' | set showtabline=2 | endif
+	autocmd!
+	autocmd FileType netrw set showtabline=0
+	autocmd BufLeave * if &filetype != 'netrw' | set showtabline=2 | endif
+	autocmd BufEnter * if &filetype == 'netrw' | set showtabline=0 | endif
 augroup END
 
 " }}}
