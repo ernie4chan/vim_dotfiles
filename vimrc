@@ -292,6 +292,8 @@ nnoremap <f8>	:set list!<cr>
 " Toggle line wrap.
 nnoremap <f9>	:set wrap!<cr>
 	\:echo 'Wrap ' . (&wrap ? 'on' : 'off')<cr>
+" Quit program.
+nnoremap <F10> :q<cr>
 " ROT13 encoding.
 let g:rot13_on = 0
 nnoremap <f12>	ggVGg?
@@ -346,7 +348,7 @@ nnoremap <leader>cs :source $MYVIMRC<cr>
 " {{{ Autocommands.
 
 " Return to last cursor position when reopening a file.
-augroup CursorPosition
+augroup cursor_position
 	autocmd!
 	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
 		\ | exe "normal! g'\""
@@ -354,18 +356,18 @@ augroup CursorPosition
 augroup END
 
 " Set spell check for text files.
-augroup SpellCheck
+augroup spell_check
 	autocmd!
 	autocmd FileType markdown,text,gitcommit setlocal spell
 augroup END
 
 " Resize splits when window is resized.
-augroup ResizeUI
+augroup resize_ui
 	autocmd!
 	autocmd VimResized * wincmd =
 augroup END
 
-augroup ApplyTransparentBG
+augroup transparent_bg
 	autocmd!
     au ColorScheme * call ApplyTransparentBG()
 augroup END

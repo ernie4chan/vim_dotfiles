@@ -1,143 +1,146 @@
 " ---------------------------------------------------------
+" vim: filetype=vim
 " File: ~/.vim/plugin/better-netrw.vim
+" Title: Netrw
 " Description: Making a more intuitive Netrw.
-"
-" Update: 2022-06-08
-"
-" Written: VonHeikemen
+" Update: 2026/05/04
+" Written: Ernie Lin
 " Reference: https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
 " ---------------------------------------------------------
 
-" Open Netrw on the directory of the current file.
-nnoremap <leader>nn :Lexplore %:p:h <CR>
+" {{{ Behavior
 
-" Toggle the Netrw window.
-nnoremap <Leader>na :Lexplore <CR>
-
-if &columns < 90
-	" If the screen is small, occupy half;
-	let g:netrw_winsize = 40
-else
-	" else take 30%.
-	let g:netrw_winsize = 20
-endif
-
-" Sync current directory and browsing directory, which
-"  solves the problem with the 'move' command.
-let g:netrw_keepdir = 0
+" Window size: 32% for narrow screens (<92 cols), 22% otherwise.
+let g:netrw_winsize = &columns < 92 ? 32 : 22
 
 " Hide banner.
-let g:netrw_banner = 0
+let g:netrw_banner = 1
 
-" Hide dotfiles.
+" Keep the current directory and the browsing directory synced.
+" This helps you avoid the move files error.
+let g:netrw_keepdir = 0
+
+" Hide dotfiles by default (toggle with '.' mapping).
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 
-" A better copy command.
+" Copy directories recursively.
 let g:netrw_localcopydircmd = 'cp -r'
 
-" Delete a non-empty directory.
-function! NetrwRemoveRecursive()
-	if &filetype ==# 'netrw'
-		" Prepare the delete command, triggered by just pressing 'Enter'.
-		cnoremap <buffer><CR> rm -r <CR>
+" Highlight marked files in the same way search matches are.
+hi! link netrwMarkFile Search
 
-		" Unmark all files (don't want to delete anything by accident).
-		normal mu
+" }}}
 
-		" Mark the file/directory under the cursor.
-		normal mf
+" {{{ Mappings
 
-		" Show the prompt to enter the command.
-		" In here you either press 'Enter' to confirm
-		" or press 'Ctrl + C' to abort.
-		" Don't do anything else!
-		try
-			normal mx
-		catch
-			echo "Canceled"
-		endtry
+" Open Netrw on the directory of the current file.
+" Example: current file:  ~/projects/foo/bar.txt
+"		%		→	bar.txt
+"		%:p		→	/home/user/projects/foo/bar.txt
+"		%:p:h	→	/home/user/projects/foo
+nnoremap <leader>e :Lexplore %:p:h<cr>:echo 'Netrw: opened at file location.'<cr>
 
-		" Undo the 'Enter' keymap.
-		cunmap <buffer><CR>
-	endif
-endfunction
+" Toggle the Netrw window.
+nnoremap <leader>ee :call ToggleNetrw()<cr>
 
 " Better keymaps for Netrw.
 function! NetrwMapping()
-	" Close Netrw window.
-	nmap <buffer> <leader>dd :Lexplore <CR>
 
-	" Go to file and close Netrw window.
-	nmap <buffer> L <CR> :Lexplore <CR>
+	" -----
+	" Open a file and close Netrw.
+	nmap <buffer> L <cr>:Lexplore<cr>:echo 'Netrw: closed.'<cr>
 
 	" Go back in history.
 	nmap <buffer> H u
-
-	" Go up a directory.
+	" Go up a directory, land on last visited.
 	nmap <buffer> h -^
+	" Open a directory/file.
+	nmap <buffer> l <cr>
 
-	" Go down a directory / open file.
-	nmap <buffer> l <CR>
+	" Toggle hidden files.
+	nmap <buffer> za gh
+	" Close the preview window.
+	nmap <buffer> pp <c-w>z
 
-	" Toggle dotfiles.
-	nmap <buffer> . gh
+	" -----
+	" Query 'bookmarks' = qb (default).
+	" Query marked files.
+	nmap <buffer> qm :echo join(netrw#Expose("netrwmarkfilelist"), "\n")<cr>
+	" Query target directory.
+	nmap <buffer> qt :echo 'Target:' . netrw#Expose("netrwmftgt")<cr>
 
-	" Toggle the mark on a file.
-	nmap <buffer> <TAB> mf
-
-	" Unmark all files in the buffer.
-	nmap <buffer> <S-TAB> mF
-
-	" Unmark all files.
-	nmap <buffer> <Leader><TAB> mu
-
-	" 'Bookmark' a directory.
+	" -----
+	" Create a 'Bookmark'.
 	nmap <buffer> bb mb
-
-	" Delete the most recent directory bookmark.
+	" Remove the most recent 'bookmark'.
 	nmap <buffer> bd mB
-
-	" Got to a directory on the most recent bookmark.
+	" Jump to the most recent 'bookmark'.
 	nmap <buffer> bl gb
 
-	" Create a file.
-	nmap <buffer> ff %:w <CR> :buffer # <CR>
+	" -----
+	" Mark a file in the current buffer.
+	nmap <buffer> <tab> mf
+	" Unmark all files in the current buffer.
+	nmap <buffer> <s-tab> mF
+	" Unmark all files.
+	nmap <buffer> <leader><tab> mu
 
-	" Rename a file.
-	nmap <buffer> fe R
-
-	" Copy marked files.
-	nmap <buffer> fc mc
-
-	" Copy marked files in the directory under cursor.
-	nmap <buffer> fC mtmc
-
-	" Move marked files.
-	nmap <buffer> fx mm
-
-	" Move marked files in the directory under cursor.
-	nmap <buffer> fX mtmm
-
-	" Execute a command on marked files.
-	nmap <buffer> f; mx
-
-	" Show the list of marked files.
-	nmap <buffer> fl :echo join(netrw#Expose("netrwmarkfilelist"), "\n") <CR>
-
-	" Show the current target directory.
-	nmap <buffer> fq :echo 'Target:' . netrw#Expose("netrwmftgt") <CR>
+	" -----
+	" Create a file for real.
+	nmap <buffer> F %:w<cr>:buffer #<cr>
 
 	" Set the directory under the cursor as the current target.
-	nmap <buffer> fd mtfq
+	nmap <buffer> ft mtfq
 
-	" Delete a file.
-	nmap <buffer> FF :call NetrwRemoveRecursive() <CR>
+	" Copy marked files to target directory.
+	nmap <buffer> fc mc
+	" Copy marked files to directory under cursor.
+	nmap <buffer> fC mtmc
+	" Move marked files to target folder.
+	nmap <buffer> fm mm
+	" Move marked files to directory under cursor.
+	nmap <buffer> fM mtmm
 
-	" Close the preview window.
-	nmap <buffer> P <C-w>z
+	" Execute a command on marked files.
+	nmap <buffer> fe mx
+
 endfunction
+
+" }}}
+
+" {{{ Define functions
+
+" Toggle Netrw window and echo its state.
+function! ToggleNetrw()
+	let l:before = winnr('$')
+	Lexplore
+	redraw
+	if winnr('$') > l:before
+		echo 'Netrw: opened at working directory.'
+	else
+		echo 'Netrw: closed.'
+	endif
+endfunction
+
+" }}}
+
+" {{{ Autocommands
 
 augroup netrw_mapping
 	autocmd!
 	autocmd filetype netrw call NetrwMapping()
 augroup END
+
+augroup netrw_close
+	autocmd!
+	autocmd BufDelete * if winnr('$') == 1 && &filetype == 'netrw' | quit | endif
+augroup END
+
+" Hide airline tabline in Netrw, restore when leaving.
+augroup netrw_tabline
+    autocmd!
+    autocmd FileType netrw set showtabline=0
+    autocmd BufLeave * if &filetype != 'netrw' | set showtabline=2 | endif
+augroup END
+
+" }}}
