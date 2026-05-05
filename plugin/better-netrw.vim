@@ -52,7 +52,7 @@ function! NetrwMapping()
 
 	" Go back in history.
 	nmap <buffer> H u
-	" Go up a directory, land on last visited.
+	" Go up a directory and moves to the first non-blank character.
 	nmap <buffer> h -^
 	" Open a directory/file.
 	nmap <buffer> l <cr>
