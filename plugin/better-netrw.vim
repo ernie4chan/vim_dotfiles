@@ -73,12 +73,11 @@ function! NetrwMapping()
 	" Toggle hidden files.
 	nmap <buffer> za gh
 
-	" p — preview, cursor stays in Netrw, file opens in a new split.
-	" P — opens file in previously used window, cursor moves to that window.
-	" Open file and jump back to Netrw.
+	" p - Preview file in a new horizontal split; cursor stays in Netrw.
+	" Close the preview window that is opened with 'p'.
+	nmap <buffer> P <c-w>z
+	" Preview file in a previous vertical split; cursor stays in Netrw.
 	nmap <buffer> pp <cr><c-w>p
-	" Close the preview window.
-	nmap <buffer> PP <c-w>z
 
 	" -----
 	" Mark a file in the current buffer.
