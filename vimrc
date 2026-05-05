@@ -372,6 +372,13 @@ augroup transparent_bg
     au ColorScheme * call ApplyTransparentBG()
 augroup END
 
+augroup help_fullscreen
+  autocmd!
+  " When any buffer window is entered, check if it's a help page
+  " opened from an empty/unnamed buffer, then make it fullscreen
+  autocmd BufWinEnter * if &filetype == 'help' && bufname('#') == '' | only | endif
+augroup END
+
 " }}}
 
 " {{{ Plugins.
