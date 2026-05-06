@@ -335,7 +335,7 @@ nnoremap <leader>w :call TrimWhitespace()<cr>
 
 " Apply transparent background.
 function! ApplyTransparentBG()
-	hi Normal guibg=NONE ctermbg=NONE
+	highlight Normal guibg=NONE ctermbg=NONE
 endfunction
 
 nnoremap <leader>tb :call ApplyTransparentBG()<cr>
@@ -386,6 +386,13 @@ augroup help_fullscreen
 	" When any buffer window is entered, check if it's a help page
 	" opened from an empty/unnamed buffer, then make it fullscreen
 	autocmd BufWinEnter * if &filetype == 'help' && bufname('#') == '' | only | endif
+augroup END
+
+augroup whitespace_trailing
+	autocmd!
+    highlight whitespace_trailing ctermbg=red guibg=red
+	autocmd BufWinEnter * match whitespace_trailing /\s\+$/
+	autocmd ColorScheme * highlight whitespace_trailing ctermbg=red guibg=red
 augroup END
 
 " }}}

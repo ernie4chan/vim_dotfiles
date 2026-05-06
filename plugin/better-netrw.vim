@@ -41,7 +41,7 @@ let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_localcopydircmd = 'cp -r'
 
 " Highlight marked files in the same way search matches are.
-hi! link netrwMarkFile Search
+highlight! link netrwMarkFile Search
 
 " }}}
 
