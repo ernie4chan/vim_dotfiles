@@ -276,6 +276,22 @@ nnoremap [=	:only<cr>		" Zoom to single pane.
 " Toggle PASTE mode (disable auto-indent and others when pasting).
 nnoremap <f2>	:set paste!<cr>
 	\:echo 'PASTE mode ' . (&paste ? 'on' : 'off')<cr>
+" Toggle ruler.
+nnoremap <f3>	:call ToggleNumbers()<cr>
+
+function! ToggleNumbers()
+	if !&number && !&relativenumber
+		set number
+		echo 'number'
+	elseif &number && !&relativenumber
+		set relativenumber
+		echo 'relativenumber'
+	else
+		set nonumber norelativenumber
+		echo 'off'
+	endif
+endfunction
+
 " Toggle spell check.
 nnoremap <f7>	:set spell!<cr>
 	\:echo 'Spell check ' . (&spell ? 'on' : 'off')<cr>
@@ -326,8 +342,7 @@ nnoremap <leader>tb :call ApplyTransparentBG()<cr>
 	\:echo 'Transparent background applied.'<cr>
 
 " Dump all mappings to file.
-nnoremap <leader>m :redir! > ~/vim-mappings.txt
-	\ <bar> silent map <bar> redir END<cr>
+nnoremap <leader>m :redir! > ~/vim-mappings.txt<cr>:silent map<cr>:redir END<cr>
 	\:echo 'Mappings dumped to ~/vim-mappings.txt'<cr>
 
 " Edit and reload vimrc.
