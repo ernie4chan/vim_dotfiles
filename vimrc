@@ -282,13 +282,13 @@ nnoremap <f3>	:call ToggleNumbers()<cr>
 function! ToggleNumbers()
 	if !&number && !&relativenumber
 		set number
-		echo 'number'
+		echo 'Absolute line numbers'
 	elseif &number && !&relativenumber
 		set relativenumber
-		echo 'relativenumber'
+		echo 'Relative line numbers'
 	else
 		set nonumber norelativenumber
-		echo 'off'
+		echo 'Line numbers off'
 	endif
 endfunction
 
