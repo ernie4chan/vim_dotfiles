@@ -153,16 +153,19 @@ endif
 
 " {{{ Editing and Searching.
 
-set backspace=indent,eol,start	" Backspace over everything in insert mode.
-set shiftwidth=4				" Size of an ident, affects '>>', '<<' or '=='.
-set softtabstop=0				" Number of spaces a tab counts for in editing.
-set tabstop=4					" Number of visual spaces per tab.
+set tabstop=4			" Number of visual spaces per tab.
+set softtabstop=4		" Number of spaces a tab counts for in editing.
+set shiftwidth=4		" Size of an ident, affects '>>', '<<' or '=='.
 
-set ambiwidth=single	" Treat ambiguous-width East Asian chars as single-width.
-set autoindent			" Inherit indent from previous line.
+set ambiwidth=single			" Treat ambiguous-width East Asian chars as single-width.
+set autoindent					" Inherit indent from previous line.
+set backspace=indent,eol,start	" Backspace over everything in insert mode.
+
 set noexpandtab			" Keep real tabs (CAT tool compatibility).
 set smarttab			" Insert tabs at line start based on context.
 
+set cursorcolumn		" Highlight current column.
+set cursorline			" Highlight current line.
 set hlsearch			" Highlight matches.
 set incsearch			" Search as chars are entered.
 set ignorecase			" Ignore case when searching.
@@ -172,14 +175,11 @@ set smartcase			" Case-sensitive if pattern contains uppercase.
 
 " {{{ Display.
 
-set number				" Display line numbers.
-set ruler				" The ruler is displayed on the status line.
-
-set cursorcolumn		" Highlight current column.
-set cursorline			" Highlight current line.
-set noshowmatch			" Disable jumping to matching bracket when typing.
+"set noshowmatch			" Disable jumping to matching bracket when typing.
 set noshowmode			" Hide the default mode text (e.g. -- INSERT --).
 set notitle				" Do not set the terminal title to the filename.
+set number				" Display line numbers.
+set ruler				" The ruler is displayed on the status line.
 
 set foldcolumn=2		" Show fold indicator column (width 2).
 set foldenable			" Enable folding.
@@ -191,9 +191,8 @@ set wrap				" Wrap long lines.
 " stl:\  — fills the active window's status line with spaces
 " stlnc:\ — fills inactive windows' status lines with backslashes
 "set fillchars+=stl:\ ,stlnc:\
+"set showtabline=1		" Show tabline when at least 2 tabs are open.
 set laststatus=2		" Always show the status line.
-set showtabline=1		" Show tabline when at least 2 tabs are open.
-
 set list				" Show invisible characters.
 " Replace the glyphs below with your preferred Nerd Font symbols.
 set listchars=tab:⇥\ \ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
@@ -343,9 +342,15 @@ nnoremap <leader>cs :source $MYVIMRC<cr>
 
 augroup transparent_bg
 	autocmd!
-    au ColorScheme * call ApplyTransparentBG()
+	au ColorScheme * call ApplyTransparentBG()
 augroup END
 call ApplyTransparentBG()	" Apply once on startup.
+
+" Resize splits when window is resized.
+augroup resize_ui
+	autocmd!
+	autocmd VimResized * wincmd =
+augroup END
 
 " Return to last cursor position when reopening a file.
 augroup cursor_position
@@ -361,17 +366,11 @@ augroup spell_check
 	autocmd FileType markdown,text,gitcommit setlocal spell
 augroup END
 
-" Resize splits when window is resized.
-augroup resize_ui
-	autocmd!
-	autocmd VimResized * wincmd =
-augroup END
-
 augroup help_fullscreen
-  autocmd!
-  " When any buffer window is entered, check if it's a help page
-  " opened from an empty/unnamed buffer, then make it fullscreen
-  autocmd BufWinEnter * if &filetype == 'help' && bufname('#') == '' | only | endif
+	autocmd!
+	" When any buffer window is entered, check if it's a help page
+	" opened from an empty/unnamed buffer, then make it fullscreen
+	autocmd BufWinEnter * if &filetype == 'help' && bufname('#') == '' | only | endif
 augroup END
 
 " }}}
