@@ -3,7 +3,7 @@
 " File: ~/.vim/vimrc
 " Title: Vim Run Commands
 " Maintainer: Ernie Lin
-" {{{ Chronicles of major updates.
+" {{{ Chronicles of major updates
 
 " v.1: 2016/03/19 Dad back to Taiwan. MBP2015 @TXG.
 " v.2: 2017/10/09 Clau in Cebu Holidays. MBP2015 @BUA.
@@ -17,7 +17,7 @@
 " }}}
 " -------------------------------------------------------------
 
-" {{{ Startup.
+" {{{ Startup
 
 " Not compatible with the old-fashion VI mode.
 set nocompatible
@@ -61,7 +61,7 @@ let &viminfo="'100,<50,h,n" .. expand("$HOME/.vim/viminfo")
 
 " }}}
 
-" {{{ Encoding.
+" {{{ Encoding
 
 " Multibyte must be at the beginning of '$VIMRC'.
 if has("multi_byte")
@@ -108,7 +108,7 @@ endif
 
 " }}}
 
-" {{{ Filetype & Syntax.
+" {{{ Filetype & Syntax
 
 " Filetype detection, filetype-specific plugins and indenting.
 filetype plugin indent on
@@ -118,7 +118,7 @@ syntax on
 
 " }}}
 
-" {{{ Colors.
+" {{{ Colors
 
 if has("termguicolors")
 	" Fix true color bug for Vim.
@@ -151,7 +151,7 @@ endif
 
 " }}}
 
-" {{{ Editing and Searching.
+" {{{ Editing and Searching
 
 set tabstop=4			" Number of visual spaces per tab.
 set softtabstop=4		" Number of spaces a tab counts for in editing.
@@ -173,7 +173,7 @@ set smartcase			" Case-sensitive if pattern contains uppercase.
 
 " }}}
 
-" {{{ Display.
+" {{{ Display
 
 "set noshowmatch			" Disable jumping to matching bracket when typing.
 set noshowmode			" Hide the default mode text (e.g. -- INSERT --).
@@ -200,7 +200,7 @@ set showbreak=↳			" Marker shown at the start of a wrapped line.
 
 " }}}
 
-" {{{ Behavior.
+" {{{ Behavior
 
 set belloff=all			" Mute all bell sounds.
 set hidden				" Allow switching buffers without saving.
@@ -233,7 +233,7 @@ endif
 
 " }}}
 
-" {{{ Copy & Paste.
+" {{{ Copy & Paste
 
 if has('clipboard')
 	set clipboard+=unnamedplus	" Makes y and p to the global buffer.
@@ -250,12 +250,18 @@ endif
 
 " }}}
 
-" {{{ Mappings.
+" {{{ Mappings
 
-" Tab manipulation
+" Pane manipulation.
+nnoremap ,h <C-w>h
+nnoremap ,j <C-w>j
+nnoremap ,k <C-w>k
+nnoremap ,l <C-w>l
+
+" Tab manipulation.
 nnoremap ,t	:tabnew<cr>			" New tab.
-nnoremap ,h	:tabprevious<cr>	" Previous tab.
-nnoremap ,l	:tabnext<cr>		" Next tab.
+nnoremap ,p	:tabprevious<cr>	" Previous tab.
+nnoremap ,n	:tabnext<cr>		" Next tab.
 nnoremap ,q	:tabclose<cr>		" Close tab.
 
 " Buffer manipulation.
@@ -353,7 +359,7 @@ nnoremap <leader>cs :source $MYVIMRC<cr>
 
 " }}}
 
-" {{{ Autocommands.
+" {{{ Autocommands
 
 augroup transparent_bg
 	autocmd!
@@ -397,7 +403,7 @@ augroup END
 
 " }}}
 
-" {{{ Plugins.
+" {{{ Plugins
 
 " --- The following files are loaded at startup. ---
 
