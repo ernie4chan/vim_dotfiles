@@ -300,8 +300,8 @@ endfunction
 
 " Toggle tabs/spaces.
 nnoremap <F6> :set expandtab! \|
-    \ if &expandtab \| echo 'expandtab on (spaces)' \|
-    \ else \| echo 'expandtab off (tabs)' \| endif<CR>
+    \ if &expandtab \| echo 'expandtab on (insert spaces)' \|
+    \ else \| echo 'expandtab off (insert tabs)' \| endif<CR>
 " Toggle spell check.
 nnoremap <F7>   :set spell!<CR>
     \:echo 'Spell check ' . (&spell ? 'on' : 'off')<CR>
