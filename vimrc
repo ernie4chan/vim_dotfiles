@@ -271,10 +271,10 @@ nnoremap <leader>[ :bprevious<CR>       " Previous buffer.
 nnoremap <leader>] :bnext<CR>           " Next buffer.
 
 " Pane resizing.
-nnoremap <leader>3 5<C-W><              " Decrease pane width.
-nnoremap <leader>5 5<C-W>>              " Increase pane width.
-nnoremap <leader>r 5<C-W>-              " Decrease pane height.
-nnoremap <leader>4 5<C-W>+              " Increase pane height.
+nnoremap <leader>1 5<C-W><              " Decrease pane width (h).
+nnoremap <leader>2 5<C-W>>              " Increase pane width (l).
+nnoremap <leader>3 5<C-W>-              " Decrease pane height (j).
+nnoremap <leader>4 5<C-W>+              " Increase pane height (k).
 nnoremap <leader>= <C-W>=               " Equalize pane sizes.
 nnoremap <leader>- :only<CR>            " Zoom to single pane.
 
@@ -299,10 +299,10 @@ function! FocusResize(side)
     endif
 endfunction
 
-nnoremap <leader>1 :call FocusResize('h')<CR>
-nnoremap <leader>2 :call FocusResize('l')<CR>
-nnoremap <leader>6 :call FocusResize('k')<CR>
+nnoremap <leader>5 :call FocusResize('h')<CR>
+nnoremap <leader>6 :call FocusResize('l')<CR>
 nnoremap <leader>7 :call FocusResize('j')<CR>
+nnoremap <leader>8 :call FocusResize('k')<CR>
 
 " Function Keys.
 " Toggle PASTE mode (disable auto-indent and others when pasting).
