@@ -299,7 +299,7 @@ function! ToggleNumbers()
 endfunction
 
 " Toggle tabs/spaces.
-nnoremap <F6> :set expandtab! \|
+nnoremap <F6>   :set expandtab! \|
     \ if &expandtab \| echo 'expandtab on (insert spaces)' \|
     \ else \| echo 'expandtab off (insert tabs)' \| endif<CR>
 " Toggle spell check.
@@ -312,7 +312,7 @@ nnoremap <F8>   :set list!<CR>
 nnoremap <F9>   :set wrap!<CR>
     \:echo 'Wrap ' . (&wrap ? 'on' : 'off')<CR>
 " Quit program.
-nnoremap <F10> :q<CR>
+nnoremap <F10>  :q<CR>
 " ROT13 encoding.
 let g:rot13_on = 0
 nnoremap <F12>  ggVGg?
