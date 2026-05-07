@@ -10,8 +10,8 @@
 
 " {{{ Behavior
 
-" Window size: 32% for narrow screens (<92 cols), 22% otherwise.
-let g:netrw_winsize = &columns < 92 ? 32 : 22
+" Window size: 30 for narrow screens (<90 cols), 20 otherwise.
+let g:netrw_winsize = &columns < 90 ? 30 : 20
 
 " Hide banner.
 let g:netrw_banner = 1
