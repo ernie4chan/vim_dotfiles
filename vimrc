@@ -278,37 +278,29 @@ nnoremap <leader>4 5<C-W>+              " Increase pane height.
 nnoremap <leader>= <C-W>=               " Equalize pane sizes.
 nnoremap <leader>- :only<CR>            " Zoom to single pane.
 
-nnoremap <leader>41 :if winnr('$') == 2 \|
-    \ wincmd h \|
-    \ vertical resize 35 \|
-    \ echo '20:80 vertical split applied.' \|
-    \ else \|
-    \ echo 'Need exactly 2 vertical panels.' \|
-    \ endif<CR>
+function! FocusResize(side)
+    if winnr('$') == 2
+        execute 'wincmd ' . a:side
+        if a:side == 'h' || a:side == 'l'
+            vertical resize 35
+            echo 'Wide ' . (a:side == 'h' ? 'right' : 'left') . ' vertical split applied.'
+        else
+            resize 10
+            echo 'Tall ' . (a:side == 'k' ? 'bottom' : 'top') . ' horizontal split applied.'
+        endif
+    else
+        if a:side == 'h' || a:side == 'l'
+            echo 'Need exactly 2 vertical panels.'
+        else
+            echo 'Need exactly 2 horizontal panels.'
+        endif
+    endif
+endfunction
 
-nnoremap <leader>42 :if winnr('$') == 2 \|
-    \ wincmd l \|
-    \ vertical resize 35 \|
-    \ echo '80:20 vertical split applied.' \|
-    \ else \|
-    \ echo 'Need exactly 2 vertical panels.' \|
-    \ endif<CR>
-
-nnoremap <leader>46 :if winnr('$') == 2 \|
-    \ wincmd k \|
-    \ resize 10 \|
-    \ echo '10/90 horizontal split applied.' \|
-    \ else \|
-    \ echo 'Need exactly 2 horizontal panels.' \|
-    \ endif<CR>
-
-nnoremap <leader>47 :if winnr('$') == 2 \|
-    \ wincmd j \|
-    \ resize 10 \|
-    \ echo '90/10 horizontal split applied.' \|
-    \ else \|
-    \ echo 'Need exactly 2 horizontal panels.' \|
-    \ endif<CR>
+nnoremap <leader>41 :call FocusResize('h')<CR>
+nnoremap <leader>42 :call FocusResize('l')<CR>
+nnoremap <leader>46 :call FocusResize('k')<CR>
+nnoremap <leader>47 :call FocusResize('j')<CR>
 
 " Function Keys.
 " Toggle PASTE mode (disable auto-indent and others when pasting).
