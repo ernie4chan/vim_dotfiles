@@ -299,10 +299,10 @@ function! FocusResize(side)
     endif
 endfunction
 
-nnoremap <leader>41 :call FocusResize('h')<CR>
-nnoremap <leader>42 :call FocusResize('l')<CR>
-nnoremap <leader>46 :call FocusResize('k')<CR>
-nnoremap <leader>47 :call FocusResize('j')<CR>
+nnoremap <leader>1 :call FocusResize('h')<CR>
+nnoremap <leader>2 :call FocusResize('l')<CR>
+nnoremap <leader>6 :call FocusResize('k')<CR>
+nnoremap <leader>7 :call FocusResize('j')<CR>
 
 " Function Keys.
 " Toggle PASTE mode (disable auto-indent and others when pasting).
