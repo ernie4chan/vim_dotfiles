@@ -31,5 +31,5 @@ let g:ale_sign_warning = '⚠'								" Warning sign in gutter.
 let g:ale_virtualtext_cursor = 1							" Show errors inline next to code.
 
 " --- Navigate between errors ---
-nnoremap ]a :ALENextWrap<cr>
-nnoremap [a :ALEPreviousWrap<cr>
+nnoremap <leader>an :ALENextWrap<cr>
+nnoremap <leader>ap :ALEPreviousWrap<cr>
