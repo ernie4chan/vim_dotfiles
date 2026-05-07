@@ -278,6 +278,38 @@ nnoremap <leader>4 5<C-W>+              " Increase pane height.
 nnoremap <leader>= <C-W>=               " Equalize pane sizes.
 nnoremap <leader>- :only<CR>            " Zoom to single pane.
 
+nnoremap <leader>41 :if winnr('$') == 2 \|
+    \ wincmd h \|
+    \ vertical resize 35 \|
+    \ echo '20:80 vertical split applied.' \|
+    \ else \|
+    \ echo 'Need exactly 2 vertical panels.' \|
+    \ endif<CR>
+
+nnoremap <leader>42 :if winnr('$') == 2 \|
+    \ wincmd l \|
+    \ vertical resize 35 \|
+    \ echo '80:20 vertical split applied.' \|
+    \ else \|
+    \ echo 'Need exactly 2 vertical panels.' \|
+    \ endif<CR>
+
+nnoremap <leader>46 :if winnr('$') == 2 \|
+    \ wincmd k \|
+    \ resize 10 \|
+    \ echo '10/90 horizontal split applied.' \|
+    \ else \|
+    \ echo 'Need exactly 2 horizontal panels.' \|
+    \ endif<CR>
+
+nnoremap <leader>47 :if winnr('$') == 2 \|
+    \ wincmd j \|
+    \ resize 10 \|
+    \ echo '90/10 horizontal split applied.' \|
+    \ else \|
+    \ echo 'Need exactly 2 horizontal panels.' \|
+    \ endif<CR>
+
 " Function Keys.
 " Toggle PASTE mode (disable auto-indent and others when pasting).
 nnoremap <F2>   :set paste!<CR>
