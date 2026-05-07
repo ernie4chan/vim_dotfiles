@@ -283,9 +283,11 @@ function! FocusResize(side)
         execute 'wincmd ' . a:side
         if a:side == 'h' || a:side == 'l'
             vertical resize 35
+            execute 'wincmd ' . (a:side == 'h' ? 'l' : 'h')
             echo 'Wide ' . (a:side == 'h' ? 'right' : 'left') . ' vertical split applied.'
         else
             resize 10
+            execute 'wincmd ' . (a:side == 'k' ? 'j' : 'k')
             echo 'Tall ' . (a:side == 'k' ? 'bottom' : 'top') . ' horizontal split applied.'
         endif
     else
