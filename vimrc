@@ -242,8 +242,7 @@ endif
 " Additional support for WSL2.
 if !empty($WSL_DISTRO_NAME)
     " Copy to clipboard.
-    vnoremap <leader>y :w !clip.exe<CR><CR>
-
+    vnoremap <leader>y :w !clip.exe<CR><CR>:echo 'Copied to clipboard.'<CR>
     " Paste from clipboard.
     nnoremap <leader>p :r !powershell.exe -command "Get-Clipboard"<CR>
 endif
@@ -278,31 +277,59 @@ nnoremap <leader>4 5<C-W>+              " Increase pane height (k).
 nnoremap <leader>= <C-W>=               " Equalize pane sizes.
 nnoremap <leader>- :only<CR>            " Zoom to single pane.
 
-function! FocusResize(side)
-    if winnr('$') == 2
-        execute 'wincmd ' . a:side
-        if a:side == 'h' || a:side == 'l'
-            vertical resize 35
-            execute 'wincmd ' . (a:side == 'h' ? 'l' : 'h')
-            echo 'Wide ' . (a:side == 'h' ? 'right' : 'left') . ' vertical split applied.'
-        else
-            resize 10
-            execute 'wincmd ' . (a:side == 'k' ? 'j' : 'k')
-            echo 'Tall ' . (a:side == 'k' ? 'bottom' : 'top') . ' horizontal split applied.'
-        endif
-    else
-        if a:side == 'h' || a:side == 'l'
-            echo 'Need exactly 2 vertical panels.'
-        else
-            echo 'Need exactly 2 horizontal panels.'
-        endif
+" Focus Resize.
+function! FocusResizeVertical(side)
+    " Require exactly 2 panels.
+    if winnr('$') != 2
+        redraw
+        echo 'Need exactly 2 vertical panels.'
+        return
     endif
+    " Check if split is vertical (different columns).
+    let w1 = win_screenpos(1)
+    let w2 = win_screenpos(2)
+    if w1[1] == w2[1]
+        redraw
+        echo 'Need exactly 2 vertical panels.'
+        return
+    endif
+    " Resize the target pane to 35 columns.
+    noautocmd execute 'wincmd ' . a:side
+    noautocmd vertical resize 35
+    noautocmd execute 'wincmd ' . (a:side == 'h' ? 'l' : 'h')
+    redraw
+    echo 'Wide ' . (a:side == 'h' ? 'right' : 'left') . ' vertical split applied.'
 endfunction
 
-nnoremap <leader>5 :call FocusResize('h')<CR>
-nnoremap <leader>6 :call FocusResize('l')<CR>
-nnoremap <leader>7 :call FocusResize('j')<CR>
-nnoremap <leader>8 :call FocusResize('k')<CR>
+function! FocusResizeHorizontal(side)
+    " Require exactly 2 panels.
+    if winnr('$') != 2
+        redraw
+        echo 'Need exactly 2 horizontal panels.'
+        return
+    endif
+    " Check if split is horizontal (different rows).
+    let w1 = win_screenpos(1)
+    let w2 = win_screenpos(2)
+    if w1[0] == w2[0]
+        redraw
+        echo 'Need exactly 2 horizontal panels.'
+        return
+    endif
+    " Resize the target pane to 10 rows.
+    noautocmd execute 'wincmd ' . a:side
+    noautocmd resize 10
+    noautocmd execute 'wincmd ' . (a:side == 'k' ? 'j' : 'k')
+    redraw
+    echo 'Tall ' . (a:side == 'k' ? 'bottom' : 'top') . ' horizontal split applied.'
+endfunction
+
+" Resize left/right vertical panes.
+nnoremap <leader>5 :call FocusResizeVertical('h')<CR>
+nnoremap <leader>6 :call FocusResizeVertical('l')<CR>
+" Resize top/bottom horizontal panes.
+nnoremap <leader>7 :call FocusResizeHorizontal('j')<CR>
+nnoremap <leader>8 :call FocusResizeHorizontal('k')<CR>
 
 " Function Keys.
 " Toggle PASTE mode (disable auto-indent and others when pasting).
