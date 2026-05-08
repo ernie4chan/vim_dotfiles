@@ -128,7 +128,7 @@ if has("termguicolors")
     set termguicolors
 endif
 
-" True Color.
+" Colorschemes.
 if has("gui_running")
     colorscheme jellybeans
     if has("linux")
