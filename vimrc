@@ -214,7 +214,8 @@ set wildignore+=.DS_Store,*.git
 set wildignore+=*/tmp/*
 
 " Spell check language.
-set spelllang=en_us
+" It's Mexican Spanish.
+set spelllang=en_us,es
 
 " Word list for keyword completion.
 if has('linux') && filereadable('/usr/share/dict/words')
