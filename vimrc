@@ -150,7 +150,7 @@ else                        " Terminal running.
     if s:os =~? "arch"
         colorscheme retrobox        " WSL2 Arch.
     elseif s:os =~? "debian"
-        colorscheme angr            " WSL2 Debian.
+        colorscheme snow            " WSL2 Debian.
     else
         colorscheme jellybeans      " Other.
     endif
