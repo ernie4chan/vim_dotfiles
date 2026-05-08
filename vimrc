@@ -243,7 +243,7 @@ endif
 " Additional support for WSL2.
 if !empty($WSL_DISTRO_NAME)
     " Copy to clipboard.
-    vnoremap <leader>y :w !clip.exe<CR><CR>:echo 'Copied to clipboard.'<CR>
+    vnoremap <leader>y :w !clip.exe<CR><CR>:echo 'Copied to clipboard'<CR>
     " Paste from clipboard.
     nnoremap <leader>p :r !powershell.exe -command "Get-Clipboard"<CR>
 endif
@@ -283,7 +283,7 @@ function! FocusResizeVertical(side)
     " Require exactly 2 panels.
     if winnr('$') != 2
         redraw
-        echo 'Need exactly 2 vertical panels.'
+        echo 'Need exactly 2 vertical panels'
         return
     endif
     " Check if split is vertical (different columns).
@@ -291,7 +291,7 @@ function! FocusResizeVertical(side)
     let w2 = win_screenpos(2)
     if w1[1] == w2[1]
         redraw
-        echo 'Need exactly 2 vertical panels.'
+        echo 'Need exactly 2 vertical panels'
         return
     endif
     " Resize the target pane to 35 columns.
@@ -299,14 +299,14 @@ function! FocusResizeVertical(side)
     noautocmd vertical resize 35
     noautocmd execute 'wincmd ' . (a:side == 'h' ? 'l' : 'h')
     redraw
-    echo 'Wide ' . (a:side == 'h' ? 'right' : 'left') . ' vertical split applied.'
+    echo 'Wide ' . (a:side == 'h' ? 'right' : 'left') . ' vertical split applied'
 endfunction
 
 function! FocusResizeHorizontal(side)
     " Require exactly 2 panels.
     if winnr('$') != 2
         redraw
-        echo 'Need exactly 2 horizontal panels.'
+        echo 'Need exactly 2 horizontal panels'
         return
     endif
     " Check if split is horizontal (different rows).
@@ -314,7 +314,7 @@ function! FocusResizeHorizontal(side)
     let w2 = win_screenpos(2)
     if w1[0] == w2[0]
         redraw
-        echo 'Need exactly 2 horizontal panels.'
+        echo 'Need exactly 2 horizontal panels'
         return
     endif
     " Resize the target pane to 10 rows.
@@ -322,7 +322,7 @@ function! FocusResizeHorizontal(side)
     noautocmd resize 10
     noautocmd execute 'wincmd ' . (a:side == 'k' ? 'j' : 'k')
     redraw
-    echo 'Tall ' . (a:side == 'k' ? 'bottom' : 'top') . ' horizontal split applied.'
+    echo 'Tall ' . (a:side == 'k' ? 'bottom' : 'top') . ' horizontal split applied'
 endfunction
 
 " Resize left/right vertical panes.
@@ -395,7 +395,7 @@ function! TrimWhitespace()
 endfunction
 
 nnoremap <leader>w :call TrimWhitespace()<CR>
-    \:echo 'Trailing whitespace trimmed.'<CR>
+    \:echo 'Trailing whitespace trimmed'<CR>
 
 " Apply transparent background.
 function! ApplyTransparentBG()
@@ -403,7 +403,7 @@ function! ApplyTransparentBG()
 endfunction
 
 nnoremap <leader>tb :call ApplyTransparentBG()<CR>
-    \:echo 'Transparent background applied.'<CR>
+    \:echo 'Transparent background applied'<CR>
 
 " Dump all mappings to file.
 nnoremap <leader>m :redir! > ~/vim-mappings.txt<CR>:silent map<CR>:redir END<CR>
@@ -411,9 +411,9 @@ nnoremap <leader>m :redir! > ~/vim-mappings.txt<CR>:silent map<CR>:redir END<CR>
 
 " Edit and reload vimrc.
 nnoremap <leader>ce :edit $MYVIMRC<CR>
-    \:echo 'Editing vimrc.'<CR>
+    \:echo 'Editing vimrc'<CR>
 nnoremap <leader>cs :source $MYVIMRC<CR>
-    \:echo 'vimrc reloaded.'<CR>
+    \:echo 'vimrc reloaded'<CR>
 
 " }}}
 
