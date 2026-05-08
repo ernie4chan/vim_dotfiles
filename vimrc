@@ -146,7 +146,14 @@ if has("gui_running")
     set columns=96
 else                        " Terminal running.
     set t_ut=               " disable BCE, fixes white flash in Windows Terminal.
-    colorscheme retrobox
+    let s:os = system("grep ^ID= /etc/os-release")
+    if s:os =~? "arch"
+        colorscheme retrobox        " WSL2 Arch.
+    elseif s:os =~? "debian"
+        colorscheme angr            " WSL2 Debian.
+    else
+        colorscheme jellybeans      " Other.
+    endif
 endif
 
 " }}}
