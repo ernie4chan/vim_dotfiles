@@ -55,14 +55,14 @@ nnoremap <leader>e :call ToggleNetrw()<cr>
 "		%		→	bar.txt
 "		%:p		→	/home/user/projects/foo/bar.txt
 "		%:p:h	→	/home/user/projects/foo
-nnoremap <leader>ee :Lexplore %:p:h<cr>:echo 'Netrw: opened at file location.'<cr>
+nnoremap <leader>ee :Lexplore %:p:h<cr>:echo 'Netrw: opened at file location'<cr>
 
 " Better keymaps for Netrw.
 function! NetrwMapping()
 
 	" -----
 	" Open a file and close Netrw.
-	nmap <buffer> L <cr>:Lexplore<cr>:echo 'Netrw: closed.'<cr>
+	nmap <buffer> L <cr>:Lexplore<cr>:echo 'Netrw: closed'<cr>
 
 	" Go back in history.
 	nmap <buffer> H u
@@ -132,9 +132,9 @@ function! ToggleNetrw()
 	Lexplore
 	redraw
 	if winnr('$') > l:before
-		echo 'Netrw: opened at working directory.'
+		echo 'Netrw: opened at working directory'
 	else
-		echo 'Netrw: closed.'
+		echo 'Netrw: closed'
 	endif
 endfunction
 
