@@ -22,93 +22,55 @@
 " Not compatible with the old-fashion VI mode.
 set nocompatible
 
-" No intro message.
-set shortmess+=I
-
 " How to handle backup files.
 set backupdir=$HOME/.vim/temp//         " Where Vim stashes backup files.
 set directory=$HOME/.vim/temp/swap//    " Where Vim stashes swap files.
 set undodir=$HOME/.vim/temp/undo//      " Where Vim stashes undo files.
-set swapfile            " Save unsaved changes.
-set undofile            " Save undo trees of the file edited for days.
-set writebackup         " Backup files while editing.
-set nobackup            " No backup files before editing.
 
 " Make those folders automatically if they don't already exist.
-for i in [ &backupdir, &directory, &undodir ]
-    if !isdirectory(expand(i))
-        call mkdir(expand(i), "p", 0700)
+for s:dir in [&backupdir, &directory, &undodir]
+    if !isdirectory(expand(s:dir))
+        call mkdir(expand(s:dir), 'p', 0700)
     endif
 endfor
 
-" Remove '~/.viminfo'.
-if filereadable(expand("$HOME/.viminfo"))
-    silent !mv $HOME/.viminfo $HOME/.vim/temp/viminfo.old
-endif
+set swapfile            " Recover unsaved changes after a crash.
+set writebackup         " Create a backup while editing.
+set nobackup            " Delete backup once the write succeeds.
+set undofile            " Persist undo history across sessions.
 
 " Store Vim info.
-" Marks (') — remembers cursor positions in recently edited files
-" Registers (<) — saves yanked/deleted text
-" Buffers (%) — restores open files on next launch
-" Search (h, /) — saves search history and highlight state
-" Commands (:) — saves command-line history
-" Variables (!) — saves global variables
-" File path (n) — where to store the viminfo file
-" Input (@) — saves input line history
-" Media (r) — excludes removable drives from mark saving
-" Size (s) — limits register item size to prevent huge viminfo files
-let &viminfo="'100,<50,h,n" .. expand("$HOME/.vim/viminfo")
-
-" }}}
-
-" {{{ Encoding
-
-" Multibyte must be at the beginning of '$VIMRC'.
-if has("multi_byte")
-    " Traditional Chinese (TW).
-    if v:lang =~ "^zh_TW"
-        " Caveats: 'setglobal' will not apply to the first, empty buffer
-        "  created at Vim startup. But I am not loading the first buffer.
-        set encoding=big5
-        setlocal bomb
-    " Traditional Chinese (HK).
-    elseif v:lang =~ "^zh_HK"
-        set encoding=big5-hkscs
-        setlocal bomb
-    " Simplified Chinese (use the oldest one due to overlap with Big5).
-    elseif v:lang =~ "^zh_CN"
-        set encoding=gb2312
-        setlocal bomb
-    " Japanese.
-    elseif v:lang =~ "^ja_JP"
-        set encoding=euc-jp
-        setlocal bomb
-    " Korean.
-    elseif v:lang =~ "^ko_KR"
-        set encoding=euc-kr
-        setlocal bomb
-    endif
-    if &fileencoding == ""
-        let &fileencoding = &encoding
-    endif
-    " Detect UTF-8 locale and override CJK setting if needed.
-    if v:lang =~ "UTF-8$" || v:lang =~ "utf8$"
-        " 'BOMB' ('byte order mark' boolean) is put at the start of
-        "  Unicode files and works badly with UTF-8/Latex/HTML/XML.
-        set nobomb
-        set encoding=utf-8
-        set fileencodings=ucs-bom,utf-8,big5,big5-hkscs,gb2312,euc-ja,euc-kr,latin1
-    endif
-    if &termencoding == ""
-        let &termencoding = &encoding
-    endif
+" Marks (') -- remembers cursor positions in recently edited files
+" Registers (<) -- saves yanked/deleted text
+" Buffers (%) -- restores open files on next launch
+" Search (h, /) -- saves search history and highlight state
+" Commands (:) -- saves command-line history
+" Variables (!) -- saves global variables
+" File path (n) -- where to store the viminfo file
+" Input (@) -- saves input line history
+" Media (r) -- excludes removable drives from mark saving
+" Size (s) -- limits register item size to prevent huge viminfo files
+set viminfo='100,<50,h
+if exists('&viminfofile')
+    " This option is new in Vim 8.1+.
+    let &viminfofile = expand('$HOME/.vim/viminfo')
 else
-    echoerr 'This version of Vim has not been compiled with "multi-byte" support!'
+    let &viminfo .= ',n' .. expand('$HOME/.vim/viminfo')
 endif
 
+" No intro message.
+set shortmess+=I
+
 " }}}
 
-" {{{ Filetype & Syntax
+" {{{ Encoding, Filetype & Syntax
+
+" BOM (Byte Order Mark) is a hidden marker at the start of a file that
+" identifies its encoding. nobomb prevents Vim from writing it. It causes
+" problems with UTF-8 files used in Linux/Unix tools, scripts, HTML, and XML.
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,big5,big5-hkscs,gb2312,euc-jp,euc-kr,latin1
+set nobomb
 
 " Filetype detection, filetype-specific plugins and indenting.
 filetype plugin indent on
@@ -133,26 +95,21 @@ if has("gui_running")
     colorscheme jellybeans
     if has("linux")
         set guifont=Hack\ Nerd\ Font\ 13
-        set guiheadroom=0   " Ugly gap in gVim.
+        set guiheadroom=0       " Ugly gap in gVim.
     elseif has("mac")
         set guifont=Hack\ Nerd\ Font:h13
     endif
-    set guioptions-=m       " Remove menubar.
-    set guioptions-=e       " Remove tabbar.
-    set guioptions-=T       " Remove toolbar.
-    set guioptions-=l       " Remove left scrollbar.
-    set guioptions-=r       " Remove right scrollbar.
-    set lines=50
-    set columns=96
-else                        " Terminal running.
-    set t_ut=               " disable BCE, fixes white flash in Windows Terminal.
-    let s:os = system("grep ^ID= /etc/os-release")
+    set guioptions-=meTlr       " Remove: menubar, tabbar, toolbar, scrollbars.
+    set lines=50 columns=96
+else                            " Terminal running.
+    set t_ut=                   " Disable BCE to fix white flash in terminals.
+    let s:os = join(readfile('/etc/os-release'), "\n")
     if s:os =~? "arch"
-        colorscheme retrobox        " WSL2 Arch.
+        colorscheme retrobox    " WSL2 Arch.
     elseif s:os =~? "debian"
-        colorscheme snow            " WSL2 Debian.
+        colorscheme snow        " WSL2 Debian.
     else
-        colorscheme jellybeans      " Other.
+        colorscheme jellybeans  " Other.
     endif
 endif
 
@@ -168,8 +125,8 @@ set ambiwidth=single            " Treat ambiguous-width East Asian chars as sing
 set autoindent                  " Inherit indent from previous line.
 set backspace=indent,eol,start  " Backspace over everything in insert mode.
 
-set noexpandtab           " Keep real tabs (CAT tool compatibility).
-set smarttab            " Insert tabs at line start based on context.
+set noexpandtab         " Keep real tabs; expandtab breaks shell 'cat' output.
+set smarttab            " Insert tabs at line start based on shiftwidth.
 
 set cursorcolumn        " Highlight current column.
 set cursorline          " Highlight current line.
@@ -178,56 +135,54 @@ set incsearch           " Search as chars are entered.
 set ignorecase          " Ignore case when searching.
 set smartcase           " Case-sensitive if pattern contains uppercase.
 
-" }}}
-
-" {{{ Display
-
-"set noshowmatch            " Disable jumping to matching bracket when typing.
-set noshowmode          " Hide the default mode text (e.g. -- INSERT --).
-set notitle             " Do not set the terminal title to the filename.
-set number              " Display line numbers.
-set ruler               " The ruler is displayed on the status line.
-
-set foldcolumn=2        " Show fold indicator column (width 2).
-set foldenable          " Enable folding.
-set foldlevel=0         " Fold all levels on open.
-set foldmethod=marker   " Use markers for folding.
-set wrap                " Wrap long lines.
-
-" Fill characters in the status line (it will be overrided by airline):
-" stl:\  — fills the active window's status line with spaces
-" stlnc:\ — fills inactive windows' status lines with backslashes
-"set fillchars+=stl:\ ,stlnc:\
-"set showtabline=1      " Show tabline when at least 2 tabs are open.
-set laststatus=2        " Always show the status line.
-set list                " Show invisible characters.
-" Replace the glyphs below with your preferred Nerd Font symbols.
-set listchars=tab:⇥\ \ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
-set showbreak=↳         " Marker shown at the start of a wrapped line.
-
-" }}}
-
-" {{{ Behavior
-
-set belloff=all         " Mute all bell sounds.
-set hidden              " Allow switching buffers without saving.
-set switchbuf=usetab    " Include tabs when switching buffers.
-"set autochdir          " !! It may conflicts with Netrw.
-"set ttyfast                " No-op in Vim 8+; removed.
-
 set wildmenu                    " Enable visual autocomplete in the command bar.
 set wildmode=list:longest,full  " Show full list, then cycle matches.
 set wildignore+=.DS_Store,*.git
 set wildignore+=*/tmp/*
 
 " Spell check language.
-" It's Mexican Spanish.
+" The Spanish is Mexican Spanish.
 set spelllang=en_us,es
 
 " Word list for keyword completion.
-if has('linux') && filereadable('/usr/share/dict/words')
+if has('unix') && filereadable('/usr/share/dict/words')
     set dictionary=/usr/share/dict/words
 endif
+
+" }}}
+
+" {{{ Behavior
+
+"set noshowmatch            " Disable jumping to matching bracket when typing.
+set noshowmode              " Hide the default mode text (e.g. -- INSERT --).
+set notitle                 " Do not set the terminal title to the filename.
+set number                  " Display line numbers.
+set ruler                   " The ruler is displayed on the status line.
+
+" Replace the glyphs below with your preferred Nerd Font symbols.
+set listchars=tab:⇥\ \ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+set laststatus=2            " Always show the status line.
+set list                    " Show invisible characters.
+set showbreak=↳             " Marker shown at the start of a wrapped line.
+set wrap                    " Wrap long lines.
+
+set belloff=all             " Mute all bell sounds.
+set hidden                  " Allow switching buffers without saving.
+set switchbuf=usetab        " Include tabs when switching buffers.
+"set autochdir              " !! It may conflicts with Netrw.
+"set ttyfast                " No-op in Vim 8+; removed.
+"
+" The following will be overrided by Vim-Airline.
+" Fill characters in the status line:
+"   stl:\  — fills the active window's status line with spaces
+"   stlnc:\ — fills inactive windows' status lines with backslashes
+"set fillchars+=stl:\ ,stlnc:\
+"set showtabline=1          " Show tabline when at least 2 tabs are open.
+
+set foldcolumn=2            " Show fold indicator column (width 2).
+set foldenable              " Enable folding.
+set foldlevel=0             " Fold all levels on open.
+set foldmethod=marker       " Use markers for folding.
 
 if has("mouse")
     set mouse=a         " Enable mouse in all modes.
@@ -252,7 +207,7 @@ if !empty($WSL_DISTRO_NAME)
     " Copy to clipboard.
     vnoremap <leader>y :w !clip.exe<CR><CR>:echo 'Copied to clipboard'<CR>
     " Paste from clipboard.
-    nnoremap <leader>p :r !powershell.exe -command "Get-Clipboard"<CR>
+    nnoremap <leader>p :r !powershell.exe Get-Clipboard<CR>
 endif
 
 " }}}
@@ -341,8 +296,7 @@ nnoremap <leader>8 :call FocusResizeHorizontal('k')<CR>
 
 " Function Keys.
 " Toggle PASTE mode (disable auto-indent and others when pasting).
-nnoremap <F2>   :set paste!<CR>
-    \:echo 'PASTE mode ' . (&paste ? 'on' : 'off')<CR>
+nnoremap <F2>   :set paste!<CR>:echo 'PASTE mode ' . (&paste ? 'on' : 'off')<CR>
 " Toggle ruler.
 nnoremap <F3>   :call ToggleNumbers()<CR>
 
@@ -360,9 +314,8 @@ function! ToggleNumbers()
 endfunction
 
 " Toggle tabs/spaces.
-nnoremap <F6>   :set expandtab! \|
-    \ if &expandtab \| echo 'expandtab on (insert spaces)' \|
-    \ else \| echo 'expandtab off (insert tabs)' \| endif<CR>
+nnoremap <F6>   :set expandtab!<CR>
+    \:echom 'expandtab ' . (&expandtab ? 'on (spaces)' : 'off (tabs)')<CR>
 " Toggle spell check.
 nnoremap <F7>   :set spell!<CR>
     \:echo 'Spell check ' . (&spell ? 'on' : 'off')<CR>
@@ -375,17 +328,15 @@ nnoremap <F9>   :set wrap!<CR>
 " Quit program.
 nnoremap <F10>  :q<CR>
 " ROT13 encoding.
-let g:rot13_on = 0
-nnoremap <F12>  ggVGg?
-    \:let g:rot13_on = !g:rot13_on<CR>
+nnoremap <F12>  :let g:rot13_on = !get(g:, 'rot13_on', 0)<CR>ggVGg?
     \:echo 'ROT13 ' . (g:rot13_on ? 'on' : 'off')<CR>
 
 " Clear search highlights.
-nnoremap <C-L> :nohlsearch<CR><C-L>
+nnoremap <C-L>  :nohlsearch<CR><C-L>
     \:echo 'All cleared.'<CR>
 
 " Yank fold title.
-nnoremap yt :let @"=matchstr(getline('.'), '\v\{\{\{ \zs.*')<CR>
+nnoremap yt     :let @"=matchstr(getline('.'), '\v\{\{\{ \zs.*')<CR>
     \:echo 'Yanked: ' . @"<CR>
 
 " Generate tags recursively from current directory.
@@ -394,14 +345,12 @@ nnoremap <leader>ct :!ctags -R<CR>
 
 " Trim trailing whitespace.
 function! TrimWhitespace()
-    let l:save_pos = getpos('.')
-    let l:save_search = @/
+    let [l:pos, l:search] = [getpos('.'), @/]
     %s/\s\+$//e
-    let @/ = l:save_search
-    call setpos('.', l:save_pos)
+    let [@/, l:_] = [l:search, setpos('.', l:pos)]
 endfunction
 
-nnoremap <leader>w :call TrimWhitespace()<CR>
+nnoremap <leader>w  :call TrimWhitespace()<CR>
     \:echo 'Trailing whitespace trimmed'<CR>
 
 " Apply transparent background.
@@ -413,7 +362,7 @@ nnoremap <leader>tb :call ApplyTransparentBG()<CR>
     \:echo 'Transparent background applied'<CR>
 
 " Dump all mappings to file.
-nnoremap <leader>m :redir! > ~/vim-mappings.txt<CR>:silent map<CR>:redir END<CR>
+nnoremap <leader>m  :redir! > ~/vim-mappings.txt<CR>:silent map<CR>:redir END<CR>
     \:echo 'Mappings dumped to ~/vim-mappings.txt'<CR>
 
 " Edit and reload vimrc.
