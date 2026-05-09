@@ -219,6 +219,7 @@ nnoremap <leader>h <C-W>h
 nnoremap <leader>j <C-W>j
 nnoremap <leader>k <C-W>k
 nnoremap <leader>l <C-W>l
+nnoremap <leader>w <C-W>w
 
 " Tab manipulation.
 nnoremap <leader>q :tabclose<CR>        " Close tab.
@@ -297,8 +298,8 @@ nnoremap <leader>8 :call FocusResizeHorizontal('k')<CR>
 " Function Keys.
 " Toggle PASTE mode (disable auto-indent and others when pasting).
 nnoremap <F2>   :set paste!<CR>:echo 'PASTE mode ' . (&paste ? 'on' : 'off')<CR>
-" Toggle ruler.
-nnoremap <F3>   :call ToggleNumbers()<CR>
+" Toggle scroll binding.
+nnoremap <F3>   :set scrollbind!<CR>
 
 function! ToggleNumbers()
     if !&number && !&relativenumber
@@ -313,6 +314,8 @@ function! ToggleNumbers()
     endif
 endfunction
 
+" Toggle ruler.
+nnoremap <F4>   :call ToggleNumbers()<CR>
 " Toggle tabs/spaces.
 nnoremap <F6>   :set expandtab!<CR>
     \:echom 'expandtab ' . (&expandtab ? 'on (spaces)' : 'off (tabs)')<CR>
@@ -350,7 +353,7 @@ function! TrimWhitespace()
     let [@/, l:_] = [l:search, setpos('.', l:pos)]
 endfunction
 
-nnoremap <leader>w  :call TrimWhitespace()<CR>
+nnoremap <leader>tw  :call TrimWhitespace()<CR>
     \:echo 'Trailing whitespace trimmed'<CR>
 
 " Apply transparent background.
