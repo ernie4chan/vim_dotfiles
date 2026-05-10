@@ -203,11 +203,22 @@ if has('clipboard')
 endif
 
 " Additional support for WSL2.
-if !empty($WSL_DISTRO_NAME)
-    " Copy to clipboard.
-    vnoremap <leader>y :w !clip.exe<CR><CR>:echo 'Copied to clipboard'<CR>
-    " Paste from clipboard.
-    nnoremap <leader>p :r !powershell.exe Get-Clipboard<CR>
+if executable('wslpath')
+    " Copy to clipboard which solves Unicode support.
+    if executable('wl-copy')
+        vnoremap <leader>y :w !wl-copy<CR><CR>:echo 'Yanked to clipboard'<CR>
+        nnoremap <leader>p :r !wl-paste<CR>
+    else
+        " Fallback: temp file via PowerShell for Unicode support.
+        function! CopyToClipboard() range
+            let tmpfile = tempname()
+            execute a:firstline . ',' . a:lastline . 'w ' . tmpfile
+            call system('powershell.exe -command "Get-Content -Encoding UTF8 ''\\\\wsl.localhost\\' . $WSL_DISTRO_NAME . '\\' . substitute(tmpfile, '/', '\\\\', 'g')[1:] . ''' | Set-Clipboard"')
+            call delete(tmpfile)
+        endfunction
+        vnoremap <leader>y :call CopyToClipboard()<CR>:echo 'Yanked to clipboard'<CR>
+        nnoremap <leader>p :r !powershell.exe Get-Clipboard<CR>
+    endif
 endif
 
 " }}}
@@ -396,12 +407,6 @@ augroup cursor_position
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
         \ | exe "normal! g'\""
         \ | endif
-augroup END
-
-" Set spell check for text files.
-augroup spell_check
-    autocmd!
-    autocmd FileType markdown,text,gitcommit setlocal spell
 augroup END
 
 augroup help_fullscreen
