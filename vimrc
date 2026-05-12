@@ -310,7 +310,7 @@ nnoremap <leader>8 :call FocusResizeHorizontal('k')<CR>
 " Toggle PASTE mode (disable auto-indent and others when pasting).
 nnoremap <F2>   :set paste!<CR>:echo 'PASTE mode ' . (&paste ? 'on' : 'off')<CR>
 " Toggle scroll binding.
-nnoremap <F3>   :set scrollbind!<CR>
+nnoremap <F3> :set scrollbind! \| echo (&scrollbind ? 'Scroll binding on' : 'Scroll binding off')<CR>
 
 function! ToggleNumbers()
     if !&number && !&relativenumber

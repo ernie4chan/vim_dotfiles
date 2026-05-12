@@ -23,9 +23,6 @@ autocmd! FileType fzf set laststatus=0 noshowmode noruler
 " Layout.  See `man fzf-tmux` for available options
 let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 0.7, }}
 
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--margin=1']}, <bang>0)
-
 " Disable preview window.
 let g:fzf_preview_window = []
 
