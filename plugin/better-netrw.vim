@@ -3,8 +3,8 @@
 " File: ~/.vim/plugin/better-netrw.vim
 " Title: Netrw
 " Description: Making a more intuitive Netrw.
-" Update: 2026/05/04
 " Written: Ernie Lin
+" Update: 20260504
 " Reference: https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
 " ---------------------------------------------------------
 
@@ -48,14 +48,14 @@ highlight! link netrwMarkFile Search
 " {{{ Mappings
 
 " Toggle the Netrw window and opens in the current working directory (pwd).
-nnoremap <leader>e :call ToggleNetrw()<cr>
+nnoremap <leader>ee :call ToggleNetrw()<cr>
 
 " Open Netrw in the current file's directory.
 " Example: current file:  ~/projects/foo/bar.txt
 "		%		→	bar.txt
 "		%:p		→	/home/user/projects/foo/bar.txt
 "		%:p:h	→	/home/user/projects/foo
-nnoremap <leader>ee :Lexplore %:p:h<cr>:echo 'Netrw: opened at file location'<cr>
+nnoremap <leader>ef :Lexplore %:p:h<cr>:echo 'Netrw: opened at file location'<cr>
 
 " Better keymaps for Netrw.
 function! NetrwMapping()

@@ -3,7 +3,7 @@
 " File: ~/.vim/plugin/vim-devicons.vim
 " Title: Vim-DevIcons
 " Maintainer: Ernie Lin
-" Update: 2026/05/03
+" Update: 20260503
 " ---------------------------------------------
 
 " Adding to Vim-Airline's tabline.

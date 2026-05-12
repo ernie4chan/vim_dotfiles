@@ -3,25 +3,28 @@
 " File: ~/.vim/plugin/fzf_for_vim.vim
 " Title: fzf for Vim
 " Maintainer: Ernie Lin
-" Update: 2026/05/03
+" Update: 20260503
 " ---------------------------------------------
 
 " Set Run-time path.
 if has('linux')
-	set runtimepath+=/usr/bin/fzf
+    set runtimepath+=/usr/bin/fzf
 elseif has("mac")
-	set runtimepath+=/usr/local/opt/fzf
+    set runtimepath+=/usr/local/opt/fzf
 endif
 
 " Load plugin.
 packadd fzf.vim
 
-" Layout.  See `man fzf-tmux` for available options
-let g:fzf_layout = { 'down': '40%' }
-
 " Hide statusline while fzf is active.
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
-		\ | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+        \ | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+" Layout.  See `man fzf-tmux` for available options
+let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 0.7, }}
+
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--margin=1']}, <bang>0)
 
 " Disable preview window.
 let g:fzf_preview_window = []
@@ -43,10 +46,16 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Fuzzy find files.
-nnoremap <leader>ff		:Files<cr>
+nnoremap <leader>ff     :Files<cr>
 
 " Fuzzy find buffers.
-nnoremap <leader>fb		:Buffers<cr>
+nnoremap <leader>fb     :Buffers<cr>
 
 " Fuzzy find in current file.
-nnoremap <leader>fv		:BLines<cr>
+nnoremap <leader>fv     :BLines<cr>
+
+" Fuzzy find command history.
+nnoremap <leader>fh     :History:<cr>
+
+" Fuzzy find search history.
+nnoremap <leader>fs     :History/<cr>

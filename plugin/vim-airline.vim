@@ -3,7 +3,7 @@
 " File: ~/.vim/plugin/vim-airline.vim
 " Title: Vim-Airline
 " Maintainer: Ernie Lin
-" Update: 2026/05/03
+" Update: 20260503
 " ---------------------------------------------
 
 " --- Tabline ---

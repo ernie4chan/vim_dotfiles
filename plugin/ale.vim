@@ -3,7 +3,7 @@
 " File: ~/.vim/plugin/ale.vim
 " Title: ALE (Asynchronous Lint Engine)
 " Maintainer: Ernie Lin
-" Update: 2026/05/03
+" Update: 20260503
 " ---------------------------------------------
 
 " --- Fixers (cure) ---
