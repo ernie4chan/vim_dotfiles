@@ -21,7 +21,7 @@ autocmd! FileType fzf set laststatus=0 noshowmode noruler
         \ | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " Layout.  See `man fzf-tmux` for available options
-let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 0.7, }}
+let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 0.8, }}
 
 " Disable preview window.
 let g:fzf_preview_window = []
