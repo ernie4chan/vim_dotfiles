@@ -43,7 +43,8 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Fuzzy find files.
-nnoremap <leader>ff     :Files<cr>
+nnoremap <leader>ff     :Files ~<cr>
+nnoremap <leader>fc     :Files<cr>
 
 " Fuzzy find buffers.
 nnoremap <leader>fb     :Buffers<cr>
