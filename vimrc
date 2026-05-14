@@ -454,6 +454,16 @@ augroup END
 
 " fzf for Vim.
 " '~/.vim/plugin/fzf_for_vim.vim'
+" Set Run-time path.
+if has('linux')
+    if isdirectory('/usr/share/fzf')
+        set runtimepath+=/usr/share/fzf
+	elseif isdirectory('/usr/share/doc/fzf/examples')
+        set runtimepath+=/usr/share/doc/fzf/examples
+    endif
+elseif has("mac")
+    set runtimepath+=/usr/local/opt/fzf
+endif
 
 " vifm for Vim.
 " '~/.vim/plugin/vifm_for_vim.vim'
