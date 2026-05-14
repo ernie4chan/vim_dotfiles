@@ -23,9 +23,9 @@
 set nocompatible
 
 " How to handle backup files.
-set backupdir=$HOME/.vim/temp//         " Where Vim stashes backup files.
-set directory=$HOME/.vim/temp/swap//    " Where Vim stashes swap files.
-set undodir=$HOME/.vim/temp/undo//      " Where Vim stashes undo files.
+set backupdir=$HOME/.cache/vim//         " Where Vim stashes backup files.
+set directory=$HOME/.cache/vim/swap//    " Where Vim stashes swap files.
+set undodir=$HOME/.cache/vim/undo//      " Where Vim stashes undo files.
 
 " Make those folders automatically if they don't already exist.
 for s:dir in [&backupdir, &directory, &undodir]
