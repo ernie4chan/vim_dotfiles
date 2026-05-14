@@ -1,5 +1,5 @@
 spell/*.add
-spell/*.add.spl
+spell/*.add.*
 
 temp/
 
