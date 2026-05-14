@@ -458,7 +458,7 @@ augroup END
 if has('linux')
     if isdirectory('/usr/share/fzf')
         set runtimepath+=/usr/share/fzf
-	elseif isdirectory('/usr/share/doc/fzf/examples')
+    elseif isdirectory('/usr/share/doc/fzf/examples')
         set runtimepath+=/usr/share/doc/fzf/examples
     endif
 elseif has("mac")
