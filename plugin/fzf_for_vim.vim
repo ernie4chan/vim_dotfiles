@@ -8,10 +8,15 @@
 
 " Set Run-time path.
 if has('linux')
-    set runtimepath+=/usr/bin/fzf
+    if isdirectory('/usr/share/fzf')
+        set runtimepath+=/usr/share/fzf
+	elseif isdirectory('/usr/share/doc/fzf/examples')
+        set runtimepath+=/usr/share/doc/fzf/examples
+    endif
 elseif has("mac")
     set runtimepath+=/usr/local/opt/fzf
 endif
+
 
 " Load plugin.
 packadd fzf.vim
