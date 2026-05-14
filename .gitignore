@@ -1,4 +1,4 @@
-spell/*.add.*
+spell/*.add*
 temp/
 
 viminfo
